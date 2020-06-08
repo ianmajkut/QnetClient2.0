@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<resources>
+
+    <string name="app_name">QnetClient</string>
+    <string name="q_net">Q.NET</string>
+    <string name="southware">Southware©</string>
+    <string name="qnet_imagen">qnet_imagen</string>
+
+    <string name="primer_slide_titulo">Busca</string>
+    <string name="segundo_slide_titulo">Espera</string>
+    <string name="tercer_slide_titulo">Anda</string>
+
+    <string name="primer_slide_desc">Podes buscar cualquier local que este cerca tuyo. Te vamos a mostrar los locales disponibles que coincidan con tu busqueda o esten relacionados y sumate a la cola.</string>
+    <string name="segundo_slide_desc">Espera a que sea tu turno. Cuando sea el momento, te vamos a avisar que vayas yendo al local.</string>
+    <string name="tercer_slide_desc">Llega puntual al local porque sino podrias perder tu turno. Mostra tu codigo para que podamos verificar tus datos y ¡disfruta tu compra!</string>
+
+    <string name="saltear_btn">SALTEAR INTRO</string>
+    <string name="sig_btn">SIGUIENTE</string>
+    <string name="empecemos">EMPECEMOS</string>
+
+    <string name="imagen_slide">imagenes que vamos a usar en el slide</string>
+    <string name="button_skip">SALTEAR</string>
+
+    <string name="bienvenidos">BIENVENIDOS, ESTÁ ABIERTO</string>
+    <string name="logueateparacontinuar">Logueate para continuar</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="usuario">Usuario</string>
+    <string name="contra">Contraseña</string>
+    <string name="te_ovlidaste_tu_contrase_a">¿Te ovlidaste tu contraseña?</string>
+    <string name="continuar">CONTINUAR</string>
+    <string name="sos_nuevo_registrate_ac">¿SOS NUEVO? REGISTRATE ACÁ</string>
+    <string name="recordar">Recordar</string>
+    <string name="crear_cuenta">CREAR CUENTA</string>
+
+    <string name="nombre_completo">Nombre Completo</string>
+    <string name="correo_electr_nico">Correo Electrónico</string>
+    <string name="celular">Celular</string>
+    <string name="eleg_tu_edad">Elegí tu edad</string>
+
+    <string name="codigo">CÓDIGO</string>
+    <string name="verificacion">VERIFICACIÓN</string>
+    <string name="codigodesc">Ingresar al correo electrónico para finalizar la creación de la cuenta</string>
+    <string name="verificar">VERIFICAR</string>
+    <string name="te_olvidaste_tu_contrase_a">¿TE OLVIDASTE TU CONTRASEÑA?</string>
+    <string name="ingresa_el_correo_electr_nico_y_el_nombre_de_usuario_de_tu_cuenta">Ingrese el correo electrónico y el nombre de usuario de su cuenta</string>
+    <string name="nueva_contrase_a">NUEVA CONTRASEÑA</string>
+    <string name="su_cuenta_ha_sido_verificada_correctamente_ingrese_su_nueva_contrase_a">Su cuenta ha sido verificada correctamente. Ingrese su nueva contraseña</string>
+    <string name="confirme_contrase_a">Confirme Contraseña</string>
+    <string name="de_cuenta">DE CUENTA</string>
+
+</resources>

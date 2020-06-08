@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/login_register"
+    tools:ignore="UnusedNavigation">
+    <fragment
+        android:id="@+id/login_register"
+        android:name="com.qnet.qnetclient.loginregister.login_register"
+        android:label="fragment_login_register"
+        tools:layout="@layout/fragment_login_register" >
+        <action
+            android:id="@+id/next_action"
+            app:destination="@id/register"
+            app:popUpTo="@id/login_register" />
+        <action
+            android:id="@+id/forget_action"
+            app:destination="@id/forget"
+            app:popUpTo="@id/login_register" />
+        <action
+            android:id="@+id/menu_principal_action"
+            app:destination="@id/menu_principal"
+            app:popUpTo="@id/login_register"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/register"
+        android:name="com.qnet.qnetclient.loginregister.register"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/next_action"
+            app:destination="@id/register2"
+            app:popUpTo="@id/register" />
+        <action
+            android:id="@+id/back_action"
+            app:destination="@id/login_register"
+            app:popUpTo="@id/login_register" />
+    </fragment>
+    <fragment
+        android:id="@+id/forget"
+        android:name="com.qnet.qnetclient.loginregister.forget"
+        android:label="fragment_forget"
+        tools:layout="@layout/fragment_forget" >
+        <action
+            android:id="@+id/forget_back_action"
+            app:destination="@id/login_register"
+            app:popUpTo="@id/login_register" />
+        <action
+            android:id="@+id/forget_action"
+            app:destination="@id/new_password_fragment"
+            app:popUpTo="@id/forget" />
+    </fragment>
+    <fragment
+        android:id="@+id/register2"
+        android:name="com.qnet.qnetclient.loginregister.register2"
+        android:label="fragment_register2"
+        tools:layout="@layout/fragment_register2" >
+        <action
+            android:id="@+id/back_action"
+            app:destination="@id/register"
+            app:popUpTo="@id/register" />
+        <action
+            android:id="@+id/action_register2_to_verification"
+            app:destination="@id/verification" />
+        <action
+            android:id="@+id/verification_action"
+            app:destination="@id/verification"
+            app:popUpTo="@id/register2" />
+    </fragment>
+    <fragment
+        android:id="@+id/verification"
+        android:name="com.qnet.qnetclient.loginregister.verification"
+        android:label="fragment_verification"
+        tools:layout="@layout/fragment_verification" >
+        <action
+            android:id="@+id/menu_action"
+            app:destination="@id/menu_principal"
+            app:popUpTo="@id/login_register"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/menu_principal"
+        android:name="com.qnet.qnetclient.menu_principal"
+        android:label="fragment_menu_principal"
+        tools:layout="@layout/fragment_menu_principal" />
+    <fragment
+        android:id="@+id/new_password_fragment"
+        android:name="com.qnet.qnetclient.loginregister.new_password_fragment"
+        android:label="fragment_new_password_fragment"
+        tools:layout="@layout/fragment_new_password_fragment" >
+        <action
+            android:id="@+id/forget_back_action"
+            app:destination="@id/forget"
+            app:popUpTo="@id/forget" />
+        <action
+            android:id="@+id/forget_action"
+            app:destination="@id/new_password_success"
+            app:popUpTo="@id/login_register" />
+    </fragment>
+    <fragment
+        android:id="@+id/new_password_success"
+        android:name="com.qnet.qnetclient.loginregister.new_password_success"
+        android:label="fragment_new_password_success"
+        tools:layout="@layout/fragment_new_password_success" >
+        <action
+            android:id="@+id/back_login_register"
+            app:destination="@id/login_register"
+            app:popUpTo="@id/login_register" />
+    </fragment>
+</navigation>
