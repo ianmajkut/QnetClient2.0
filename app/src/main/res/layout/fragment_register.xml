@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:src="@drawable/ic_arrow_back_black_24dp" />
-            
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="40sp"
             android:layout_marginTop="20dp"/>
-        
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,17 +51,17 @@
                 app:boxStrokeWidthFocused="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                    android:inputType="text">
-                </com.google.android.material.textfield.TextInputEditText>
-                
+                    android:id="@+id/edtxt_Nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"></com.google.android.material.textfield.TextInputEditText>
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/usuario"
+                android:hint="@string/dni"
                 app:startIconDrawable="@drawable/ic_person_black_24dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:startIconTint="@color/colorPrimaryDark"
@@ -71,9 +71,10 @@
                 app:boxStrokeWidthFocused="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtxt_DNI"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailSubject">
+                    android:inputType="number">
 
                 </com.google.android.material.textfield.TextInputEditText>
 
@@ -92,6 +93,7 @@
                 app:boxStrokeWidthFocused="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtxt_Email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress">
@@ -115,6 +117,7 @@
                 app:passwordToggleTint="@color/colorPrimaryDark">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtxt_Contraseña"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword">

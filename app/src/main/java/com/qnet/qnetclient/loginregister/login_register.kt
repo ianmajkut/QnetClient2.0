@@ -8,10 +8,14 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_login_register.*
 
 
 class login_register : Fragment() {
+
+
+    private lateinit var viewModel: FirestoreViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,8 +28,9 @@ class login_register : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = FirestoreViewModel()
             buttonNew.setOnClickListener{
-                findNavController().navigate(R.id.next_action)
+                login()
             }
             buttonForget.setOnClickListener{
             findNavController().navigate(R.id.forget_action)
@@ -35,5 +40,22 @@ class login_register : Fragment() {
             }
 
     }
+
+    fun login()
+    {
+        val name = edtxt_eMail.text.toString().trim()
+        val password = edtxt_Password.text.toString().trim()
+
+        if(name.isNotEmpty() && password.isNotEmpty()) {
+
+            viewModel.singInUser(name,password)
+
+        }else {
+
+        }
+
+
+    }
+
 
 }

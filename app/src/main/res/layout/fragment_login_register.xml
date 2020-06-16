@@ -45,7 +45,7 @@
             android:id="@+id/user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/usuario"
+            android:hint="@string/mail"
             app:hintTextColor="@color/colorPrimaryDark"
             app:boxStrokeColor="@color/colorPrimaryDark"
             app:boxStrokeWidthFocused="2dp"
@@ -54,13 +54,14 @@
             android:textColorHint="@color/colorPrimaryDark"
             android:inputType="textEmailSubject"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            
+
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtxt_eMail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:textColor="@color/colorPrimaryDark"/>
-            
+                android:textColor="@color/colorPrimaryDark" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -80,6 +81,7 @@
             android:layout_marginTop="5dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtxt_Password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"/>

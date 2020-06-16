@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.loginregister.verification
+import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_login_register.*
 import kotlinx.android.synthetic.main.fragment_login_register.buttonNext
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -16,7 +18,10 @@ import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.fragment_verification.*
 
 
+lateinit var mAuth: FirebaseAuth
+
 class verification : Fragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -26,11 +31,15 @@ class verification : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mAuth = FirebaseAuth.getInstance()
+        val currentUser = mAuth.currentUser
         verification.setOnClickListener{
-            findNavController().navigate(R.id.menu_action)
+            if(currentUser != null) {
+                if(currentUser.isEmailVerified) {
+                    findNavController().navigate(R.id.menu_action)
+                }
+            }
         }
-
-
     }
 
 }

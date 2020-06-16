@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "92744198818",
+    "firebase_url": "https://qnet-910f4.firebaseio.com",
+    "project_id": "qnet-910f4",
+    "storage_bucket": "qnet-910f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92744198818:android:abeb0d053c83f967c385fb",
+        "android_client_info": {
+          "package_name": "com.qnet.qnetclient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "92744198818-4foivl112e7tec6q569us659rucd05cb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.qnet.qnetclient",
+            "certificate_hash": "b82ec19b6c6e0687155717874ab03b5201dac4a4"
+          }
+        },
+        {
+          "client_id": "92744198818-dvl914ie1ehgk2jcauiugksp63e9qp0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2Q4MzUcimPtCsFoXVasBDSrvnCgWSjI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "92744198818-dvl914ie1ehgk2jcauiugksp63e9qp0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

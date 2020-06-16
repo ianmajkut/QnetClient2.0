@@ -26,7 +26,7 @@
     <string name="logueateparacontinuar">Logueate para continuar</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="usuario">Usuario</string>
+    <string name="dni">DNI</string>
     <string name="contra">Contraseña</string>
     <string name="te_ovlidaste_tu_contrase_a">¿Te ovlidaste tu contraseña?</string>
     <string name="continuar">CONTINUAR</string>
@@ -37,17 +37,19 @@
     <string name="nombre_completo">Nombre Completo</string>
     <string name="correo_electr_nico">Correo Electrónico</string>
     <string name="celular">Celular</string>
-    <string name="eleg_tu_edad">Elegí tu edad</string>
+    <string name="eleg_tu_edad">Selecciona tu fecha de Nacimineto</string>
 
-    <string name="codigo">CÓDIGO</string>
+    <string name="mail">eMAIL</string>
     <string name="verificacion">VERIFICACIÓN</string>
-    <string name="codigodesc">Ingresar al correo electrónico para finalizar la creación de la cuenta</string>
-    <string name="verificar">VERIFICAR</string>
+    <string name="codigodesc">Revise su casilla de correo electrónico y verifique su mail</string>
+    <string name="verificar_c_digo">VERIFICAR CÓDIGO</string>
     <string name="te_olvidaste_tu_contrase_a">¿TE OLVIDASTE TU CONTRASEÑA?</string>
     <string name="ingresa_el_correo_electr_nico_y_el_nombre_de_usuario_de_tu_cuenta">Ingrese el correo electrónico y el nombre de usuario de su cuenta</string>
     <string name="nueva_contrase_a">NUEVA CONTRASEÑA</string>
     <string name="su_cuenta_ha_sido_verificada_correctamente_ingrese_su_nueva_contrase_a">Su cuenta ha sido verificada correctamente. Ingrese su nueva contraseña</string>
     <string name="confirme_contrase_a">Confirme Contraseña</string>
+    <string name="verificar">VERIFICAR</string>
     <string name="de_cuenta">DE CUENTA</string>
+    <string name="todo">TODO</string>
 
 </resources>
