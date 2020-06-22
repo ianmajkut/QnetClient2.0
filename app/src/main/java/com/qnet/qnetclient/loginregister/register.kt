@@ -53,7 +53,7 @@ class register : Fragment() {
 
         if (name.isNotEmpty() && password.isNotEmpty() && eMail.isNotEmpty() && dni != null && password.length>6) {
             viewModel.createUser(eMail, password)
-            viewModel.uploadData(eMail, password, name, dni)
+            viewModel.uploadData(name, dni)
             findNavController().navigate(R.id.next_action)
             Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
         } else {
@@ -61,26 +61,5 @@ class register : Fragment() {
         }
     }
 
-    /*fun createAccount(email: String, password: String) {
-
-        mAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    mAuth.currentUser?.sendEmailVerification()
-                } else {
-
-                }
-            }
-    }
-
-    fun getUser(): FirebaseUser?
-    {
-        return mAuth.currentUser
-    }
-    fun emailVerified(): Boolean?
-    {
-        val emailVerified = getUser()?.isEmailVerified
-        return emailVerified
-    }*/
 
 }

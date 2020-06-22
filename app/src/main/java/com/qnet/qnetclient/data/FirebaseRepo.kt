@@ -9,11 +9,9 @@ class FirebaseRepo {
 
     private val db = FirebaseFirestore.getInstance()
 
-    fun uploadData(email: String,password: String,name:String,dni:Int)
+    fun uploadData(name:String,dni:Int)
     {
         val user = hashMapOf(
-            "email" to email,
-            "password" to password,
             "name" to name,
             "dni" to dni
         )

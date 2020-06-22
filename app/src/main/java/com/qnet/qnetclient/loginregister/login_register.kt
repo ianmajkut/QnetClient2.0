@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 
 import com.qnet.qnetclient.R
@@ -30,28 +31,34 @@ class login_register : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = FirestoreViewModel()
             buttonNew.setOnClickListener{
-                login()
+                findNavController().navigate(R.id.next_action)
             }
             buttonForget.setOnClickListener{
             findNavController().navigate(R.id.forget_action)
             }
             buttonNext.setOnClickListener{
-            findNavController().navigate(R.id.menu_principal_action)
+                login()
             }
 
     }
 
-    fun login()
+    private fun login()
     {
         val name = edtxt_eMail.text.toString().trim()
         val password = edtxt_Password.text.toString().trim()
 
         if(name.isNotEmpty() && password.isNotEmpty()) {
 
-            viewModel.singInUser(name,password)
+           if(viewModel.singInUser(name,password)) {
+               Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
+               findNavController().navigate(R.id.menu_principal_action)
+
+           }else {
+               Toast.makeText(activity, "Error Usuario", Toast.LENGTH_SHORT).show()
+           }
 
         }else {
-
+            Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
         }
 
 

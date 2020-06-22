@@ -18,14 +18,14 @@ class FirestoreViewModel : ViewModel(){
         repoAuth.createAccount(eMail,password)
     }
 
-    fun uploadData(eMail: String,password: String,name: String,dni: Int)
+    fun uploadData(name: String,dni: Int)
     {
-        repo.uploadData(eMail,password, name, dni)
+        repo.uploadData(name, dni)
     }
 
-    fun singInUser(eMail: String,password: String)
+    fun singInUser(eMail: String,password: String):Boolean
     {
-        repoAuth.singInAccount(eMail,password)
+        return repoAuth.singInAccount(eMail,password)
     }
 
 
