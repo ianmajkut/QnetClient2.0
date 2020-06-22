@@ -51,7 +51,7 @@ class register : Fragment() {
         val eMail = edtxt_Email.text.toString().trim()
         val dni = edtxt_DNI.text.toString().trim().toIntOrNull()
 
-        if (name.isNotEmpty() && password.isNotEmpty() && eMail.isNotEmpty() && dni != null) {
+        if (name.isNotEmpty() && password.isNotEmpty() && eMail.isNotEmpty() && dni != null && password.length>6) {
             viewModel.createUser(eMail, password)
             viewModel.uploadData(eMail, password, name, dni)
             findNavController().navigate(R.id.next_action)
