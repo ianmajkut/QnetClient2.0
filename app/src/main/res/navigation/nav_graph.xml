@@ -7,7 +7,7 @@
     tools:ignore="UnusedNavigation">
     <fragment
         android:id="@+id/login_register"
-        android:name="com.qnet.qnetclient.loginregister.login_register"
+        android:name="com.qnet.qnetclient.loginregister_usuario.login_register"
         android:label="fragment_login_register"
         tools:layout="@layout/fragment_login_register" >
         <action
@@ -20,13 +20,13 @@
             app:popUpTo="@id/login_register" />
         <action
             android:id="@+id/menu_principal_action"
-            app:destination="@id/menu_principal"
+            app:destination="@id/appUser"
             app:popUpTo="@id/login_register"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/register"
-        android:name="com.qnet.qnetclient.loginregister.register"
+        android:name="com.qnet.qnetclient.loginregister_usuario.register"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/forget"
-        android:name="com.qnet.qnetclient.loginregister.forget"
+        android:name="com.qnet.qnetclient.loginregister_usuario.forget"
         android:label="fragment_forget"
         tools:layout="@layout/fragment_forget" >
         <action
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/register2"
-        android:name="com.qnet.qnetclient.loginregister.register2"
+        android:name="com.qnet.qnetclient.loginregister_usuario.register2"
         android:label="fragment_register2"
         tools:layout="@layout/fragment_register2" >
         <action
@@ -71,23 +71,18 @@
     </fragment>
     <fragment
         android:id="@+id/verification"
-        android:name="com.qnet.qnetclient.loginregister.verification"
+        android:name="com.qnet.qnetclient.loginregister_usuario.verification"
         android:label="fragment_verification"
-        tools:layout="@layout/fragment_verification" >
+        tools:layout="@layout/fragment_verification">
         <action
             android:id="@+id/menu_action"
-            app:destination="@id/menu_principal"
+            app:destination="@id/login_register"
             app:popUpTo="@id/login_register"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/menu_principal"
-        android:name="com.qnet.qnetclient.menu_principal"
-        android:label="fragment_menu_principal"
-        tools:layout="@layout/fragment_menu_principal" />
-    <fragment
         android:id="@+id/new_password_fragment"
-        android:name="com.qnet.qnetclient.loginregister.new_password_fragment"
+        android:name="com.qnet.qnetclient.loginregister_usuario.new_password_fragment"
         android:label="fragment_new_password_fragment"
         tools:layout="@layout/fragment_new_password_fragment" >
         <action
@@ -101,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/new_password_success"
-        android:name="com.qnet.qnetclient.loginregister.new_password_success"
+        android:name="com.qnet.qnetclient.loginregister_usuario.new_password_success"
         android:label="fragment_new_password_success"
         tools:layout="@layout/fragment_new_password_success" >
         <action
@@ -109,4 +104,8 @@
             app:destination="@id/login_register"
             app:popUpTo="@id/login_register" />
     </fragment>
+    <activity
+        android:id="@+id/appUser"
+        android:name="com.qnet.qnetclient.appusuario.AppUser"
+        android:label="AppUser" />
 </navigation>

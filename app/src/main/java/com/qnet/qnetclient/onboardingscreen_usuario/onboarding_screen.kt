@@ -1,4 +1,4 @@
-package com.qnet.qnetclient.onboardingscreen
+package com.qnet.qnetclient.onboardingscreen_usuario
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.qnet.qnetclient.R
-import com.qnet.qnetclient.loginregister.login_register_screen
+import com.qnet.qnetclient.loginregister_usuario.login_register_screen
 import kotlinx.android.synthetic.main.activity_onboarding_screen.*
 
 class onboarding_screen : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.qnet.qnetclient.onboardingscreen
+package com.qnet.qnetclient.onboardingscreen_usuario
 
 data class IntroSlide (
     val title:String,

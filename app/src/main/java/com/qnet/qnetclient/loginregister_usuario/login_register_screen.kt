@@ -1,4 +1,4 @@
-package com.qnet.qnetclient.loginregister
+package com.qnet.qnetclient.loginregister_usuario
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
