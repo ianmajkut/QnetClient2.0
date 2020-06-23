@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingBottom="20dp">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_marginTop="36dp"
+                    android:layout_marginBottom="36dp"
+                    app:layout_constraintBottom_toTopOf="@+id/descripcion"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/titulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="280dp"
+                    android:text="Carrefour"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/helvetica_now_text_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/descripcion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="Supermercado"
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/helvetica_now_text_reg_ita"
+                    app:layout_constraintBottom_toTopOf="@+id/distancia"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titulo" />
+
+                <TextView
+                    android:id="@+id/distancia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="9dp"
+                    android:drawableStart="@drawable/ic_road"
+                    android:drawablePadding="5dp"
+                    android:text="10km"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/helvetica_now_text_bold"
+                    app:layout_constraintBottom_toTopOf="@+id/fila"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/descripcion" />
+
+                <TextView
+                    android:id="@+id/fila"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="8dp"
+                    android:drawableStart="@drawable/ic_row"
+                    android:drawablePadding="5dp"
+                    android:text="10"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/helvetica_now_text_bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/distancia" />
+
+
+                <TextView
+                    android:id="@+id/informacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/helvetica_now_text_medium"
+                    android:text="Información"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/ubicacion"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fila" />
+
+                <TextView
+                    android:id="@+id/ubicacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="2dp"
+                    android:drawableStart="@drawable/ic_baseline_location_on_24"
+                    android:drawablePadding="5dp"
+                    android:text="Villa Adelina, Buenos Aires"
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    app:layout_constraintBottom_toTopOf="@+id/horario"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/informacion" />
+
+                <TextView
+                    android:id="@+id/horario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:drawableStart="@drawable/ic_baseline_query_builder_24"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Lunes-Sáb 9:00-18.00"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/telefono"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ubicacion" />
+
+                <TextView
+                    android:id="@+id/telefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="4dp"
+                    android:drawableStart="@drawable/ic_baseline_phone_24"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/open_sans"
+                    android:text="47280980"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/mini_desc"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/horario" />
+
+                <TextView
+                    android:id="@+id/mini_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="1dp"
+                    android:paddingBottom="50dp"
+                    android:text="Wikipedia es una enciclopedia libre,nota 2​ políglota y editada de manera colaborativa. Es administrada por la Fundación Wikimedia, una organización sin ánimo de lucro cuya financiación está basada en donaciones. Sus más de 50 millones de artículos en 300 idiomas han sido redactados en conjunto por voluntarios de todo el mundo,5​ lo que suma más de 2000 millones de ediciones, y permite que cualquier persona pueda sumarse al proyecto6​ para editarlos, a menos que la página se encuentre protegida contra vandalismos para evitar problemas o disputas.
+
+Fue creada el 15 de enero de 2001 por Jimmy Wales y Larry Sanger,7​ y es la mayor y más popular obra de consulta en Internet.8​9​10​ Desde su fundación, Wikipedia no solo ha ganado en popularidad —se encuentra entre los 10 sitios web más populares del mundo—,11​12​ sino que además su éxito ha propiciado la aparición de proyectos hermanos: Wikcionario, Wikilibros, Wikiversidad, Wikiquote, Wikinoticias, Wikisource, Wikiespecies y Wikiviajes.
+
+Existen tres características esenciales del proyecto Wikipedia que definen en conjunto su función en la web. El lema «La enciclopedia libre que todos pueden editar» explica los tres principios:13​"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/telefono" />
+
+                <Button
+                    android:id="@+id/btn_sum"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="38dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="44dp"
+                    android:background="@drawable/btn_border"
+                    android:backgroundTint="#fece2f"
+                    android:text="Sumarse"
+                    android:textAllCaps="false"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    app:layout_constraintBottom_toTopOf="@+id/informacion"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/image" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </ScrollView>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
