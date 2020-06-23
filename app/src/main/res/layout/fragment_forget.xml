@@ -69,6 +69,7 @@
             app:boxStrokeWidthFocused="2dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtxt_eMailReestablecer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress">

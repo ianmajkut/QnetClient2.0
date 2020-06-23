@@ -54,7 +54,7 @@ class login_register : Fragment() {
                findNavController().navigate(R.id.menu_principal_action)
 
            }else {
-               Toast.makeText(activity, "Error Usuario", Toast.LENGTH_SHORT).show()
+               Toast.makeText(activity, "Error al acceder a la base de datos", Toast.LENGTH_SHORT).show()
            }
 
         }else {
