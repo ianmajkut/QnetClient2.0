@@ -29,9 +29,6 @@ class register2 : Fragment() {
         buttonNext.setOnClickListener{
             findNavController().navigate(R.id.verification_action)
         }
-        back_icon.setOnClickListener{
-            findNavController().navigate(R.id.back_action)
-        }
 
     }
 

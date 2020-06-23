@@ -48,19 +48,14 @@
             app:destination="@id/login_register"
             app:popUpTo="@id/login_register" />
         <action
-            android:id="@+id/forget_action"
-            app:destination="@id/new_password_fragment"
-            app:popUpTo="@id/forget" />
+            android:id="@+id/action_forget_to_new_password_success"
+            app:destination="@id/new_password_success" />
     </fragment>
     <fragment
         android:id="@+id/register2"
         android:name="com.qnet.qnetclient.loginregister.register2"
         android:label="fragment_register2"
         tools:layout="@layout/fragment_register2" >
-        <action
-            android:id="@+id/back_action"
-            app:destination="@id/register"
-            app:popUpTo="@id/register" />
         <action
             android:id="@+id/action_register2_to_verification"
             app:destination="@id/verification" />
@@ -85,20 +80,6 @@
         android:name="com.qnet.qnetclient.menu_principal"
         android:label="fragment_menu_principal"
         tools:layout="@layout/fragment_menu_principal" />
-    <fragment
-        android:id="@+id/new_password_fragment"
-        android:name="com.qnet.qnetclient.loginregister.new_password_fragment"
-        android:label="fragment_new_password_fragment"
-        tools:layout="@layout/fragment_new_password_fragment" >
-        <action
-            android:id="@+id/forget_back_action"
-            app:destination="@id/forget"
-            app:popUpTo="@id/forget" />
-        <action
-            android:id="@+id/forget_action"
-            app:destination="@id/new_password_success"
-            app:popUpTo="@id/login_register" />
-    </fragment>
     <fragment
         android:id="@+id/new_password_success"
         android:name="com.qnet.qnetclient.loginregister.new_password_success"

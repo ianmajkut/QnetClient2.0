@@ -44,12 +44,13 @@
     <string name="codigodesc">Revise su casilla de correo electrónico y verifique su mail</string>
     <string name="verificar_c_digo">VERIFICAR CÓDIGO</string>
     <string name="te_olvidaste_tu_contrase_a">¿TE OLVIDASTE TU CONTRASEÑA?</string>
-    <string name="ingresa_el_correo_electr_nico_y_el_nombre_de_usuario_de_tu_cuenta">Ingrese el correo electrónico y el nombre de usuario de su cuenta</string>
+    <string name="ingresa_el_correo_electr_nico_y_el_nombre_de_usuario_de_tu_cuenta">Ingrese el correo electrónico para reestablecer la contraseña</string>
     <string name="nueva_contrase_a">NUEVA CONTRASEÑA</string>
     <string name="su_cuenta_ha_sido_verificada_correctamente_ingrese_su_nueva_contrase_a">Su cuenta ha sido verificada correctamente. Ingrese su nueva contraseña</string>
     <string name="confirme_contrase_a">Confirme Contraseña</string>
     <string name="verificar">VERIFICAR</string>
     <string name="de_cuenta">DE CUENTA</string>
     <string name="todo">TODO</string>
+    <string name="revisar_correo_electr_nico">REVISAR CORREO ELECTRÓNICO</string>
 
 </resources>
