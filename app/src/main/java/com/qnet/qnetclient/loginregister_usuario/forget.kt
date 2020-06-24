@@ -1,4 +1,4 @@
-package com.qnet.qnetclient.loginregister_usuario
+package com.qnet.qnetclient.loginregister
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,6 +12,7 @@ import com.google.firebase.auth.ActionCodeSettings
 
 import com.qnet.qnetclient.R
 import kotlinx.android.synthetic.main.fragment_forget.*
+import kotlinx.android.synthetic.main.fragment_login_register.*
 import kotlinx.android.synthetic.main.fragment_login_register.buttonNext
 
 
@@ -44,12 +45,12 @@ class forget : Fragment() {
         if(eMail.isNotEmpty()) {
             FirebaseAuth.getInstance().sendPasswordResetEmail(eMail)
                 .addOnCompleteListener{ task ->
-                if (task.isSuccessful) {
-                    findNavController().navigate(R.id.forget_action)
-                } else {
-                    Toast.makeText(activity, "Error Email No Existe", Toast.LENGTH_SHORT).show()
+                    if (task.isSuccessful) {
+                        findNavController().navigate(R.id.forget_action)
+                    } else {
+                        Toast.makeText(activity, "Error Email No Existe", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
         }
 
 

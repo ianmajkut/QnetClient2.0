@@ -34,7 +34,7 @@ class login_register : Fragment() {
                 findNavController().navigate(R.id.next_action)
             }
             buttonForget.setOnClickListener{
-            findNavController().navigate(R.id.forget_action)
+                findNavController().navigate(R.id.forget_action)
             }
             buttonNext.setOnClickListener{
                 login()
