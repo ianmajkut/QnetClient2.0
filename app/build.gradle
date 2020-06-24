@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -77,6 +78,14 @@ dependencies {
 
     //Recycler View
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-
-
+    // Cloud Functions
+    implementation 'com.google.firebase:firebase-functions:19.0.2'
+    // Firestore
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.3'
+    // ViewModel
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    // LiveData
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    // Firebase Authentication
+    implementation 'com.google.firebase:firebase-auth:19.3.1'
 }

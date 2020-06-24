@@ -45,7 +45,7 @@ class forget : Fragment() {
             FirebaseAuth.getInstance().sendPasswordResetEmail(eMail)
                 .addOnCompleteListener{ task ->
                 if (task.isSuccessful) {
-                    findNavController().navigate(R.id.action_forget_to_new_password_success)
+                    findNavController().navigate(R.id.forget_action)
                 } else {
                     Toast.makeText(activity, "Error Email No Existe", Toast.LENGTH_SHORT).show()
                 }
