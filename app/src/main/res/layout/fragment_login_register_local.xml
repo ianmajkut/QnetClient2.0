@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".loginregister_usuario.login_register"
+    android:orientation="vertical"
+    android:background="#fece2f"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <ImageView
+        android:id="@+id/imagen_qnet"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/welcome"
+        android:layout_marginTop="0dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/helvetica_now_text_ext_bd_ita"
+        android:text="@string/bienvenidos_local"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logueateparacontinuar"
+        android:fontFamily="@font/helvetica_now_text_light"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/usuario"
+            app:hintTextColor="@color/colorPrimaryDark"
+            app:boxStrokeColor="@color/colorPrimaryDark"
+            app:boxStrokeWidthFocused="2dp"
+            app:startIconDrawable="@drawable/ic_person_black_24dp"
+            app:startIconTint="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorPrimaryDark"
+            android:inputType="textEmailSubject"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="@color/colorPrimaryDark"/>
+            
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/contra"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorPrimaryDark"
+            app:hintTextColor="@color/colorPrimaryDark"
+            app:boxStrokeColor="@color/colorPrimaryDark"
+            app:boxStrokeWidthFocused="2dp"
+            app:startIconDrawable="@drawable/ic_lock_outline_black_24dp"
+            app:startIconTint="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorPrimaryDark"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="5dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                android:text="@string/recordar"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"/>
+
+            <Button
+                android:id="@+id/buttonForget"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="@string/te_ovlidaste_tu_contrase_a"
+                android:textSize="13sp"
+                android:layout_gravity="right"
+                android:elevation="0dp"
+                tools:ignore="RtlHardcoded"
+                android:layout_margin="5dp"
+                android:layout_alignParentRight="true"/>
+
+            
+        </RelativeLayout>
+
+        
+
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:elevation="5dp"
+            android:text="@string/continuar"
+            android:textColor="#ffffff"
+            />
+
+        <Button
+            android:id="@+id/buttonNew"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:text="@string/sos_nuevo_registrate_ac"
+            android:textSize="13sp"
+            android:layout_gravity="center"
+            android:elevation="0dp"
+            tools:ignore="RtlHardcoded"
+            android:layout_margin="10dp"
+            android:textColor="@color/colorTextPrimary"/>
+
+    </LinearLayout>
+
+</LinearLayout>

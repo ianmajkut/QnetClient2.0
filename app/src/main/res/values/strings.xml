@@ -22,6 +22,11 @@
     <string name="imagen_slide">imagenes que vamos a usar en el slide</string>
     <string name="button_skip">SALTEAR</string>
 
+    <string name="local_o_usuario">SELECIONE COMO QUIERE INGRESAR</string>
+    <string name="local">Local</string>
+
+    <string name="bienvenidos_local">BIENVENIDOS Local, ESTÁ ABIERTO</string>
+
     <string name="bienvenidos">BIENVENIDOS, ESTÁ ABIERTO</string>
     <string name="logueateparacontinuar">Logueate para continuar</string>
 
@@ -52,5 +57,14 @@
     <string name="de_cuenta">DE CUENTA</string>
     <string name="todo">TODO</string>
     <string name="revisar_correo_electr_nico">REVISAR CORREO ELECTRÓNICO</string>
+
+
+
+
+    <string name="title_inicio">Inicio</string>
+    <string name="title_fav">Mapa</string>
+    <string name="title_fila">Fila</string>
+    <string name="title_settings">Configuración</string>
+
 
 </resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.ian.bottomnavigation.ui.home.HomeFragment"
+        android:label="@string/title_inicio"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/home_action"
+            app:destination="@id/homeFragment2"
+            app:popUpTo="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_map"
+        android:name="com.ian.bottomnavigation.ui.map.MapFragment"
+        android:label="@string/title_fav"
+        tools:layout="@layout/fragment_map" />
+
+    <fragment
+        android:id="@+id/navigation_fila"
+        android:name="com.ian.bottomnavigation.ui.fila.FilaFragment"
+        android:label="@string/title_fila"
+        tools:layout="@layout/fragment_fila" >
+        <argument
+            android:name="Local_Fila"
+            app:argType="boolean"
+            android:defaultValue="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.ian.bottomnavigation.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/homeFragment2"
+        android:name="com.ian.bottomnavigation.ui.home.HomeFragment2"
+        android:label="Información"
+        tools:layout="@layout/fragment_home2" >
+        <action
+            android:id="@+id/fragment2_to_fila"
+            app:destination="@id/navigation_fila"
+            app:popUpTo="@id/navigation_home" />
+    </fragment>
+
+</navigation>
