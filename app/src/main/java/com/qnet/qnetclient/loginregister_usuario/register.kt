@@ -12,6 +12,7 @@ import com.qnet.qnetclient.R
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_login_register.buttonNext
 import kotlinx.android.synthetic.main.fragment_register.*
+import kotlinx.coroutines.delay
 
 /**
  * A simple [Fragment] subclass.
