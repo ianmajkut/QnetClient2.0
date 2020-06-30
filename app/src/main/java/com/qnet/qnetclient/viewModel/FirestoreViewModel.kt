@@ -7,13 +7,12 @@ import com.ian.bottomnavigation.ui.home.Model
 import com.qnet.qnetclient.domain.FirestoreUseCase
 import com.qnet.qnetclient.data.AuthUser
 import com.qnet.qnetclient.data.repo.FirebaseRepo
-import com.qnet.qnetclient.data.repo.mainRepo
 
 class FirestoreViewModel : ViewModel(){
     private val repo = FirebaseRepo()
     private val repoAuth = AuthUser()
     private val firestoreUseCase = FirestoreUseCase()
-    private val mainRepo = mainRepo()
+
 
     fun createUser(eMail:String,password:String) {
         repoAuth.createAccount(eMail,password)
