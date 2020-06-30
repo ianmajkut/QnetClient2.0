@@ -1,6 +1,7 @@
 package com.qnet.qnetclient.loginregister_usuario
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,8 +51,11 @@ class register: Fragment() {
 
         if (name.isNotEmpty() && password.isNotEmpty() && eMail.isNotEmpty() && dni != null && password.length>6) {
             viewModel.createUser(eMail, password)
-            viewModel.uploadData(name, dni)
-            findNavController().navigate(R.id.next_action)
+//            viewModel.uploadData(name, dni)
+            Log.i("Verif", name)
+            Log.i("Verif", dni.toString())
+            val action = registerDirections.nextAction(name, dni)
+            findNavController().navigate(action)
             Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(activity, "Error falta algun campo", Toast.LENGTH_SHORT).show()
