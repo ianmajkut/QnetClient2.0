@@ -5,46 +5,34 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.appusuario.AppUser
+import com.qnet.qnetclient.viewModel.FirestoreViewModel
 
 
 class HomeFragment : Fragment() {
 
-
-
+    private val viewModel by lazy { FirestoreViewModel()}
+    var item = mutableListOf<Model>()
+    private lateinit var adapter: MainAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val layout=inflater.inflate(R.layout.fragment_home, container, false)
 
-        val item = mutableListOf<Model>()
-
-
-        item.add(Model("Jumbo","Supermercado","0","10km" ,R.drawable.jumbo))
-        item.add(Model("Dia","Supermercado","100", "800km",R.drawable.dia))
-        item.add(Model("Carrefour","Supermercado","2","50m" ,R.drawable.carrefour))
-        item.add(Model("Easy","De todo ","30","100km" ,R.drawable.easy))
-        item.add(Model("Sodimac","De todo","40", "16km",R.drawable.sodimac))
-        item.add(Model("Coto","Supermercado","60","300m" ,R.drawable.descarga))
-
-
-
         val recycler = layout.findViewById<RecyclerView>(R.id.recyclerview)
 
+        observerData()
 
-
-
-        val adapter = MainAdapter(item as ArrayList<Model>, requireActivity().applicationContext)
+        val adapter = MainAdapter(this)
         recycler.layoutManager = GridLayoutManager(requireActivity().applicationContext,1)
         recycler.adapter = adapter
 
-
         setHasOptionsMenu(true)
         return layout
-
 
     }
 
@@ -70,7 +58,11 @@ class HomeFragment : Fragment() {
         searchView.setOnClickListener {view ->  }
     }
 
-
-
+    fun observerData(){
+        viewModel.fetchLocalData().observe(viewLifecycleOwner, Observer {
+            item = it
+        })
     }
+
+}
 
