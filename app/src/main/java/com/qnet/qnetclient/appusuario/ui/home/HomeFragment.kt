@@ -16,7 +16,7 @@ import com.qnet.qnetclient.viewModel.FirestoreViewModel
 class HomeFragment : Fragment() {
 
     private val viewModel by lazy { FirestoreViewModel()}
-    var item = mutableListOf<Model>()
+    //var item = mutableListOf<Model>()
     private lateinit var adapter: MainAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
 
         observerData()
 
-        val adapter = MainAdapter(this)
+        adapter = MainAdapter(requireActivity().applicationContext)
         recycler.layoutManager = GridLayoutManager(requireActivity().applicationContext,1)
         recycler.adapter = adapter
 
@@ -60,7 +60,9 @@ class HomeFragment : Fragment() {
 
     fun observerData(){
         viewModel.fetchLocalData().observe(viewLifecycleOwner, Observer {
-            item = it
+            adapter.setListData(it)
+            adapter.notifyDataSetChanged()
+
         })
     }
 
