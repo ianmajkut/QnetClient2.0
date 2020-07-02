@@ -2,12 +2,14 @@ package com.ian.bottomnavigation.ui.home
 
 import android.app.ActionBar
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -18,21 +20,42 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.bumptech.glide.Glide
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
+import kotlinx.android.synthetic.main.fragment_home2.*
+import kotlinx.android.synthetic.main.row.view.*
 
 class HomeFragment2 : Fragment() {
     private lateinit var viewModel: FirestoreViewModel
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        val local = HomeFragment2Args.fromBundle(requireArguments()).Local
         // Inflate the layout for this fragment
         val layout= inflater.inflate(R.layout.fragment_home2, container, false)
 
         val bt:Button=layout.findViewById(R.id.btn_sum)
+        val image:ImageView = layout.findViewById(R.id.image)
+        val titulo:TextView = layout.findViewById(R.id.titulo)
+        val descripcion:TextView = layout.findViewById(R.id.descripcion)
+        val distancia:TextView = layout.findViewById(R.id.distancia)
+        val fila:TextView = layout.findViewById(R.id.fila)
+
 
         viewModel = ViewModelProvider(this).get(FirestoreViewModel::class.java)
+
+        Glide.with(requireContext()).load(local.image).into(image)
+        titulo.text = local.title
+        descripcion.text= local.descripcion
+        fila.text= local.num
+        distancia.text = local.dist
+        //bindearDatos(Local.Local,requireContext())*/
+
         val keyLocal = "hk1UzSqC8RK28KpC4rpd"
+
 
         bt.setOnClickListener{
             alerta(keyLocal)
@@ -56,4 +79,6 @@ class HomeFragment2 : Fragment() {
         }
         alertDialog.show()
     }
+
+
 }

@@ -26,12 +26,7 @@
         android:id="@+id/navigation_fila"
         android:name="com.ian.bottomnavigation.ui.fila.FilaFragment"
         android:label="@string/title_fila"
-        tools:layout="@layout/fragment_fila" >
-        <argument
-            android:name="Local_Fila"
-            app:argType="boolean"
-            android:defaultValue="true" />
-    </fragment>
+        tools:layout="@layout/fragment_fila" />
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.ian.bottomnavigation.ui.settings.SettingsFragment"
@@ -46,6 +41,9 @@
             android:id="@+id/fragment2_to_fila"
             app:destination="@id/navigation_fila"
             app:popUpTo="@id/navigation_home" />
+        <argument
+            android:name="Local"
+            app:argType="com.ian.bottomnavigation.ui.home.Model" />
     </fragment>
 
 </navigation>

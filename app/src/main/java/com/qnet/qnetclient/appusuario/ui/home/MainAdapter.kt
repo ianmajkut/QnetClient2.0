@@ -35,7 +35,9 @@ class MainAdapter(private val context: Context): RecyclerView.Adapter<MainAdapte
         val local:Model = dataList[position]
         holder.bindView(local)
         holder.itemView.setOnClickListener {view->
-            view.findNavController().navigate(R.id.home_action)
+
+            val action = HomeFragmentDirections.homeAction(local)
+            view.findNavController().navigate(action)
         }
     }
 
@@ -50,6 +52,5 @@ class MainAdapter(private val context: Context): RecyclerView.Adapter<MainAdapte
 
         }
     }
-
 
 }
