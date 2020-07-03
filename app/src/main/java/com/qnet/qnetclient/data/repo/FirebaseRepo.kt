@@ -72,6 +72,7 @@ class FirebaseRepo {
             getLocalData()
         }
         aux=0
+        
         return mutableData
     }
 }
