@@ -68,6 +68,14 @@
             android:id="@+id/verification_action"
             app:destination="@id/verification"
             app:popUpTo="@id/register2" />
+        <argument
+            android:name="nombre"
+            app:argType="string"
+            android:defaultValue="No Name" />
+        <argument
+            android:name="dni"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/verification"
@@ -79,6 +87,13 @@
             app:destination="@id/login_register"
             app:popUpTo="@id/login_register"
             app:popUpToInclusive="true" />
+        <argument android:name="nombre"
+            app:argType="string"
+            android:defaultValue="No Name" />
+        <argument
+            android:name="dni"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/new_password_fragment"
