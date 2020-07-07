@@ -16,7 +16,7 @@ import com.qnet.qnetclient.viewModel.FirestoreViewModel
 class HomeFragment : Fragment() {
 
     private val viewModel by lazy { FirestoreViewModel()}
-    //var item = mutableListOf<Model>()
+
     private lateinit var adapter: MainAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

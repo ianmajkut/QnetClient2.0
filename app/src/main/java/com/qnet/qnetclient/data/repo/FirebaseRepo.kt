@@ -17,6 +17,7 @@ class FirebaseRepo {
     private var aux = 0
     private lateinit var mAuth: FirebaseAuth
 
+
     fun uploadData(name:String,dni:Int) {
         mAuth = FirebaseAuth.getInstance()
         val user = hashMapOf(
@@ -62,8 +63,8 @@ class FirebaseRepo {
             for (document in result){
                 val title = document.getString("title")
                 val descripcion = document.getString("descripcion")
-                val num = document.getString("title")
-                val dist = document.getString("descripcion")
+                val num = document.getString("cola")
+                val dist = document.getString("dist")
                 val image = document.getString("image")
                 val local = Model(title, descripcion, num, dist, image)
                 listData.add(local)

@@ -8,9 +8,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.qnet.qnetclient.R
-import kotlinx.android.synthetic.main.fragment_home2.view.*
 import kotlinx.android.synthetic.main.row.view.*
-import kotlinx.android.synthetic.main.fragment_home2.view.descripcion as descripcion1
 
 class MainAdapter(private val context: Context): RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
@@ -37,7 +35,9 @@ class MainAdapter(private val context: Context): RecyclerView.Adapter<MainAdapte
         val local:Model = dataList[position]
         holder.bindView(local)
         holder.itemView.setOnClickListener {view->
-            view.findNavController().navigate(R.id.home_action)
+
+            val action = HomeFragmentDirections.homeAction(local)
+            view.findNavController().navigate(action)
         }
     }
 
@@ -52,46 +52,5 @@ class MainAdapter(private val context: Context): RecyclerView.Adapter<MainAdapte
 
         }
     }
-
-
-
-        /*var data:List<Model>
-
-        init {
-            this.data=data
-        }*/
-        // ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
-
-       /* var title:TextView
-        var descripcion:TextView
-        var image:ImageView
-        var num:TextView
-        var dist:TextView
-
-        init {
-            title=itemView.findViewById(R.id.tittle)
-            descripcion=itemView.findViewById(R.id.descripcion)
-            image=itemView.findViewById(R.id.Image)
-            num=itemView.findViewById(R.id.Fila)
-            dist=itemView.findViewById(R.id.Dist)
-        }
-
-    }*/
-
-
-    /*override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.title.text = data[position].title
-            holder.descripcion.text = data[position].descripcion
-            holder.num.text = data[position].num
-            holder.dist.text = data[position].dist
-            Glide.with(context).load(data[position].image).into(holder.image)
-
-
-            holder.itemView.setOnClickListener {view->
-                view.findNavController().navigate(R.id.home_action)
-            }
-
-
-        }*/
 
 }
