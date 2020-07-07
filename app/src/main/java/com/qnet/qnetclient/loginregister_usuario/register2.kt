@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 
 import com.qnet.qnetclient.R
-import com.qnet.qnetclient.loginregister_local.verification_localDirections
+
 import kotlinx.android.synthetic.main.fragment_login_register.*
 import kotlinx.android.synthetic.main.fragment_login_register.buttonNext
 import kotlinx.android.synthetic.main.fragment_register.*

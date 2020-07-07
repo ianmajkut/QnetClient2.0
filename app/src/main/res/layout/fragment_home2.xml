@@ -39,11 +39,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="280dp"
+                    android:fontFamily="@font/helvetica_now_text_black"
                     android:text="Carrefour"
+                    android:textColor="#000000"
                     android:textSize="22sp"
                     android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/helvetica_now_text_black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,10 +54,10 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
-                    android:text="Supermercado"
-                    android:textSize="18sp"
-                    android:textColor="#000000"
                     android:fontFamily="@font/helvetica_now_text_reg_ita"
+                    android:text="Supermercado"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/distancia"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/titulo" />

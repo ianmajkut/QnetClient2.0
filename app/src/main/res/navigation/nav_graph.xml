@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/forget"
-        android:name="com.qnet.qnetclient.loginregister_usuario.forget"
+        android:name="com.qnet.qnetclient.loginregister.forget"
         android:label="fragment_forget"
         tools:layout="@layout/fragment_forget" >
         <action

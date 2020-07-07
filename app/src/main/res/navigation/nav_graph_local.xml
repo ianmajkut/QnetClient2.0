@@ -20,7 +20,7 @@
             app:popUpTo="@id/login_register_local" />
         <action
             android:id="@+id/menu_principal_action_local"
-            app:destination="@id/menu_principal_local"
+            app:destination="@id/appLocal"
             app:popUpTo="@id/login_register_local"
             app:popUpToInclusive="true" />
     </fragment>
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/forget_local"
-        android:name="com.qnet.qnetclient.loginregister_local.forget_local"
+        android:name="com.qnet.qnetclient.loginresiter_local.forget_local"
         android:label="fragment_forget_local"
         tools:layout="@layout/fragment_forget_local" >
         <action
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/register2_local"
-        android:name="com.qnet.qnetclient.loginregister_local.register2_local"
+        android:name="com.qnet.qnetclient.loginresiter_local.register2_local"
         android:label="fragment_register2_local"
         tools:layout="@layout/fragment_register2_local" >
         <action
@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/verification_local"
-        android:name="com.qnet.qnetclient.loginregister_local.verification_local"
+        android:name="com.qnet.qnetclient.loginresiter_local.verification_local"
         android:label="fragment_verification_local"
         tools:layout="@layout/fragment_verification_local" >
         <action
@@ -81,13 +81,8 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/menu_principal_local"
-        android:name="com.qnet.qnetclient.menu_principal_local"
-        android:label="fragment_menu_principal_local"
-        tools:layout="@layout/fragment_menu_principal_local" />
-    <fragment
         android:id="@+id/new_password_fragment_local"
-        android:name="com.qnet.qnetclient.loginregister_local.new_password_fragment_local"
+        android:name="com.qnet.qnetclient.loginresiter_local.new_password_fragment_local"
         android:label="fragment_new_password_fragment_local"
         tools:layout="@layout/fragment_new_password_fragment_local" >
         <action
@@ -101,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/new_password_success_local"
-        android:name="com.qnet.qnetclient.loginregister_local.new_password_success_local"
+        android:name="com.qnet.qnetclient.loginresiter_local.new_password_success_local"
         android:label="fragment_new_password_success_local"
         tools:layout="@layout/fragment_new_password_success_local" >
         <action
@@ -109,4 +104,9 @@
             app:destination="@id/login_register_local"
             app:popUpTo="@id/login_register_local" />
     </fragment>
+    <activity
+        android:id="@+id/appLocal"
+        android:name="com.qnet.qnetclient.applocal.AppLocal"
+        android:label="activity_app_local"
+        tools:layout="@layout/activity_app_local" />
 </navigation>
