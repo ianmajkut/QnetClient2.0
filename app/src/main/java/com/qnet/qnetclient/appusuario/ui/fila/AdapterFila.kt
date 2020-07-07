@@ -1,4 +1,4 @@
-package com.ian.bottomnavigation.ui.home
+package com.qnet.qnetclient.appusuario.ui.fila
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,20 +7,22 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ian.bottomnavigation.ui.home.HomeFragmentDirections
+import com.ian.bottomnavigation.ui.home.MainAdapter
+import com.ian.bottomnavigation.ui.home.Model
 import com.qnet.qnetclient.R
 import kotlinx.android.synthetic.main.row.view.*
 
-class MainAdapter(private val context: Context): RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
-
+class AdapterFila (private val context: Context): RecyclerView.Adapter<AdapterFila.FilaViewHolder>() {
     private var dataList = mutableListOf<Model>()
 
     fun setListData(data:MutableList<Model>) {
         dataList = data
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilaViewHolder {
         val layout = LayoutInflater.from(context).inflate(R.layout.row,parent,false)
-        return MainViewHolder(layout)
+        return FilaViewHolder(layout)
     }
 
     override fun getItemCount(): Int {
@@ -31,8 +33,8 @@ class MainAdapter(private val context: Context): RecyclerView.Adapter<MainAdapte
         }
     }
 
-    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        val local:Model = dataList[position]
+    override fun onBindViewHolder(holder: FilaViewHolder, position: Int) {
+        val local: Model = dataList[position]
         holder.bindView(local)
         holder.itemView.setOnClickListener {view->
 
@@ -42,8 +44,8 @@ class MainAdapter(private val context: Context): RecyclerView.Adapter<MainAdapte
     }
 
 
-    inner class MainViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
-        fun  bindView(local:Model) {
+    inner class FilaViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+        fun  bindView(local: Model) {
             Glide.with(context).load(local.image).into(itemView.Image)
             itemView.tittle.text= local.title
             itemView.descripcion.text = local.descripcion
@@ -52,6 +54,8 @@ class MainAdapter(private val context: Context): RecyclerView.Adapter<MainAdapte
 
         }
     }
+
+
 
 
 }
