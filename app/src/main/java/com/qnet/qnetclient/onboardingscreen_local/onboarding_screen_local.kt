@@ -24,19 +24,19 @@ class onboarding_screen_local : AppCompatActivity() {
         IntroSlideAdapterLocal(
             listOf(
                 IntroSlideLocal(
-                    "Local",
-                    "Podes buscar cualquier local que este cerca tuyo. Te vamos a mostrar los locales disponibles que coincidan con tu busqueda o esten relacionados y sumate a la cola.",
-                    R.drawable.buscar
+                    "Registrate",
+                    "Ingresa los datos necesarios para registrar tu local y poder usar nuestra plataforma.",
+                    R.drawable.registrate
                 ),
                 IntroSlideLocal(
                     "Espera",
-                    "Espera a que sea tu turno. Cuando sea el momento, te vamos a avisar que vayas yendo al local.",
-                    R.drawable.esperar
+                    "Espera que los clientes se sumen a la fila online.",
+                    R.drawable.esperar2
                 ),
                 IntroSlideLocal(
-                    "Anda",
-                    "Llega puntual al local porque sino podrias perder tu turno. Mostra tu codigo para que podamos verificar tus datos y ¡disfruta tu compra!",
-                    R.drawable.moverse
+                    "Controla",
+                    "Al llegar un cliente, verifica a través del lector de código QR que sea el correcto. Luego, elimina al cliente de la fila así puede venir el siguiente.",
+                    R.drawable.controla
                 )
             )
         )

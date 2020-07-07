@@ -9,25 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".appusuario.AppUser"/>
-        <activity android:name=".onboardingscreen_local.onboarding_screen_local"
+        <activity android:name=".applocal.AppLocal"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-
-        <activity android:name=".loginresiter_local.login_register_screen_local"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
-
-        <activity android:name=".local_o_usuario"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-
-        <activity android:name=".loginregister_usuario.login_register_screen"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
-
-        <activity android:name=".onboardingscreen_usuario.onboarding_screen"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-
-        <activity android:name=".splashscreen.splashscreen"
+        <activity android:name=".appusuario.AppUser" />
+        <activity
+            android:name=".onboardingscreen_local.onboarding_screen_local"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".loginresiter_local.login_register_screen_local"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity
+            android:name=".local_o_usuario"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".loginregister_usuario.login_register_screen"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity
+            android:name=".onboardingscreen_usuario.onboarding_screen"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".splashscreen.splashscreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

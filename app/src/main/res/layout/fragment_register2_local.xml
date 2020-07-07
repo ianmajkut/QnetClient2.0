@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".loginregister_usuario.register"
     android:orientation="vertical"
     android:background="#fece2f"
     android:paddingLeft="20dp"
@@ -38,35 +37,162 @@
             android:orientation="vertical"
             android:layout_marginTop="30dp">
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/eleg_tu_edad"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"/>
-            
-            <DatePicker
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:datePickerMode="spinner"
-                android:calendarViewShown="false"
-                android:spinnersShown="true"/>
-            
-            <Button
-                android:id="@+id/buttonNext"
+                android:hint="@string/nombre_completo"
+                app:startIconDrawable="@drawable/ic_create_black_24dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:startIconTint="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark"
+                app:hintTextColor="@color/colorPrimaryDark"
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:boxStrokeWidthFocused="2dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text">
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sig_btn"
-                android:backgroundTint="@color/colorPrimaryDark"
-                android:layout_marginTop="20dp"
-                android:elevation="5dp" />
+                android:hint="@string/usuario"
+                app:startIconDrawable="@drawable/ic_person_black_24dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:startIconTint="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark"
+                app:hintTextColor="@color/colorPrimaryDark"
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:boxStrokeWidthFocused="2dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailSubject">
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <!--
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/eleg_tu_edad"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="18sp"/>
+
+                        <DatePicker
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:datePickerMode="spinner"
+                            android:calendarViewShown="false"
+                            android:spinnersShown="true"/>
+
+                            -->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/ubicacion"
+                app:startIconDrawable="@drawable/ic_baseline_location_on_24"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:startIconTint="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark"
+                app:hintTextColor="@color/colorPrimaryDark"
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:boxStrokeWidthFocused="2dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailSubject">
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/horario"
+                app:startIconDrawable="@drawable/ic_baseline_query_builder_24"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:startIconTint="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark"
+                app:hintTextColor="@color/colorPrimaryDark"
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:boxStrokeWidthFocused="2dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text">
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tipo_de_local"
+                app:startIconDrawable="@drawable/ic_baseline_store_24"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:startIconTint="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark"
+                app:hintTextColor="@color/colorPrimaryDark"
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:boxStrokeWidthFocused="2dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text">
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-        </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/Informarcion"
+                app:startIconDrawable="@drawable/ic_baseline_info_24"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:startIconTint="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark"
+                app:hintTextColor="@color/colorPrimaryDark"
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:boxStrokeWidthFocused="2dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text">
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/buttonNext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sig_btn"
+                            android:backgroundTint="@color/colorPrimaryDark"
+                            android:layout_marginTop="20dp"
+                            android:elevation="5dp" />
 
 
-    </LinearLayout>
+                    </LinearLayout>
 
 
-</ScrollView>
+                </LinearLayout>
+
+
+            </ScrollView>

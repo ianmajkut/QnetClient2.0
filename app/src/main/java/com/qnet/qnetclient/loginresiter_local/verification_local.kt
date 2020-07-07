@@ -23,7 +23,7 @@ class verification_local : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         verification.setOnClickListener{
-            findNavController().navigate(R.id.menu_action)
+            findNavController().navigate(R.id.menu_action_local)
         }
 
 

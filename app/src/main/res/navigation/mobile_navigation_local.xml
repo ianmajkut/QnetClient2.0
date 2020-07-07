@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation_local"
+    app:startDestination="@id/homeLocalFragment">
+
+    <fragment
+        android:id="@+id/filaLocalFragment"
+        android:name="com.qnet.qnetclient.applocal.ui.FilaLocalFragment"
+        android:label="fragment_fila_local"
+        tools:layout="@layout/fragment_fila_local" />
+    <fragment
+        android:id="@+id/homeLocalFragment"
+        android:name="com.qnet.qnetclient.applocal.ui.HomeLocalFragment"
+        android:label="fragment_home_local"
+        tools:layout="@layout/fragment_home_local" >
+        <action
+            android:id="@+id/action_homeLocalFragment_to_filaLocalFragment"
+            app:destination="@id/filaLocalFragment"
+            app:popUpTo="@id/homeLocalFragment" />
+        <action
+            android:id="@+id/action_homeLocalFragment_to_lectorQr_Fragment"
+            app:destination="@id/lectorQr_Fragment"
+            app:popUpTo="@id/homeLocalFragment" />
+        <action
+            android:id="@+id/action_homeLocalFragment_to_infoLocal_Fragment"
+            app:destination="@id/infoLocal_Fragment"
+            app:popUpTo="@id/homeLocalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lectorQr_Fragment"
+        android:name="com.qnet.qnetclient.applocal.ui.LectorQr_Fragment"
+        android:label="fragment_lector_qr_"
+        tools:layout="@layout/fragment_lector_qr_" />
+    <fragment
+        android:id="@+id/infoLocal_Fragment"
+        android:name="com.qnet.qnetclient.applocal.ui.InfoLocal_Fragment"
+        android:label="fragment_info_local_"
+        tools:layout="@layout/fragment_info_local_" />
+</navigation>

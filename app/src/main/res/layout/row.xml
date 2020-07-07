@@ -13,18 +13,7 @@
         android:layout_height="170dp"
         >
 
-        <!--
-        <View
-            android:id="@+id/image_text_cover"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/title_cover"
-            app:layout_constraintBottom_toBottomOf="@+id/Image"
-            app:layout_constraintEnd_toEndOf="@+id/Image"
-            app:layout_constraintStart_toStartOf="@+id/Image"
-            app:layout_constraintTop_toTopOf="@+id/tittle" />
 
-             -->
 
 
         <ImageView
