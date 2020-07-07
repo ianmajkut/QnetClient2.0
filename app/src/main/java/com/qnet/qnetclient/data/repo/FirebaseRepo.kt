@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.functions.FirebaseFunctions
 import com.ian.bottomnavigation.ui.home.Model
+import com.qnet.qnetclient.appusuario.ui.fila.References
 
 
 class FirebaseRepo {
@@ -68,12 +69,14 @@ class FirebaseRepo {
                 val num = document.getString("cola")
                 val dist = document.getString("dist")
                 val image = document.getString("image")
-                val local = Model(title, descripcion, num, dist, image)
+                val local = Model(title, descripcion, num, dist, image,null)
                 listData.add(local)
             }
             mutableData.value = listData
+        }.addOnFailureListener { e ->
+            Log.w(TAG, "Error adding document", e)
         }
-        if (mutableData == null&&aux<5) {
+        if (mutableData == null&&aux<3) {
             aux++
             getLocalData()
         }
@@ -81,14 +84,28 @@ class FirebaseRepo {
 
         return mutableData
     }
-    /*fun getMisColasReference() {
-        mAuth = FirebaseAuth.getInstance()
 
-        db.document("users/${mAuth.currentUser?.uid}").get().addOnSuccessListener { reference ->
-            val references = reference.get("misColas", QuerySnapshot)
+
+
+    fun getMisColasReference():LiveData<MutableList<References>>  {
+        mAuth = FirebaseAuth.getInstance()
+        val mutableData = MutableLiveData<MutableList<References>>()
+        db.collection("users/${mAuth.currentUser?.uid}/misColas").get().addOnSuccessListener { reference ->
+            val listData = mutableListOf<References>()
+            for (document in reference){
+                val keyLocal = document.getString("keyLocal")
+                val posicion = document.getString("posicion")
+                val localReference = References(keyLocal, posicion)
+                listData.add(localReference)
+            }
+            mutableData.value = listData
         }.addOnFailureListener { e ->
             Log.w(TAG, "Error adding document", e)
         }
-
-    }*/
+        if (mutableData == null&&aux<3) {
+            aux++
+            getLocalData()
+        }
+        return mutableData
+    }
 }
