@@ -85,9 +85,41 @@ class FirebaseRepo {
         return mutableData
     }
 
+    fun getMisColas():LiveData<MutableList<Model>> {
+        val mutableData = MutableLiveData<MutableList<Model>>()
+        val mutableReference = MutableLiveData<MutableList<References>>()
+        getMisColasReference().observeForever{
+            for(reference in it)
+            {
+                db.document("locales/${reference.keyLocal}").get().addOnSuccessListener {result ->
+                    val listData = mutableListOf<Model>()
+
+                    val title = result.getString("title")
+                    val descripcion = result.getString("descripcion")
+                    val num = result.getString("cola")
+                    val dist = result.getString("dist")
+                    val image = result.getString("image")
+                    val local = Model(title, descripcion, num, dist, image,null)
+                    listData.add(local)
+
+                    mutableData.value = listData
+                }.addOnFailureListener { e ->
+                    Log.w(TAG, "Error adding document", e)
+                }
+                if (mutableData == null&&aux<3) {
+                    aux++
+                    getLocalData()
+                }
+                aux=0
+
+            }
+        }
+        return mutableData
+    }
 
 
-    fun getMisColasReference():LiveData<MutableList<References>>  {
+
+    private fun getMisColasReference():LiveData<MutableList<References>>  {
         mAuth = FirebaseAuth.getInstance()
         val mutableData = MutableLiveData<MutableList<References>>()
         db.collection("users/${mAuth.currentUser?.uid}/misColas").get().addOnSuccessListener { reference ->
