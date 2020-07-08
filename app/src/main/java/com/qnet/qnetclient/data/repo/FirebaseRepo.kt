@@ -87,19 +87,17 @@ class FirebaseRepo {
 
     fun getMisColas():LiveData<MutableList<Model>> {
         val mutableData = MutableLiveData<MutableList<Model>>()
-        val mutableReference = MutableLiveData<MutableList<References>>()
         getMisColasReference().observeForever{
             for(reference in it)
             {
                 db.document("locales/${reference.keyLocal}").get().addOnSuccessListener {result ->
                     val listData = mutableListOf<Model>()
-
                     val title = result.getString("title")
                     val descripcion = result.getString("descripcion")
                     val num = result.getString("cola")
                     val dist = result.getString("dist")
                     val image = result.getString("image")
-                    val local = Model(title, descripcion, num, dist, image,null)
+                    val local = Model(title, descripcion, num, dist, image,reference.posicion)
                     listData.add(local)
 
                     mutableData.value = listData

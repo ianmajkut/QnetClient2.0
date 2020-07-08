@@ -21,7 +21,7 @@ class AdapterFila (private val context: Context): RecyclerView.Adapter<AdapterFi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilaViewHolder {
-        val layout = LayoutInflater.from(context).inflate(R.layout.row,parent,false)
+        val layout = LayoutInflater.from(context).inflate(R.layout.row_filausuario,parent,false)
         return FilaViewHolder(layout)
     }
 

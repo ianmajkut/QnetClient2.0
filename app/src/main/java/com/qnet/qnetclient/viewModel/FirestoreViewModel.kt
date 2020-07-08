@@ -38,4 +38,12 @@ class FirestoreViewModel : ViewModel(){
         return mutableData
     }
 
+    fun fetchMisColas():LiveData<MutableList<Model>>{
+        val mutableData = MutableLiveData<MutableList<Model>>()
+        repo.getMisColas().observeForever{
+            mutableData.value = it
+        }
+        return mutableData
+    }
+
 }
