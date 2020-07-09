@@ -46,12 +46,10 @@ class AdapterFila (private val context: Context): RecyclerView.Adapter<AdapterFi
 
     inner class FilaViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         fun  bindView(local: Model) {
-            Glide.with(context).load(local.image).into(itemView.Image)
             itemView.tittle.text= local.title
             itemView.descripcion.text = local.descripcion
-            itemView.Fila.text = local.num
+            itemView.Fila.text = local.posicion
             itemView.Dist.text = local.dist
-
         }
     }
 

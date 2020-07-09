@@ -28,15 +28,14 @@ class FilaFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val layout= inflater.inflate(R.layout.fragment_fila, container, false)
 
-        observerData()
-
         val recycler = layout.findViewById<RecyclerView>(R.id.recyclerViewMisColas)
         val txt_MisColas = layout.findViewById<TextView>(R.id.text_notifications)
+
 
         recycler.layoutManager = GridLayoutManager(requireActivity().applicationContext,1)
         adapter = AdapterFila(requireActivity().applicationContext)
         recycler.adapter = adapter
-
+        observerData()
         if(adapter.itemCount > 0){
             txt_MisColas.visibility = View.GONE
         }

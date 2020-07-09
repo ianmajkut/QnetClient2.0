@@ -87,6 +87,7 @@ class FirebaseRepo {
 
     fun getMisColas():LiveData<MutableList<Model>> {
         val mutableData = MutableLiveData<MutableList<Model>>()
+        var mutableReference = mutableListOf<References>()
         getMisColasReference().observeForever{
             for(reference in it)
             {
@@ -104,7 +105,7 @@ class FirebaseRepo {
                 }.addOnFailureListener { e ->
                     Log.w(TAG, "Error adding document", e)
                 }
-                if (mutableData == null&&aux<3) {
+                if (mutableData == null&&aux<5) {
                     aux++
                     getLocalData()
                 }
@@ -124,15 +125,14 @@ class FirebaseRepo {
             val listData = mutableListOf<References>()
             for (document in reference){
                 val keyLocal = document.getString("keyLocal")
-                val posicion = document.getString("posicion")
-                val localReference = References(keyLocal, posicion)
-                listData.add(localReference)
+                val posicion = document.getLong("posicion").toString()
+                listData.add(References(keyLocal, posicion))
             }
             mutableData.value = listData
         }.addOnFailureListener { e ->
-            Log.w(TAG, "Error adding document", e)
+            Log.w(TAG, "Error getting document", e)
         }
-        if (mutableData == null&&aux<3) {
+        if (mutableData == null&&aux<5) {
             aux++
             getLocalData()
         }
