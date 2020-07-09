@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
@@ -28,24 +30,25 @@ class verification : Fragment() {
         viewModel = FirestoreViewModel()
         name = verificationArgs.fromBundle(requireArguments()).nombre
         dni = verificationArgs.fromBundle(requireArguments()).dni
-        Log.i("Verif", name)
-        Log.i("Verif", dni.toString())
         return inflater.inflate(R.layout.fragment_verification, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mAuth = FirebaseAuth.getInstance()
-        val currentUser = mAuth.currentUser
+        val user: FirebaseUser = mAuth.currentUser!!
         verification.setOnClickListener{
-//            if(currentUser != null) {
-//                if(currentUser.isEmailVerified) {
-//                    findNavController().navigate(R.id.menu_action)
-//                }
-//            }
-            viewModel.uploadData(name, dni)
-            findNavController().navigate(R.id.menu_action)
+            Log.i("Verif", mAuth.currentUser?.isEmailVerified.toString())
+            user.reload()
+            if (user.isEmailVerified) {
+                Log.i("Verif", "verified")
+                Toast.makeText(activity, "E-Mail verified", Toast.LENGTH_SHORT).show()
+                viewModel.uploadData(name, dni)
+                findNavController().navigate(R.id.menu_action)
+            } else {
+                Toast.makeText(activity, "E-Mail not verified", Toast.LENGTH_SHORT).show()
+                Log.i("Verif", "not verified")
+            }
         }
     }
-
 }

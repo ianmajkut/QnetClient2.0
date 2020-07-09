@@ -26,8 +26,6 @@ class register2 : Fragment() {
         // Inflate the layout for this fragment
         name = register2Args.fromBundle(requireArguments()).nombre
         dni = register2Args.fromBundle(requireArguments()).dni
-        Log.i("Verif", name)
-        Log.i("Verif", dni.toString())
         return inflater.inflate(R.layout.fragment_register2, container, false)
     }
 

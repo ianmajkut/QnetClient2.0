@@ -9,7 +9,7 @@
         android:id="@+id/login_register"
         android:name="com.qnet.qnetclient.loginregister_usuario.login_register"
         android:label="fragment_login_register"
-        tools:layout="@layout/fragment_login_register" >
+        tools:layout="@layout/fragment_login_register">
         <action
             android:id="@+id/next_action"
             app:destination="@id/register"
@@ -28,7 +28,7 @@
         android:id="@+id/register"
         android:name="com.qnet.qnetclient.loginregister_usuario.register"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/next_action"
             app:destination="@id/register2"
@@ -42,7 +42,7 @@
         android:id="@+id/forget"
         android:name="com.qnet.qnetclient.loginregister.forget"
         android:label="fragment_forget"
-        tools:layout="@layout/fragment_forget" >
+        tools:layout="@layout/fragment_forget">
         <action
             android:id="@+id/forget_back_action"
             app:destination="@id/login_register"
@@ -56,7 +56,7 @@
         android:id="@+id/register2"
         android:name="com.qnet.qnetclient.loginregister_usuario.register2"
         android:label="fragment_register2"
-        tools:layout="@layout/fragment_register2" >
+        tools:layout="@layout/fragment_register2">
         <action
             android:id="@+id/back_action"
             app:destination="@id/register"
@@ -70,12 +70,12 @@
             app:popUpTo="@id/register2" />
         <argument
             android:name="nombre"
-            app:argType="string"
-            android:defaultValue="No Name" />
+            android:defaultValue="No Name"
+            app:argType="string" />
         <argument
             android:name="dni"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/verification"
@@ -87,19 +87,20 @@
             app:destination="@id/login_register"
             app:popUpTo="@id/login_register"
             app:popUpToInclusive="true" />
-        <argument android:name="nombre"
-            app:argType="string"
-            android:defaultValue="No Name" />
+        <argument
+            android:name="nombre"
+            android:defaultValue="No Name"
+            app:argType="string" />
         <argument
             android:name="dni"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/new_password_fragment"
         android:name="com.qnet.qnetclient.loginregister_usuario.new_password_fragment"
         android:label="fragment_new_password_fragment"
-        tools:layout="@layout/fragment_new_password_fragment" >
+        tools:layout="@layout/fragment_new_password_fragment">
         <action
             android:id="@+id/forget_back_action"
             app:destination="@id/forget"
@@ -113,7 +114,7 @@
         android:id="@+id/new_password_success"
         android:name="com.qnet.qnetclient.loginregister_usuario.new_password_success"
         android:label="fragment_new_password_success"
-        tools:layout="@layout/fragment_new_password_success" >
+        tools:layout="@layout/fragment_new_password_success">
         <action
             android:id="@+id/back_login_register"
             app:destination="@id/login_register"
