@@ -81,14 +81,17 @@ dependencies {
     // Cloud Functions
     implementation 'com.google.firebase:firebase-functions:19.0.2'
     // Firestore
-    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.3'
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.5.0'
     // ViewModel
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     // LiveData
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     // Firebase Authentication
-    implementation 'com.google.firebase:firebase-auth:19.3.1'
+    implementation 'com.google.firebase:firebase-auth:19.3.2'
+    implementation 'com.google.android.gms:play-services-auth:18.0.0'
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    //Lector QR
+    implementation 'com.google.android.gms:play-services-vision:20.1.0'
 }
