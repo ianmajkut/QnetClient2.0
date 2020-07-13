@@ -6,7 +6,9 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.functions.FirebaseFunctions
 import com.ian.bottomnavigation.ui.home.Model
 
@@ -74,7 +76,17 @@ class FirebaseRepo {
             getLocalData()
         }
         aux=0
-        
+
         return mutableData
     }
+    /*fun getMisColasReference() {
+        mAuth = FirebaseAuth.getInstance()
+
+        db.document("users/${mAuth.currentUser?.uid}").get().addOnSuccessListener { reference ->
+            val references = reference.get("misColas", QuerySnapshot)
+        }.addOnFailureListener { e ->
+            Log.w(TAG, "Error adding document", e)
+        }
+
+    }*/
 }
