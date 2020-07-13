@@ -2,16 +2,15 @@ package com.qnet.qnetclient.data.repo
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.functions.FirebaseFunctions
 import com.ian.bottomnavigation.ui.home.Model
-import com.qnet.qnetclient.appusuario.ui.fila.References
+import com.qnet.qnetclient.data.classes.References
+import com.qnet.qnetclient.data.classes.ReferenceLocalesCercanos
 
 
 class FirebaseRepo {
@@ -81,7 +80,6 @@ class FirebaseRepo {
             getLocalData()
         }
         aux=0
-
         return mutableData
     }
 
@@ -126,7 +124,12 @@ class FirebaseRepo {
             for (document in reference){
                 val keyLocal = document.getString("keyLocal")
                 val posicion = document.getLong("posicion").toString()
-                listData.add(References(keyLocal, posicion))
+                listData.add(
+                    References(
+                        keyLocal,
+                        posicion
+                    )
+                )
             }
             mutableData.value = listData
         }.addOnFailureListener { e ->
@@ -135,6 +138,32 @@ class FirebaseRepo {
         if (mutableData == null&&aux<5) {
             aux++
             getLocalData()
+        }
+        return mutableData
+    }
+
+    private fun getLocalesReference():LiveData<MutableList<ReferenceLocalesCercanos>>{
+        mAuth = FirebaseAuth.getInstance()
+        val mutableData = MutableLiveData<MutableList<ReferenceLocalesCercanos>>()
+        db.collection("users/${mAuth.currentUser?.uid}/localesCercanos").get().addOnSuccessListener { reference ->
+            val listData = mutableListOf<ReferenceLocalesCercanos>()
+            for (document in reference){
+                val keyLocal = document.getString("keyLocal")
+                val distancia = document.getLong("distancia").toString()
+                listData.add(
+                    ReferenceLocalesCercanos(
+                        keyLocal,
+                        distancia
+                    )
+                )
+            }
+            mutableData.value = listData
+        }.addOnFailureListener { e ->
+            Log.w(TAG, "Error getting document", e)
+        }
+        if (mutableData == null&&aux<5) {
+            aux++
+            getLocalesReference()
         }
         return mutableData
     }

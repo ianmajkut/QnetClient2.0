@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -36,7 +37,8 @@ class FilaFragment : Fragment() {
         adapter = AdapterFila(requireActivity().applicationContext)
         recycler.adapter = adapter
         observerData()
-        if(adapter.itemCount > 0){
+        Toast.makeText(activity, "${adapter.itemCount}", Toast.LENGTH_SHORT).show()
+        if(adapter.itemCount != 0){
             txt_MisColas.visibility = View.GONE
         }
 

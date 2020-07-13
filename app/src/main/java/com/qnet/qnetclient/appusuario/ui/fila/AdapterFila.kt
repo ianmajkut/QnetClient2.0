@@ -14,6 +14,7 @@ import com.qnet.qnetclient.R
 import kotlinx.android.synthetic.main.row.view.*
 
 class AdapterFila (private val context: Context): RecyclerView.Adapter<AdapterFila.FilaViewHolder>() {
+
     private var dataList = mutableListOf<Model>()
 
     fun setListData(data:MutableList<Model>) {
@@ -26,7 +27,7 @@ class AdapterFila (private val context: Context): RecyclerView.Adapter<AdapterFi
     }
 
     override fun getItemCount(): Int {
-        return if (dataList.size > 0 ){
+        return if (dataList.size > 0){
             dataList.size
         }else{
             0
@@ -52,8 +53,5 @@ class AdapterFila (private val context: Context): RecyclerView.Adapter<AdapterFi
             itemView.Dist.text = local.dist
         }
     }
-
-
-
 
 }
