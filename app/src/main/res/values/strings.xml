@@ -68,6 +68,7 @@
     <string name="title_fav">Mapa</string>
     <string name="title_fila">Fila</string>
     <string name="title_settings">Configuración</string>
+    <string name="title">Title</string>
 
 
 </resources>

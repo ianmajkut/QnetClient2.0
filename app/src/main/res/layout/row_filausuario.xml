@@ -20,11 +20,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/helvetica_now_text_black"
-            android:text="Tittle"
+            android:text="@string/title"
             android:textColor="#000000"
             android:textSize="20sp"
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 55b38ee2411e716b99040bd59b1e2154ef0e9d22
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

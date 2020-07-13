@@ -1,5 +1,6 @@
 package com.qnet.qnetclient.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +15,8 @@ class FirestoreViewModel : ViewModel(){
     private val firestoreUseCase = FirestoreUseCase()
 
 
-    fun createUser(eMail:String,password:String) {
+    fun createUser(eMail: String, password: String) {
+        Log.i("Verif", "createUser() FirestoreViewModel.kt")
         repoAuth.createAccount(eMail,password)
     }
 

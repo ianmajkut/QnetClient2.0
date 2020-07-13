@@ -12,10 +12,7 @@ import com.qnet.qnetclient.R
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_login_register.*
 
-
 class login_register : Fragment() {
-
-
     private lateinit var viewModel: FirestoreViewModel
 
     override fun onCreateView(
@@ -25,21 +22,18 @@ class login_register : Fragment() {
         return inflater.inflate(R.layout.fragment_login_register, container, false)
     }
 
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated (view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = FirestoreViewModel()
-            buttonNew.setOnClickListener{
+            buttonNew.setOnClickListener {
                 findNavController().navigate(R.id.next_action)
             }
-            buttonForget.setOnClickListener{
+            buttonForget.setOnClickListener {
                 findNavController().navigate(R.id.forget_action)
             }
-            buttonNext.setOnClickListener{
+            buttonNext.setOnClickListener {
                 login()
             }
-
     }
 
     private fun login()
@@ -47,22 +41,15 @@ class login_register : Fragment() {
         val name = edtxt_eMail.text.toString().trim()
         val password = edtxt_Password.text.toString().trim()
 
-        if(name.isNotEmpty() && password.isNotEmpty()) {
-
-           if(viewModel.singInUser(name,password)) {
+        if (name.isNotEmpty() && password.isNotEmpty()) {
+           if (viewModel.singInUser(name,password)) {
                Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
                findNavController().navigate(R.id.menu_principal_action)
-
-           }else {
+           } else {
                Toast.makeText(activity, "Error al acceder a la base de datos", Toast.LENGTH_SHORT).show()
            }
-
-        }else {
+        } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
         }
-
-
     }
-
-
 }
