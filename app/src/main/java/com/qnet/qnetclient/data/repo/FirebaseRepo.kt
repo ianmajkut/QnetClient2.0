@@ -56,6 +56,24 @@ class FirebaseRepo {
                 result
             }
     }
+
+    fun localesCercanos(): Task<String> {
+        functions = FirebaseFunctions.getInstance()
+        return functions.getHttpsCallable("iniciarApp")
+            .call().continueWith { task ->
+                task.addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        Log.i("Cloud Functions", "localesCercanos()")
+                    } else {
+                        Log.i("Cloud Functions", "Failure")
+                        Log.i("Cloud Functions", task.exception.toString())
+                    }
+                }
+                val result = task.result?.data.toString()
+                result
+            }
+    }
+
     fun getLocalData(): LiveData<MutableList<Model>> {
         val mutableData = MutableLiveData<MutableList<Model>>()
         db.collection("locales").get().addOnSuccessListener {result ->

@@ -3,8 +3,6 @@ package com.qnet.qnetclient.viewModel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ian.bottomnavigation.ui.home.Model
 import com.qnet.qnetclient.domain.FirestoreUseCase
@@ -34,7 +32,11 @@ class FirestoreViewModel : ViewModel(){
         firestoreUseCase.enviarKeyLocal(keyLocal)
     }
 
-    fun fetchLocalData():LiveData<MutableList<Model>>{
+    fun localesCercanos() {
+        firestoreUseCase.localesCeranos()
+    }
+
+    fun fetchLocalData(): LiveData<MutableList<Model>> {
         val mutableData = MutableLiveData<MutableList<Model>>()
         repo.getLocalData().observeForever{
             mutableData.value = it
