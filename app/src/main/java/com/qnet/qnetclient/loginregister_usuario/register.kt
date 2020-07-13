@@ -45,16 +45,15 @@ class register: Fragment() {
     }
 
     fun loadUser() {
+        Log.i("Verif", "loadUser() register.kt")
         val name = edtxt_Nombre.text.toString().trim()
         val password = edtxt_Contraseña.text.toString().trim()
         val eMail = edtxt_Email.text.toString().trim()
         val dni = edtxt_DNI.text.toString().trim().toIntOrNull()
 
         if (name.isNotEmpty() && password.isNotEmpty() && eMail.isNotEmpty() && dni != null && password.length>6) {
+            Log.i("Verif", "createUser() register.kt")
             viewModel.createUser(eMail, password)
-//            viewModel.uploadData(name, dni)
-            Log.i("Verif", name)
-            Log.i("Verif", dni.toString())
             val action = registerDirections.nextAction(name, dni)
             findNavController().navigate(action)
             Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
