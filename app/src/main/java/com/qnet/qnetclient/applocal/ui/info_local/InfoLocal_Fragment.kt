@@ -1,4 +1,4 @@
-package com.qnet.qnetclient.applocal.ui
+package com.qnet.qnetclient.applocal.ui.info_local
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

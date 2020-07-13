@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.qnet.qnetclient">
-    
-    <uses-permission android:name="android.permission.CAMERA"/>
-    
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,8 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".applocal.AppLocal"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".loginresiter_local.register3_local"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".applocal.ui.lector_qr.LectorQr_Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".applocal.AppLocal"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".appusuario.AppUser" />
         <activity
             android:name=".onboardingscreen_local.onboarding_screen_local"

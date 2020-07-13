@@ -26,7 +26,12 @@
         android:id="@+id/navigation_fila"
         android:name="com.ian.bottomnavigation.ui.fila.FilaFragment"
         android:label="@string/title_fila"
-        tools:layout="@layout/fragment_fila" />
+        tools:layout="@layout/fragment_fila" >
+        <action
+            android:id="@+id/fila_to_qr"
+            app:destination="@id/QRFilaUsuarioFragment"
+            app:popUpTo="@id/navigation_fila" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.ian.bottomnavigation.ui.settings.SettingsFragment"
@@ -45,5 +50,10 @@
             android:name="Local"
             app:argType="com.ian.bottomnavigation.ui.home.Model" />
     </fragment>
+    <fragment
+        android:id="@+id/QRFilaUsuarioFragment"
+        android:name="com.qnet.qnetclient.appusuario.ui.fila.QRFilaUsuarioFragment"
+        android:label="fragment_q_r_fila_usuario"
+        tools:layout="@layout/fragment_q_r_fila_usuario" />
 
 </navigation>
