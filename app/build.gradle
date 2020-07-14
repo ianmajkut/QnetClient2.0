@@ -95,4 +95,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     //Lector QR
     implementation 'com.google.android.gms:play-services-vision:20.1.0'
+    //Generar QR
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+
 }
