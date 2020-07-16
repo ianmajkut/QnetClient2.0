@@ -36,7 +36,16 @@
         android:id="@+id/navigation_settings"
         android:name="com.ian.bottomnavigation.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/settings_to_mail"
+            app:destination="@id/cambiarMailUsuarioFragment"
+            app:popUpTo="@id/navigation_settings" />
+        <action
+            android:id="@+id/settings_to_contra"
+            app:destination="@id/cambiarContraUsuarioFragment"
+            app:popUpTo="@id/navigation_settings" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment2"
         android:name="com.ian.bottomnavigation.ui.home.HomeFragment2"
@@ -55,5 +64,55 @@
         android:name="com.qnet.qnetclient.appusuario.ui.fila.QRFilaUsuarioFragment"
         android:label="fragment_q_r_fila_usuario"
         tools:layout="@layout/fragment_q_r_fila_usuario" />
+    <fragment
+        android:id="@+id/cambiarMailUsuarioFragment"
+        android:name="com.qnet.qnetclient.appusuario.ui.settings.CambiarMailUsuarioFragment"
+        android:label="fragment_cambiar_mail_usuario"
+        tools:layout="@layout/fragment_cambiar_mail_usuario" >
+        <action
+            android:id="@+id/mail_to_verification"
+            app:destination="@id/verificarNuevoMailUsuarioFragment"
+            app:popUpTo="@id/cambiarMailUsuarioFragment" />
+        <action
+            android:id="@+id/mail_to_settings"
+            app:destination="@id/navigation_settings"
+            app:popUpTo="@id/navigation_settings" />
+    </fragment>
+    <fragment
+        android:id="@+id/verificarNuevoMailUsuarioFragment"
+        android:name="com.qnet.qnetclient.appusuario.ui.settings.VerificarNuevoMailUsuarioFragment"
+        android:label="fragment_verificar_nuevo_mail_usuario"
+        tools:layout="@layout/fragment_verificar_nuevo_mail_usuario" >
+        <action
+            android:id="@+id/verification_to_settings"
+            app:destination="@id/navigation_settings"
+            app:popUpTo="@id/navigation_settings"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/cambiarContraUsuarioFragment"
+        android:name="com.qnet.qnetclient.appusuario.ui.settings.CambiarContraUsuarioFragment"
+        android:label="fragment_cambiar_contra_usuario"
+        tools:layout="@layout/fragment_cambiar_contra_usuario" >
+        <action
+            android:id="@+id/contra_to_verification"
+            app:destination="@id/verificarNuevaContraUsuarioFragment"
+            app:popUpTo="@id/cambiarContraUsuarioFragment" />
+        <action
+            android:id="@+id/contra_to_settings"
+            app:destination="@id/navigation_settings"
+            app:popUpTo="@id/navigation_settings" />
+    </fragment>
+    <fragment
+        android:id="@+id/verificarNuevaContraUsuarioFragment"
+        android:name="com.qnet.qnetclient.appusuario.ui.settings.VerificarNuevaContraUsuarioFragment"
+        android:label="fragment_verificar_nueva_contra_usuario"
+        tools:layout="@layout/fragment_verificar_nueva_contra_usuario" >
+        <action
+            android:id="@+id/verifcationcontra_to_settings"
+            app:destination="@id/navigation_settings"
+            app:popUpTo="@id/navigation_settings"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>
