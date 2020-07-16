@@ -4,9 +4,10 @@ import android.os.Parcel
 import android.os.Parcelable
 
 
-data class Model (var title:String?,var descripcion:String?,var num:String?,var dist:String?, var image:String? ,var posicion:String?) :
+data class Model (var title:String?,var descripcion:String?,var num:String?,var dist:String?, var image:String? ,var posicion:String?,var keyLocal:String?) :
     Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -23,6 +24,7 @@ data class Model (var title:String?,var descripcion:String?,var num:String?,var 
         parcel.writeString(dist)
         parcel.writeString(image)
         parcel.writeString(posicion)
+        parcel.writeString(keyLocal)
     }
 
     override fun describeContents(): Int {

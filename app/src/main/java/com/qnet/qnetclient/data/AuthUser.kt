@@ -37,7 +37,6 @@ class AuthUser {
         mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 aux = task.isSuccessful
-
             }
         return aux
     }

@@ -36,14 +36,14 @@ class login_register : Fragment() {
             }
     }
 
-    private fun login()
-    {
+    private fun login() {
         val name = edtxt_eMail.text.toString().trim()
         val password = edtxt_Password.text.toString().trim()
 
         if (name.isNotEmpty() && password.isNotEmpty()) {
            if (viewModel.singInUser(name,password)) {
                Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
+               viewModel.localesCercanos()
                findNavController().navigate(R.id.menu_principal_action)
            } else {
                Toast.makeText(activity, "Error al acceder a la base de datos", Toast.LENGTH_SHORT).show()
