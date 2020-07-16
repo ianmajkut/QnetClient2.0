@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 
 import com.qnet.qnetclient.R
-import kotlinx.android.synthetic.main.fragment_login_register.buttonNext
-import kotlinx.android.synthetic.main.fragment_register.*
+import kotlinx.android.synthetic.main.fragment_register_local.*
+
 
 /**
  * A simple [Fragment] subclass.

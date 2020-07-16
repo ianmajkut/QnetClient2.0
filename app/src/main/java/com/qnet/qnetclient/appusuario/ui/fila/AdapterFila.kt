@@ -14,6 +14,7 @@ import com.qnet.qnetclient.R
 import kotlinx.android.synthetic.main.row.view.*
 
 class AdapterFila (private val context: Context): RecyclerView.Adapter<AdapterFila.FilaViewHolder>() {
+
     private var dataList = mutableListOf<Model>()
 
     fun setListData(data:MutableList<Model>) {
@@ -21,12 +22,12 @@ class AdapterFila (private val context: Context): RecyclerView.Adapter<AdapterFi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilaViewHolder {
-        val layout = LayoutInflater.from(context).inflate(R.layout.row,parent,false)
+        val layout = LayoutInflater.from(context).inflate(R.layout.row_filausuario,parent,false)
         return FilaViewHolder(layout)
     }
 
     override fun getItemCount(): Int {
-        return if (dataList.size > 0 ){
+        return if (dataList.size > 0){
             dataList.size
         }else{
             0
@@ -46,16 +47,11 @@ class AdapterFila (private val context: Context): RecyclerView.Adapter<AdapterFi
 
     inner class FilaViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         fun  bindView(local: Model) {
-            Glide.with(context).load(local.image).into(itemView.Image)
             itemView.tittle.text= local.title
             itemView.descripcion.text = local.descripcion
-            itemView.Fila.text = local.num
+            itemView.Fila.text = local.posicion
             itemView.Dist.text = local.dist
-
         }
     }
-
-
-
 
 }

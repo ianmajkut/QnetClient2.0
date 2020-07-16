@@ -10,22 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        >
+        android:layout_height="wrap_content">
 
-
-
-
-        <ImageView
-            android:id="@+id/Image"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/image_shape"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/tittle"
@@ -33,12 +19,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/helvetica_now_text_black"
-            android:text="Tittle"
+            android:text="@string/title"
             android:textColor="#000000"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Image" />
 
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/descripcion"
@@ -56,23 +42,26 @@
         <TextView
             android:id="@+id/Fila"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="8dp"
             android:drawableStart="@drawable/ic_row"
             android:drawablePadding="5dp"
             android:text="Fila:"
             android:textColor="#000"
             android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descripcion" />
 
         <TextView
             android:id="@+id/Dist"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="51dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="28dp"
             android:drawableStart="@drawable/ic_road"
             android:drawablePadding="5dp"
             android:fontFamily="@font/helvetica_now_text_bold"

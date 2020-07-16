@@ -26,7 +26,7 @@
     <string name="local">Local</string>
     <string name="usuario">Usuario</string>
 
-    <string name="bienvenidos_local">BIENVENIDOS Local, ESTÁ ABIERTO</string>
+    <string name="bienvenidos_local">ABRÍ LAS PUERTAS DE TU LOCAL</string>
 
     <string name="bienvenidos">BIENVENIDOS, ESTÁ ABIERTO</string>
     <string name="logueateparacontinuar">Logueate para continuar</string>
@@ -42,6 +42,10 @@
 
     <string name="nombre_completo">Nombre Completo</string>
     <string name="correo_electr_nico">Correo Electrónico</string>
+    <string name="ubicacion">Ubicación</string>
+    <string name="horario">Horario</string>
+    <string name="tipo_de_local">Tipo de Local</string>
+    <string name="Informarcion">Información importante</string>
     <string name="celular">Celular</string>
     <string name="eleg_tu_edad">Selecciona tu fecha de Nacimineto</string>
 
@@ -60,12 +64,11 @@
     <string name="revisar_correo_electr_nico">REVISAR CORREO ELECTRÓNICO</string>
 
 
-
-
     <string name="title_inicio">Inicio</string>
     <string name="title_fav">Mapa</string>
     <string name="title_fila">Fila</string>
     <string name="title_settings">Configuración</string>
+    <string name="title">Title</string>
 
 
 </resources>
