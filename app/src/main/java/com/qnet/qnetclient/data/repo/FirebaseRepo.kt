@@ -36,10 +36,12 @@ class FirebaseRepo {
             }
     }
 
-    fun agregarCola(keyLocal: String?): Task<String> {
+    fun agregarCola(keyLocal: String?,dist:String?): Task<String> {
         functions = FirebaseFunctions.getInstance()
+        val distancia = dist?.toLong()
         val data = hashMapOf(
             "keyLocal" to keyLocal,
+            "distancia" to distancia,
             "push" to true
         )
         return functions
