@@ -36,8 +36,7 @@ class login_register : Fragment() {
             }
     }
 
-    private fun login()
-    {
+    private fun login() {
         val name = edtxt_eMail.text.toString().trim()
         val password = edtxt_Password.text.toString().trim()
 
