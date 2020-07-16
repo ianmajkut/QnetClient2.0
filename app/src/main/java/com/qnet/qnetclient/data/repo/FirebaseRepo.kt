@@ -36,7 +36,7 @@ class FirebaseRepo {
             }
     }
 
-    fun agregarCola(keyLocal: String): Task<String> {
+    fun agregarCola(keyLocal: String?): Task<String> {
         functions = FirebaseFunctions.getInstance()
         val data = hashMapOf(
             "keyLocal" to keyLocal,
@@ -60,84 +60,27 @@ class FirebaseRepo {
     }
     fun getLocalData(): LiveData<MutableList<Model>> {
         val mutableData = MutableLiveData<MutableList<Model>>()
-        db.collection("locales").get().addOnSuccessListener {result ->
-            val listData = mutableListOf<Model>()
-            for (document in result){
-                val title = document.getString("title")
-                val descripcion = document.getString("descripcion")
-                val num = document.getString("cola")
-                val dist = document.getString("dist")
-                val image = document.getString("image")
-                val local = Model(title, descripcion, num, dist, image,null)
-                listData.add(local)
-            }
-            mutableData.value = listData
-        }.addOnFailureListener { e ->
-            Log.w(TAG, "Error adding document", e)
-        }
-        if (mutableData == null&&aux<3) {
-            aux++
-            getLocalData()
-        }
-        aux=0
-        return mutableData
-    }
-
-    fun getMisColas():LiveData<MutableList<Model>> {
-        val mutableData = MutableLiveData<MutableList<Model>>()
-        var mutableReference = mutableListOf<References>()
-        getMisColasReference().observeForever{
+        val listData = mutableListOf<Model>()
+        getLocalesReference().observeForever{
             for(reference in it)
             {
-                db.document("locales/${reference.keyLocal}").get().addOnSuccessListener {result ->
-                    val listData = mutableListOf<Model>()
+                db.document("locales/${reference.keyLocal}").get().addOnSuccessListener { result ->
                     val title = result.getString("title")
                     val descripcion = result.getString("descripcion")
-                    val num = result.getString("cola")
-                    val dist = result.getString("dist")
+                    val num = result.getLong("queueNumber").toString()
                     val image = result.getString("image")
-                    val local = Model(title, descripcion, num, dist, image,reference.posicion)
+                    val local = Model(title, descripcion, num, reference.distancia, image,null,reference.keyLocal)
                     listData.add(local)
-
                     mutableData.value = listData
                 }.addOnFailureListener { e ->
                     Log.w(TAG, "Error adding document", e)
                 }
-                if (mutableData == null&&aux<5) {
-                    aux++
-                    getLocalData()
+                if (mutableData == null&&aux<3) {
+                aux++
+                getLocalData()
                 }
                 aux=0
-
             }
-        }
-        return mutableData
-    }
-
-
-
-    private fun getMisColasReference():LiveData<MutableList<References>>  {
-        mAuth = FirebaseAuth.getInstance()
-        val mutableData = MutableLiveData<MutableList<References>>()
-        db.collection("users/${mAuth.currentUser?.uid}/misColas").get().addOnSuccessListener { reference ->
-            val listData = mutableListOf<References>()
-            for (document in reference){
-                val keyLocal = document.getString("keyLocal")
-                val posicion = document.getLong("posicion").toString()
-                listData.add(
-                    References(
-                        keyLocal,
-                        posicion
-                    )
-                )
-            }
-            mutableData.value = listData
-        }.addOnFailureListener { e ->
-            Log.w(TAG, "Error getting document", e)
-        }
-        if (mutableData == null&&aux<5) {
-            aux++
-            getLocalData()
         }
         return mutableData
     }
@@ -164,6 +107,62 @@ class FirebaseRepo {
         if (mutableData == null&&aux<5) {
             aux++
             getLocalesReference()
+        }
+        return mutableData
+    }
+
+    fun getMisColas():LiveData<MutableList<Model>> {
+        val mutableData = MutableLiveData<MutableList<Model>>()
+        var mutableReference = mutableListOf<References>()
+        val listData = mutableListOf<Model>()
+        getMisColasReference().observeForever{
+            for(reference in it)
+            {
+                db.document("locales/${reference.keyLocal}").get().addOnSuccessListener {result ->
+                    val title = result.getString("title")
+                    val descripcion = result.getString("descripcion")
+                    val num = result.getLong("queueNumber").toString()
+                    val dist = result.getString("dist")
+                    val image = result.getString("image")
+                    val local = Model(title, descripcion, num, null, image,reference.posicion,reference.keyLocal)
+                    listData.add(local)
+                    mutableData.value = listData
+                }.addOnFailureListener { e ->
+                    Log.w(TAG, "Error adding document", e)
+                }
+                if (mutableData == null&&aux<5) {
+                    aux++
+                    getLocalData()
+                }
+                aux=0
+
+            }
+        }
+        return mutableData
+    }
+
+    private fun getMisColasReference():LiveData<MutableList<References>>  {
+        mAuth = FirebaseAuth.getInstance()
+        val mutableData = MutableLiveData<MutableList<References>>()
+        db.collection("users/${mAuth.currentUser?.uid}/misColas").get().addOnSuccessListener { reference ->
+            val listData = mutableListOf<References>()
+            for (document in reference){
+                val keyLocal = document.getString("keyLocal")
+                val posicion = document.getLong("posicion").toString()
+                listData.add(
+                    References(
+                        keyLocal,
+                        posicion
+                    )
+                )
+            }
+            mutableData.value = listData
+        }.addOnFailureListener { e ->
+            Log.w(TAG, "Error getting document", e)
+        }
+        if (mutableData == null&&aux<5) {
+            aux++
+            getLocalData()
         }
         return mutableData
     }

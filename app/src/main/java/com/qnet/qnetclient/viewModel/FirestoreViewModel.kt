@@ -28,7 +28,7 @@ class FirestoreViewModel : ViewModel(){
         return repoAuth.singInAccount(eMail,password)
     }
 
-    fun enviarDatos(keyLocal: String) {
+    fun enviarDatos(keyLocal: String?) {
         firestoreUseCase.enviarKeyLocal(keyLocal)
     }
 

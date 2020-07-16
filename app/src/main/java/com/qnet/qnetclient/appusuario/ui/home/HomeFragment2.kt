@@ -54,7 +54,7 @@ class HomeFragment2 : Fragment() {
         distancia.text = local.dist
         //bindearDatos(Local.Local,requireContext())*/
 
-        val keyLocal = "hk1UzSqC8RK28KpC4rpd"
+        val keyLocal = local.keyLocal
 
 
         bt.setOnClickListener{
@@ -64,7 +64,7 @@ class HomeFragment2 : Fragment() {
         return layout
     }
 
-    fun alerta(keyLocal: String) {
+    fun alerta(keyLocal: String?) {
         val alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.setTitle("Alerta")
         alertDialog.setMessage("Está a punto de sumarse a la fila online. ¿Está seguro?")
