@@ -32,7 +32,11 @@ class FirestoreViewModel : ViewModel(){
         firestoreUseCase.enviarKeyLocal(keyLocal,distancia)
     }
 
-    fun fetchLocalData():LiveData<MutableList<Model>>{
+    fun localesCercanos() {
+        firestoreUseCase.localesCeranos()
+    }
+
+    fun fetchLocalData(): LiveData<MutableList<Model>> {
         val mutableData = MutableLiveData<MutableList<Model>>()
         repo.getLocalData().observeForever{
             mutableData.value = it

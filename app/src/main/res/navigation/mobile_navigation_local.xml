@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/filaLocalFragment"
-        android:name="com.qnet.qnetclient.applocal.ui.FilaLocalFragment"
+        android:name="com.qnet.qnetclient.applocal.ui.fila.FilaLocalFragment"
         android:label="fragment_fila_local"
         tools:layout="@layout/fragment_fila_local" />
     <fragment
@@ -21,7 +21,7 @@
             app:popUpTo="@id/homeLocalFragment" />
         <action
             android:id="@+id/action_homeLocalFragment_to_lectorQr_Fragment"
-            app:destination="@id/lectorQr_Fragment"
+            app:destination="@id/lectorQr_Activity"
             app:popUpTo="@id/homeLocalFragment" />
         <action
             android:id="@+id/action_homeLocalFragment_to_infoLocal_Fragment"
@@ -29,13 +29,12 @@
             app:popUpTo="@id/homeLocalFragment" />
     </fragment>
     <fragment
-        android:id="@+id/lectorQr_Fragment"
-        android:name="com.qnet.qnetclient.applocal.ui.LectorQr_Fragment"
-        android:label="fragment_lector_qr_"
-        tools:layout="@layout/fragment_lector_qr_" />
-    <fragment
         android:id="@+id/infoLocal_Fragment"
-        android:name="com.qnet.qnetclient.applocal.ui.InfoLocal_Fragment"
+        android:name="com.qnet.qnetclient.applocal.ui.info_local.InfoLocal_Fragment"
         android:label="fragment_info_local_"
         tools:layout="@layout/fragment_info_local_" />
+    <activity
+        android:id="@+id/lectorQr_Activity"
+        android:name="com.qnet.qnetclient.applocal.ui.lector_qr.LectorQr_Activity"
+        android:label="LectorQr_Activity" />
 </navigation>

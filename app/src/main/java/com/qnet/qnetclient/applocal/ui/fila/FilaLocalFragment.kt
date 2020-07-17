@@ -1,4 +1,4 @@
-package com.qnet.qnetclient.applocal.ui
+package com.qnet.qnetclient.applocal.ui.fila
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,13 +8,15 @@ import android.view.ViewGroup
 import com.qnet.qnetclient.R
 
 
-class InfoLocal_Fragment : Fragment() {
+class FilaLocalFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info_local_, container, false)
+        return inflater.inflate(R.layout.fragment_fila_local, container, false)
     }
+
 
 }

@@ -53,5 +53,4 @@ class MainAdapter(private val context: Context): RecyclerView.Adapter<MainAdapte
         }
     }
 
-
 }

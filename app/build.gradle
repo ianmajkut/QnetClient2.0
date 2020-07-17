@@ -45,6 +45,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.2.2'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     testImplementation 'junit:junit:4.12'
@@ -95,4 +96,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     //Lector QR
     implementation 'com.google.android.gms:play-services-vision:20.1.0'
+    //Generar QR
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+
 }

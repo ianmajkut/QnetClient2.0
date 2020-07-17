@@ -8,4 +8,8 @@ class FirestoreUseCase {
     fun enviarKeyLocal(keyLocal: String?,distancia:String?) {
         repo.agregarCola(keyLocal,distancia)
     }
+
+    fun localesCeranos() {
+        repo.localesCercanos()
+    }
 }

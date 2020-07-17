@@ -12,13 +12,11 @@ import com.ian.bottomnavigation.ui.home.Model
 import com.qnet.qnetclient.data.classes.References
 import com.qnet.qnetclient.data.classes.ReferenceLocalesCercanos
 
-
 class FirebaseRepo {
     private val db = FirebaseFirestore.getInstance()
     private lateinit var functions: FirebaseFunctions
     private lateinit var mAuth: FirebaseAuth
     private var aux = 0
-
 
     fun uploadData(name:String,dni:Int) {
         mAuth = FirebaseAuth.getInstance()
@@ -60,6 +58,24 @@ class FirebaseRepo {
                 result
             }
     }
+
+    fun localesCercanos(): Task<String> {
+        functions = FirebaseFunctions.getInstance()
+        return functions.getHttpsCallable("iniciarApp")
+            .call().continueWith { task ->
+                task.addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        Log.i("Cloud Functions", "localesCercanos()")
+                    } else {
+                        Log.i("Cloud Functions", "Failure")
+                        Log.i("Cloud Functions", task.exception.toString())
+                    }
+                }
+                val result = task.result?.data.toString()
+                result
+            }
+    }
+
     fun getLocalData(): LiveData<MutableList<Model>> {
         val mutableData = MutableLiveData<MutableList<Model>>()
         val listData = mutableListOf<Model>()

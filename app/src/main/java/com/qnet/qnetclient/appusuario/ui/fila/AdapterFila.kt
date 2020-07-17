@@ -39,8 +39,8 @@ class AdapterFila (private val context: Context): RecyclerView.Adapter<AdapterFi
         holder.bindView(local)
         holder.itemView.setOnClickListener {view->
 
-            val action = HomeFragmentDirections.homeAction(local)
-            view.findNavController().navigate(action)
+
+            view.findNavController().navigate(R.id.fila_to_qr)
         }
     }
 
