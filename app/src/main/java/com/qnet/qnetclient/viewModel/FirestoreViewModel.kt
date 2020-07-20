@@ -29,12 +29,24 @@ class FirestoreViewModel : ViewModel(){
         return mutableData
     }
 
-    fun enviarDatos(keyLocal: String?, distancia:String?) {
-        repo.agregarCola(keyLocal, distancia)
+    fun localesCercanos(): LiveData<Boolean> {
+        val mutableData = MutableLiveData<Boolean>()
+        repo.localesCercanos().observeForever {
+            mutableData.value = it
+        }
+        return mutableData
     }
 
-    fun localesCercanos() {
-        repo.localesCercanos()
+    fun updateUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
+        val mutableData = MutableLiveData<Boolean>()
+        repo.updateUbicacion(latitude, longitude).observeForever {
+            mutableData.value = it
+        }
+        return mutableData
+    }
+
+    fun enviarDatos(keyLocal: String?, distancia:String?) {
+        repo.agregarCola(keyLocal, distancia)
     }
 
     fun fetchLocalData(): LiveData<MutableList<Model>> {
@@ -51,9 +63,5 @@ class FirestoreViewModel : ViewModel(){
             mutableData.value = it
         }
         return mutableData
-    }
-
-    fun updateUbicacion(latitude: Double?, longitude: Double?) {
-        repo.updateUbicacion(latitude, longitude)
     }
 }

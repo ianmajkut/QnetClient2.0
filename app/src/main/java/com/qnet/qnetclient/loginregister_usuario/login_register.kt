@@ -103,16 +103,30 @@ class login_register : Fragment() {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
         }
     }
-    private fun obsever(name:String,password:String)
-    {
+
+    private fun obsever(name:String,password:String) {
         viewModel.singInUser(name,password).observeForever{
             if(it) {
-                Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
-                viewModel.updateUbicacion(latitude, longitude)
-                viewModel.localesCercanos()
-                findNavController().navigate(R.id.menu_principal_action)
+//                Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
+                observer2()
             } else {
                 Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun observer2() {
+        viewModel.updateUbicacion(latitude, longitude).observeForever {
+            if (it) {
+                observer3()
+            }
+        }
+    }
+
+    private fun observer3() {
+        viewModel.localesCercanos().observeForever {
+            if (it) {
+                findNavController().navigate(R.id.menu_principal_action)
             }
         }
     }

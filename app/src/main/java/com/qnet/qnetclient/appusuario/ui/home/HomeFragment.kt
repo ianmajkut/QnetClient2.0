@@ -58,6 +58,14 @@ class HomeFragment : Fragment() {
         searchView.setOnClickListener {view ->  }
     }
 
+    private fun observer() {
+        viewModel.localesCercanos().observeForever {
+            if (it) {
+                observerData()
+            }
+        }
+    }
+
     fun observerData(){
         viewModel.fetchLocalData().observe(viewLifecycleOwner, Observer {
             adapter.setListData(it)
@@ -67,4 +75,3 @@ class HomeFragment : Fragment() {
     }
 
 }
-
