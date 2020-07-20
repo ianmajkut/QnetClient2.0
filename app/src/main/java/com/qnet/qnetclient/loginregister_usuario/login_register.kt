@@ -1,8 +1,13 @@
 package com.qnet.qnetclient.loginregister_usuario
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
-import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -36,6 +41,7 @@ class login_register : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         viewModel = FirestoreViewModel()
+        getLastLocation()
         buttonNew.setOnClickListener {
             findNavController().navigate(R.id.next_action)
         }
@@ -58,7 +64,7 @@ class login_register : Fragment() {
         ) {
             ActivityCompat.requestPermissions(requireActivity(),
                 arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                android.Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
+                    android.Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
             return
         }
         fusedLocationProviderClient.lastLocation.addOnCompleteListener {
@@ -88,15 +94,9 @@ class login_register : Fragment() {
         val password = edtxt_Password.text.toString().trim()
 
         if (name.isNotEmpty() && password.isNotEmpty()) {
-
-            //Aca progress bar
+            //@Ian falta poner un progress bar para ver el progreso
             showLoading()
-            Handler().postDelayed({
-                hideLoading()
-
-            }, 5000)
-           obsever(name, password)
-
+            obsever(name, password)
         } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
         }
@@ -107,22 +107,11 @@ class login_register : Fragment() {
             if(it) {
                 Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
                 viewModel.localesCercanos()
-
-                //aca termina
+                hideLoading()
                 findNavController().navigate(R.id.menu_principal_action)
             }else{
                 Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
             }
-           if (viewModel.singInUser(name, password)) {
-               Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
-               getLastLocation()
-               viewModel.localesCercanos()
-               findNavController().navigate(R.id.menu_principal_action)
-           } else {
-               Toast.makeText(activity, "Error al acceder a la base de datos", Toast.LENGTH_SHORT).show()
-           }
-        } else {
-            Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -135,4 +124,6 @@ class login_register : Fragment() {
         loadingDialog=CommonUtils.showLoadingDialog(requireContext())
     }
 
+
 }
+
