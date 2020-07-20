@@ -140,9 +140,8 @@ class FirebaseRepo {
                     val title = result.getString("title")
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
-                    val dist = result.getString("dist")
                     val image = result.getString("image")
-                    val local = Model(title, descripcion, num, null, image,reference.posicion,reference.keyLocal)
+                    val local = Model(title, descripcion, num, reference.distancia, image,reference.posicion,reference.keyLocal)
                     listData.add(local)
                     mutableData.value = listData
                 }.addOnFailureListener { e ->
@@ -167,10 +166,12 @@ class FirebaseRepo {
             for (document in reference){
                 val keyLocal = document.getString("keyLocal")
                 val posicion = document.getLong("posicion").toString()
+                val distancia = document.getLong("distancia").toString()
                 listData.add(
                     References(
                         keyLocal,
-                        posicion
+                        posicion,
+                        distancia
                     )
                 )
             }

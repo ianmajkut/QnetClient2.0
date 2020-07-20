@@ -91,16 +91,22 @@ class login_register : Fragment() {
         val password = edtxt_Password.text.toString().trim()
 
         if (name.isNotEmpty() && password.isNotEmpty()) {
-           if (viewModel.singInUser(name, password)) {
-               Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
-               getLastLocation()
-               viewModel.localesCercanos()
-               findNavController().navigate(R.id.menu_principal_action)
-           } else {
-               Toast.makeText(activity, "Error al acceder a la base de datos", Toast.LENGTH_SHORT).show()
-           }
+           obsever(name, password)
+            //@Ian falta poner un progress bar para ver el progreso
         } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun obsever(name:String,password:String)
+    {
+        viewModel.singInUser(name,password).observeForever{
+            if(it) {
+                Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
+                viewModel.localesCercanos()
+                findNavController().navigate(R.id.menu_principal_action)
+            }else{
+                Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

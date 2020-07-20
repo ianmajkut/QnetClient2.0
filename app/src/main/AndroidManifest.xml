@@ -14,8 +14,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".applocal.AppLocal"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+        <activity
+            android:name=".applocal.ui.lector_qr.LectorQr_Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".applocal.AppLocal"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".appusuario.AppUser" />
         <activity
             android:name=".onboardingscreen_local.onboarding_screen_local"
