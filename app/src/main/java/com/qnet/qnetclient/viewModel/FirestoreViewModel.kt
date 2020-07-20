@@ -24,8 +24,12 @@ class FirestoreViewModel : ViewModel(){
         repo.uploadData(name, dni)
     }
 
-    fun singInUser(eMail: String,password: String):Boolean {
-        return repoAuth.singInAccount(eMail,password)
+    fun singInUser(eMail: String,password: String):LiveData<Boolean> {
+        val mutableData = MutableLiveData<Boolean>()
+        repoAuth.singInAccount(eMail,password).observeForever{
+            mutableData.value = it
+        }
+        return mutableData
     }
 
     fun enviarDatos(keyLocal: String?,distancia:String?) {

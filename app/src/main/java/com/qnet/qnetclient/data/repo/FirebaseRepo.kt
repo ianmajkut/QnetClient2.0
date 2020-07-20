@@ -166,7 +166,7 @@ class FirebaseRepo {
             for (document in reference){
                 val keyLocal = document.getString("keyLocal")
                 val posicion = document.getLong("posicion").toString()
-                val distancia = document.getLong("istancia").toString()
+                val distancia = document.getLong("distancia").toString()
                 listData.add(
                     References(
                         keyLocal,

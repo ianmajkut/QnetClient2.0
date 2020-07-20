@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.qnet.qnetclient.R
 
 
 class QRFilaUsuarioFragment : Fragment() {
+
+    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -27,7 +30,7 @@ class QRFilaUsuarioFragment : Fragment() {
         btnGen.setOnClickListener {
             try {
                 val encoder= BarcodeEncoder()
-                val bitmap= encoder.encodeBitmap(etText.text.toString(), BarcodeFormat.QR_CODE,
+                val bitmap= encoder.encodeBitmap(mAuth.currentUser?.uid, BarcodeFormat.QR_CODE,
                     500, 500)
                 ivBarcode.setImageBitmap(bitmap)
             }catch (e:Exception){

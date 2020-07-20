@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/helvetica_now_text_black"
-            android:text="Usuario"
+            android:text="@string/usuario"
             android:textColor="#000000"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,12 +26,12 @@
 
 
         <TextView
-            android:id="@+id/descripcion"
+            android:id="@+id/position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/helvetica_now_text_reg_ita"
-            android:text="Posición"
+            android:text="@string/posici_n"
             android:textColor="#000000"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/Fila"

@@ -3,6 +3,8 @@ package com.qnet.qnetclient.data
 import android.content.ContentValues.TAG
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -32,12 +34,13 @@ class AuthUser {
             }
     }
 
-    fun singInAccount(email: String,password: String):Boolean
+    fun singInAccount(email: String,password: String): LiveData<Boolean>
     {
+        val mutableData = MutableLiveData<Boolean>()
         mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                aux = task.isSuccessful
+                mutableData.value = task.isSuccessful
             }
-        return aux
+        return mutableData
     }
 }
