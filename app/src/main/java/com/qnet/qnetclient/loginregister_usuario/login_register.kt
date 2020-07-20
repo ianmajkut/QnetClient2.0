@@ -39,7 +39,6 @@ class login_register : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         viewModel = FirestoreViewModel()
-        getLastLocation()
         buttonNew.setOnClickListener {
             findNavController().navigate(R.id.next_action)
         }
@@ -92,8 +91,10 @@ class login_register : Fragment() {
         val password = edtxt_Password.text.toString().trim()
 
         if (name.isNotEmpty() && password.isNotEmpty()) {
-            //@Ian falta poner un progress bar para ver el progreso
-            obsever(name, password)
+            //Aca progress bar
+            showLoading()
+           obsever(name, password)
+
         } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
         }
@@ -104,10 +105,21 @@ class login_register : Fragment() {
             if(it) {
                 Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
                 viewModel.localesCercanos()
+                hideLoading()
                 findNavController().navigate(R.id.menu_principal_action)
             }else{
                 Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
+    private fun hideLoading(){
+        loadingDialog?.let { if (it.isShowing)it.cancel() }
+    }
+
+    private fun showLoading(){
+        hideLoading()
+        loadingDialog=CommonUtils.showLoadingDialog(requireContext())
+    }
+
 }
