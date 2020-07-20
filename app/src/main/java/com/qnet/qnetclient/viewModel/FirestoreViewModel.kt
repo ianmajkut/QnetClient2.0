@@ -5,15 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ian.bottomnavigation.ui.home.Model
-import com.qnet.qnetclient.domain.FirestoreUseCase
 import com.qnet.qnetclient.data.AuthUser
 import com.qnet.qnetclient.data.repo.FirebaseRepo
 
 class FirestoreViewModel : ViewModel(){
     private val repo = FirebaseRepo()
     private val repoAuth = AuthUser()
-    private val firestoreUseCase = FirestoreUseCase()
-
 
     fun createUser(eMail: String, password: String) {
         Log.i("Verif", "createUser() FirestoreViewModel.kt")
@@ -32,12 +29,12 @@ class FirestoreViewModel : ViewModel(){
         return mutableData
     }
 
-    fun enviarDatos(keyLocal: String?,distancia:String?) {
-        firestoreUseCase.enviarKeyLocal(keyLocal,distancia)
+    fun enviarDatos(keyLocal: String?, distancia:String?) {
+        repo.agregarCola(keyLocal, distancia)
     }
 
     fun localesCercanos() {
-        firestoreUseCase.localesCeranos()
+        repo.localesCercanos()
     }
 
     fun fetchLocalData(): LiveData<MutableList<Model>> {
@@ -56,4 +53,7 @@ class FirestoreViewModel : ViewModel(){
         return mutableData
     }
 
+    fun updateUbicacion(latitude: Double?, longitude: Double?) {
+        repo.updateUbicacion(latitude, longitude)
+    }
 }
