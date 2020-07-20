@@ -93,11 +93,7 @@ class FirebaseRepo {
                 }.addOnFailureListener { e ->
                     Log.w(TAG, "Error adding document", e)
                 }
-                if (mutableData == null&&aux<3) {
-                aux++
-                getLocalData()
-                }
-                aux=0
+
             }
         }
         return mutableData
@@ -122,10 +118,6 @@ class FirebaseRepo {
         }.addOnFailureListener { e ->
             Log.w(TAG, "Error getting document", e)
         }
-        if (mutableData == null&&aux<5) {
-            aux++
-            getLocalesReference()
-        }
         return mutableData
     }
 
@@ -146,10 +138,6 @@ class FirebaseRepo {
                     mutableData.value = listData
                 }.addOnFailureListener { e ->
                     Log.w(TAG, "Error adding document", e)
-                }
-                if (mutableData == null&&aux<5) {
-                    aux++
-                    getLocalData()
                 }
                 aux=0
 
@@ -179,10 +167,17 @@ class FirebaseRepo {
         }.addOnFailureListener { e ->
             Log.w(TAG, "Error getting document", e)
         }
-        if (mutableData == null&&aux<5) {
-            aux++
-            getLocalData()
-        }
         return mutableData
     }
+
+    /*fun getUsers():LiveData<Any> {
+        mAuth = FirebaseAuth.getInstance()
+
+        db.document("locales/${mAuth.currentUser?.uid}").get().addOnSuccessListener { result ->
+            val queuedPeople = result.get("queuedPeople")
+            val queueNumber = result.getLong("queueNumber").toString()
+        }
+    }*/
+
+
 }
