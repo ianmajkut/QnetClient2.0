@@ -11,6 +11,7 @@ import com.google.firebase.functions.FirebaseFunctions
 import com.ian.bottomnavigation.ui.home.Model
 import com.qnet.qnetclient.data.classes.References
 import com.qnet.qnetclient.data.classes.ReferenceLocalesCercanos
+import com.qnet.qnetclient.data.classes.ReferenceUsuarios
 
 class FirebaseRepo {
     private val db = FirebaseFirestore.getInstance()
@@ -170,14 +171,16 @@ class FirebaseRepo {
         return mutableData
     }
 
-    /*fun getUsers():LiveData<Any> {
+    private fun getUsersReference():LiveData<ReferenceUsuarios> {
         mAuth = FirebaseAuth.getInstance()
-
+        val mutableData = MutableLiveData<ReferenceUsuarios>()
         db.document("locales/${mAuth.currentUser?.uid}").get().addOnSuccessListener { result ->
             val queuedPeople = result.get("queuedPeople")
             val queueNumber = result.getLong("queueNumber").toString()
+            mutableData.value = ReferenceUsuarios(queuedPeople as Array<String>?,queueNumber)
         }
-    }*/
+        return mutableData
+    }
 
 
 }

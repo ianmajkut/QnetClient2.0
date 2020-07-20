@@ -70,6 +70,7 @@
     <string name="title_settings">Configuración</string>
     <string name="title">Title</string>
     <string name="posici_n">Posición</string>
+    <string name="usuario">Usuario</string>
 
 
 </resources>

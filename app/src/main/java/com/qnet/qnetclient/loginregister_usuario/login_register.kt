@@ -2,6 +2,7 @@ package com.qnet.qnetclient.loginregister_usuario
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
@@ -15,16 +16,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.*
-
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_login_register.*
 
+
 class login_register : Fragment() {
     private val PERMISSION_ID = 1000
+    private var loadingDialog: Dialog? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var viewModel: FirestoreViewModel
 
