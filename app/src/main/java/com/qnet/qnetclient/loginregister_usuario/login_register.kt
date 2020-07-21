@@ -2,6 +2,7 @@ package com.qnet.qnetclient.loginregister_usuario
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
@@ -30,6 +31,7 @@ class login_register : Fragment() {
     private var latitude by Delegates.notNull<Double>()
     private var longitude by Delegates.notNull<Double>()
     private lateinit var viewModel: FirestoreViewModel
+    private var loadingDialog: Dialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -99,6 +101,8 @@ class login_register : Fragment() {
         if (name.isNotEmpty() && password.isNotEmpty()) {
            obsever(name, password)
             //@Ian falta poner un progress bar para ver el progreso
+            showLoading()
+            obsever(name, password)
         } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
         }
@@ -113,6 +117,15 @@ class login_register : Fragment() {
                 Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun hideLoading(){
+        loadingDialog?.let { if (it.isShowing)it.cancel() }
+    }
+
+    private fun showLoading(){
+        hideLoading()
+        loadingDialog=CommonUtils.showLoadingDialog(requireContext())
     }
 
     private fun observer2() {
