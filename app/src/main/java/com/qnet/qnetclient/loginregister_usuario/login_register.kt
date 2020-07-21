@@ -102,10 +102,18 @@ class login_register : Fragment() {
            obsever(name, password)
             //@Ian falta poner un progress bar para ver el progreso
             showLoading()
-            obsever(name, password)
         } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun hideLoading(){
+        loadingDialog?.let { if (it.isShowing)it.cancel() }
+    }
+
+    private fun showLoading(){
+        hideLoading()
+        loadingDialog = CommonUtils.showLoadingDialog(requireContext())
     }
 
     private fun obsever(name:String,password:String) {
@@ -119,15 +127,6 @@ class login_register : Fragment() {
         }
     }
 
-    private fun hideLoading(){
-        loadingDialog?.let { if (it.isShowing)it.cancel() }
-    }
-
-    private fun showLoading(){
-        hideLoading()
-        loadingDialog=CommonUtils.showLoadingDialog(requireContext())
-    }
-
     private fun observer2() {
         viewModel.updateUbicacion(latitude, longitude).observeForever {
             if (it) {
@@ -139,6 +138,7 @@ class login_register : Fragment() {
     private fun observer3() {
         viewModel.localesCercanos().observeForever {
             if (it) {
+                hideLoading()
                 findNavController().navigate(R.id.menu_principal_action)
             }
         }

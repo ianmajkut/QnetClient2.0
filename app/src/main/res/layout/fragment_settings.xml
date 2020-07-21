@@ -57,20 +57,21 @@
 
 
                     <TextView
+                        android:id="@+id/tv_nombre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
                         android:drawableStart="@drawable/ic_create_black_24dp"
                         android:text="Nombre"
-                        android:textSize="17sp"
-                        android:layout_marginBottom="5dp"/>
+                        android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/tv_mail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_create_black_24dp"
                         android:text="Correo Electrónico"
-                        android:textSize="17sp"
-                        />
+                        android:textSize="17sp" />
                     <Button
                         android:id="@+id/btn_editar_mail"
                         android:layout_width="wrap_content"
@@ -83,6 +84,7 @@
                         android:layout_marginBottom="5dp"/>
 
                     <TextView
+                        android:id="@+id/tv_password"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_create_black_24dp"

@@ -45,9 +45,15 @@ class FirestoreViewModel : ViewModel(){
         return mutableData
     }
 
-    fun enviarDatos(keyLocal: String?, distancia:String?) {
-        repo.agregarCola(keyLocal, distancia)
+    fun enviarDatos(keyLocal: String?, distancia:String?): LiveData<Boolean> {
+        val mutableData = MutableLiveData<Boolean>()
+        repo.agregarCola(keyLocal, distancia).observeForever {
+            mutableData.value = it
+        }
+        return mutableData
     }
+
+    fun fetchUserData(): LiveData<MutableList>
 
     fun fetchLocalData(): LiveData<MutableList<Model>> {
         val mutableData = MutableLiveData<MutableList<Model>>()

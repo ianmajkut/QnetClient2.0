@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val layout=inflater.inflate(R.layout.fragment_home, container, false)
-       val shimmer_view_container= layout.findViewById<ShimmerFrameLayout>(R.id.shimmer_view_container)
+        val shimmer_view_container= layout.findViewById<ShimmerFrameLayout>(R.id.shimmer_view_container)
 
         val recycler = layout.findViewById<RecyclerView>(R.id.recyclerview)
 
@@ -65,15 +65,7 @@ class HomeFragment : Fragment() {
         searchView.setOnClickListener {view ->  }
     }
 
-    private fun observer() {
-        viewModel.localesCercanos().observeForever {
-            if (it) {
-                observerData()
-            }
-        }
-    }
-
-    fun observerData(){
+    fun observerData() {
            // shimmer_view_container.startShimmer()
         viewModel.fetchLocalData().observe(viewLifecycleOwner, Observer {
             shimmer_view_container.stopShimmer()

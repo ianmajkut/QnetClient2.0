@@ -3,7 +3,6 @@ package com.ian.bottomnavigation.ui.home
 import android.os.Parcel
 import android.os.Parcelable
 
-
 data class Model (var title:String?,var descripcion:String?,var num:String?,var dist:String?, var image:String? ,var posicion:String?,var keyLocal:String?) :
     Parcelable {
     constructor(parcel: Parcel) : this(

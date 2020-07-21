@@ -52,7 +52,8 @@ class FilaFragment : Fragment() {
         return layout
 
     }
-    fun observerData(){
+
+    fun observerData() {
         viewModel.fetchMisColas().observe(viewLifecycleOwner, Observer {
 
             shimmer_view_container.stopShimmer()

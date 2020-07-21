@@ -36,29 +36,35 @@ class FirebaseRepo {
             }
     }
 
-    fun agregarCola(keyLocal: String?, dist:String?): Task<String> {
+    fun agregarCola(keyLocal: String?, dist:String?): LiveData<Boolean> {
+        val mutableData = MutableLiveData<Boolean>()
         functions = FirebaseFunctions.getInstance()
+
         val distancia = dist?.toLong()
         val data = hashMapOf(
             "keyLocal" to keyLocal,
             "distancia" to distancia,
             "push" to true
         )
-        return functions
-            .getHttpsCallable("agregarCola")
-            .call(data)
-            .continueWith { task ->
-                task.addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        Log.i("Cloud Functions", "Successful")
-                    } else {
-                        Log.i("Cloud Functions", "Failure")
-                        Log.i("Cloud Functions", task.exception.toString())
-                    }
-                }
-                val result = task.result?.data.toString()
-                result
+        functions.getHttpsCallable("agregarCola")
+            .call(data).addOnCompleteListener {task ->
+                mutableData.value = task.isSuccessful
             }
+        return mutableData
+    }
+
+    fun updateUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
+        val mutableData = MutableLiveData<Boolean>()
+        mAuth = FirebaseAuth.getInstance()
+
+        val data = hashMapOf(
+            "ubicacion" to GeoPoint(latitude!!, longitude!!)
+        )
+        db.collection("users").document(mAuth.currentUser?.uid.toString())
+            .set(data, SetOptions.merge()).addOnCompleteListener {
+                mutableData.value = it.isSuccessful
+            }
+        return mutableData
     }
 
     fun localesCercanos(): LiveData<Boolean> {
@@ -72,13 +78,25 @@ class FirebaseRepo {
         return mutableData
     }
 
+    fun getUsuarioData(): LiveData<MutableList<Model>> {
+        val mutableData = MutableLiveData<MutableList<Model>>()
+        val listData = mutableListOf<Model>()
+
+        db.document("users/${mAuth.currentUser?.uid}").get()
+            .addOnSuccessListener { result ->
+                val nombre = result.getString("name")
+                val email = mAuth.currentUser?.email
+            }
+    }
+
     fun getLocalData(): LiveData<MutableList<Model>> {
         val mutableData = MutableLiveData<MutableList<Model>>()
         val listData = mutableListOf<Model>()
         getLocalesReference().observeForever{
-            for(reference in it)
-            {
+            for(reference in it)  {
+
                 db.document("locales/${reference.keyLocal}").get().addOnSuccessListener { result ->
+
                     val title = result.getString("title")
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
@@ -86,6 +104,7 @@ class FirebaseRepo {
                     val local = Model(title, descripcion, num, reference.distancia, image,null,reference.keyLocal)
                     listData.add(local)
                     mutableData.value = listData
+
                 }.addOnFailureListener { e ->
                     Log.w(TAG, "Error adding document", e)
                 }
@@ -179,20 +198,6 @@ class FirebaseRepo {
             aux++
             getLocalData()
         }
-        return mutableData
-    }
-
-    fun updateUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
-        val mutableData = MutableLiveData<Boolean>()
-        mAuth = FirebaseAuth.getInstance()
-
-        val data = hashMapOf(
-            "ubicacion" to GeoPoint(latitude!!, longitude!!)
-        )
-        db.collection("users").document(mAuth.currentUser?.uid.toString())
-            .set(data, SetOptions.merge()).addOnCompleteListener {
-                mutableData.value = it.isSuccessful
-            }
         return mutableData
     }
 }
