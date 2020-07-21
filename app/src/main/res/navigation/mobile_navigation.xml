@@ -63,7 +63,12 @@
         android:id="@+id/QRFilaUsuarioFragment"
         android:name="com.qnet.qnetclient.appusuario.ui.fila.QRFilaUsuarioFragment"
         android:label="Mi QR"
-        tools:layout="@layout/fragment_q_r_fila_usuario" />
+        tools:layout="@layout/fragment_q_r_fila_usuario" >
+        <action
+            android:id="@+id/qr_to_fila"
+            app:destination="@id/navigation_fila"
+            app:popUpTo="@id/navigation_fila" />
+    </fragment>
     <fragment
         android:id="@+id/cambiarMailUsuarioFragment"
         android:name="com.qnet.qnetclient.appusuario.ui.settings.CambiarMailUsuarioFragment"
