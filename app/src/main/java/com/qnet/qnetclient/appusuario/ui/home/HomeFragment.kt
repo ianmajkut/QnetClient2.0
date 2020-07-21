@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.appusuario.AppUser
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment() {
@@ -18,14 +20,19 @@ class HomeFragment : Fragment() {
     private val viewModel by lazy { FirestoreViewModel()}
 
     private lateinit var adapter: MainAdapter
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val layout=inflater.inflate(R.layout.fragment_home, container, false)
+       val shimmer_view_container= layout.findViewById<ShimmerFrameLayout>(R.id.shimmer_view_container)
 
         val recycler = layout.findViewById<RecyclerView>(R.id.recyclerview)
 
+        shimmer_view_container.startShimmer()
+
         observerData()
+
+       /* shimmer_view_container.stopShimmer()
+        shimmer_view_container.visibility=View.GONE*/
 
         adapter = MainAdapter(requireActivity().applicationContext)
         recycler.layoutManager = GridLayoutManager(requireActivity().applicationContext,1)
@@ -59,7 +66,10 @@ class HomeFragment : Fragment() {
     }
 
     fun observerData(){
+           // shimmer_view_container.startShimmer()
         viewModel.fetchLocalData().observe(viewLifecycleOwner, Observer {
+            shimmer_view_container.stopShimmer()
+            shimmer_view_container.visibility=View.GONE
             adapter.setListData(it)
             adapter.notifyDataSetChanged()
 

@@ -62,13 +62,13 @@
     <fragment
         android:id="@+id/QRFilaUsuarioFragment"
         android:name="com.qnet.qnetclient.appusuario.ui.fila.QRFilaUsuarioFragment"
-        android:label="fragment_q_r_fila_usuario"
+        android:label="Mi QR"
         tools:layout="@layout/fragment_q_r_fila_usuario" />
     <fragment
         android:id="@+id/cambiarMailUsuarioFragment"
         android:name="com.qnet.qnetclient.appusuario.ui.settings.CambiarMailUsuarioFragment"
-        android:label="fragment_cambiar_mail_usuario"
-        tools:layout="@layout/fragment_cambiar_mail_usuario" >
+        android:label="Mail"
+        tools:layout="@layout/fragment_cambiar_mail_usuario">
         <action
             android:id="@+id/mail_to_verification"
             app:destination="@id/verificarNuevoMailUsuarioFragment"
@@ -81,8 +81,8 @@
     <fragment
         android:id="@+id/verificarNuevoMailUsuarioFragment"
         android:name="com.qnet.qnetclient.appusuario.ui.settings.VerificarNuevoMailUsuarioFragment"
-        android:label="fragment_verificar_nuevo_mail_usuario"
-        tools:layout="@layout/fragment_verificar_nuevo_mail_usuario" >
+        android:label="Verificación"
+        tools:layout="@layout/fragment_verificar_nuevo_mail_usuario">
         <action
             android:id="@+id/verification_to_settings"
             app:destination="@id/navigation_settings"
@@ -92,8 +92,8 @@
     <fragment
         android:id="@+id/cambiarContraUsuarioFragment"
         android:name="com.qnet.qnetclient.appusuario.ui.settings.CambiarContraUsuarioFragment"
-        android:label="fragment_cambiar_contra_usuario"
-        tools:layout="@layout/fragment_cambiar_contra_usuario" >
+        android:label="Contraseña"
+        tools:layout="@layout/fragment_cambiar_contra_usuario">
         <action
             android:id="@+id/contra_to_verification"
             app:destination="@id/verificarNuevaContraUsuarioFragment"
@@ -106,8 +106,8 @@
     <fragment
         android:id="@+id/verificarNuevaContraUsuarioFragment"
         android:name="com.qnet.qnetclient.appusuario.ui.settings.VerificarNuevaContraUsuarioFragment"
-        android:label="fragment_verificar_nueva_contra_usuario"
-        tools:layout="@layout/fragment_verificar_nueva_contra_usuario" >
+        android:label="Verificación"
+        tools:layout="@layout/fragment_verificar_nueva_contra_usuario">
         <action
             android:id="@+id/verifcationcontra_to_settings"
             app:destination="@id/navigation_settings"
