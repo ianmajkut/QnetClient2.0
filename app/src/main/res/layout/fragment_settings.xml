@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:drawableStart="@drawable/ic_create_black_24dp"
-                        android:text="Nombre"
+                        android:text="@string/nombre"
                         android:textSize="17sp" />
 
                     <TextView
@@ -70,7 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_create_black_24dp"
-                        android:text="Correo Electrónico"
+                        android:text="@string/email"
                         android:textSize="17sp" />
                     <Button
                         android:id="@+id/btn_editar_mail"

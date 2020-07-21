@@ -71,6 +71,8 @@
     <string name="title">Title</string>
     <string name="posici_n">Posición</string>
     <string name="usuario">usuario</string>
+    <string name="email">E-Mail</string>
+    <string name="nombre">Nombre</string>
 
 
 </resources>

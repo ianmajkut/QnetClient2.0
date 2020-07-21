@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ian.bottomnavigation.ui.home.Model
+import com.qnet.qnetclient.appusuario.ui.settings.SettingsModel
 import com.qnet.qnetclient.data.AuthUser
 import com.qnet.qnetclient.data.repo.FirebaseRepo
 
@@ -53,7 +54,13 @@ class FirestoreViewModel : ViewModel(){
         return mutableData
     }
 
-    fun fetchUserData(): LiveData<MutableList>
+    fun fetchUserData(): LiveData<SettingsModel> {
+        val mutableData = MutableLiveData<SettingsModel>()
+        repo.getUsuario().observeForever {
+            mutableData.value = it
+        }
+        return mutableData
+    }
 
     fun fetchLocalData(): LiveData<MutableList<Model>> {
         val mutableData = MutableLiveData<MutableList<Model>>()

@@ -11,6 +11,7 @@ import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.functions.FirebaseFunctions
 import com.ian.bottomnavigation.ui.home.Model
+import com.qnet.qnetclient.appusuario.ui.settings.SettingsModel
 import com.qnet.qnetclient.data.classes.References
 import com.qnet.qnetclient.data.classes.ReferenceLocalesCercanos
 
@@ -78,15 +79,20 @@ class FirebaseRepo {
         return mutableData
     }
 
-    fun getUsuarioData(): LiveData<MutableList<Model>> {
-        val mutableData = MutableLiveData<MutableList<Model>>()
-        val listData = mutableListOf<Model>()
+    fun getUsuario(): LiveData<SettingsModel> {
+        val mutableData = MutableLiveData<SettingsModel>()
+        mAuth = FirebaseAuth.getInstance()
 
         db.document("users/${mAuth.currentUser?.uid}").get()
             .addOnSuccessListener { result ->
                 val nombre = result.getString("name")
                 val email = mAuth.currentUser?.email
+                val usuario = SettingsModel(nombre, email)
+                mutableData.value = usuario
+            }.addOnFailureListener {
+                Log.i("getUsuario", "Failed: $it")
             }
+        return mutableData
     }
 
     fun getLocalData(): LiveData<MutableList<Model>> {
