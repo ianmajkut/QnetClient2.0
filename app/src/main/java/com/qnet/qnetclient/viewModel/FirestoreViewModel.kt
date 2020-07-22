@@ -13,7 +13,6 @@ import com.qnet.qnetclient.data.repo.FirebaseRepo
 class FirestoreViewModel : ViewModel(){
     private val repo = FirebaseRepo()
     private val repoAuth = AuthUser()
-    private val firestoreUseCase = FirestoreUseCase()
 
 
     fun createUser(eMail: String, password: String) {
