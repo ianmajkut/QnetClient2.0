@@ -7,8 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.functions.FirebaseFunctions
+import com.google.firebase.iid.FirebaseInstanceId
 import com.ian.bottomnavigation.ui.home.Model
+import com.qnet.qnetclient.appusuario.ui.settings.SettingsModel
 import com.qnet.qnetclient.data.classes.References
 import com.qnet.qnetclient.data.classes.ReferenceLocalesCercanos
 import com.qnet.qnetclient.data.classes.ReferenceUsuarios
@@ -28,54 +32,71 @@ class FirebaseRepo {
         )
         db.document("users/${mAuth.currentUser?.uid}")
             .set(user as Map<String, Any>)
-            .addOnSuccessListener { documentReference ->
-//                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+            .addOnSuccessListener {
+                Log.i(TAG, "User successfully created.")
             }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding document", e)
+            .addOnFailureListener {
+                Log.w(TAG, "Error adding document", it)
             }
     }
 
-    fun agregarCola(keyLocal: String?,dist:String?): Task<String> {
+    fun agregarCola(keyLocal: String?, dist:String?): LiveData<Boolean> {
+        val mutableData = MutableLiveData<Boolean>()
         functions = FirebaseFunctions.getInstance()
+
         val distancia = dist?.toLong()
         val data = hashMapOf(
             "keyLocal" to keyLocal,
             "distancia" to distancia,
             "push" to true
         )
-        return functions
-            .getHttpsCallable("agregarCola")
-            .call(data)
-            .continueWith { task ->
-                task.addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        Log.i("Cloud Functions", "Successful")
-                    } else {
-                        Log.i("Cloud Functions", "Failure")
-                        Log.i("Cloud Functions", task.exception.toString())
-                    }
-                }
-                val result = task.result?.data.toString()
-                result
+        functions.getHttpsCallable("agregarCola")
+            .call(data).addOnCompleteListener {task ->
+                mutableData.value = task.isSuccessful
             }
+        return mutableData
     }
 
-    fun localesCercanos(): Task<String> {
-        functions = FirebaseFunctions.getInstance()
-        return functions.getHttpsCallable("iniciarApp")
-            .call().continueWith { task ->
-                task.addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        Log.i("Cloud Functions", "localesCercanos()")
-                    } else {
-                        Log.i("Cloud Functions", "Failure")
-                        Log.i("Cloud Functions", task.exception.toString())
-                    }
-                }
-                val result = task.result?.data.toString()
-                result
+    fun updateUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
+        val mutableData = MutableLiveData<Boolean>()
+        mAuth = FirebaseAuth.getInstance()
+        notification()
+
+        val data = hashMapOf(
+            "ubicacion" to GeoPoint(latitude!!, longitude!!)
+        )
+        db.collection("users").document(mAuth.currentUser?.uid.toString())
+            .set(data, SetOptions.merge()).addOnCompleteListener {
+                mutableData.value = it.isSuccessful
             }
+        return mutableData
+    }
+
+    fun localesCercanos(): LiveData<Boolean> {
+        functions = FirebaseFunctions.getInstance()
+        val mutableData = MutableLiveData<Boolean>()
+
+        functions.getHttpsCallable("iniciarApp").call()
+            .addOnCompleteListener { task ->
+                mutableData.value = task.isSuccessful
+            }
+        return mutableData
+    }
+
+    fun getUsuario(): LiveData<SettingsModel> {
+        val mutableData = MutableLiveData<SettingsModel>()
+        mAuth = FirebaseAuth.getInstance()
+
+        db.document("users/${mAuth.currentUser?.uid}").get()
+            .addOnSuccessListener { result ->
+                val nombre = result.getString("name")
+                val email = mAuth.currentUser?.email
+                val usuario = SettingsModel(nombre, email)
+                mutableData.value = usuario
+            }.addOnFailureListener {
+                Log.i("getUsuario", "Failed: $it")
+            }
+        return mutableData
     }
 
     fun getLocalData(): LiveData<MutableList<Model>> {
@@ -85,6 +106,7 @@ class FirebaseRepo {
             for(reference in it)
             {
                 db.document("locales/${reference.keyLocal}").get().addOnSuccessListener { result ->
+
                     val title = result.getString("title")
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
@@ -92,6 +114,7 @@ class FirebaseRepo {
                     val local = Model(title, descripcion, num, reference.distancia, image,null,reference.keyLocal)
                     listData.add(local)
                     mutableData.value = listData
+
                 }.addOnFailureListener { e ->
                     Log.w(TAG, "Error adding document", e)
                 }
@@ -206,5 +229,11 @@ class FirebaseRepo {
         return mutableData
     }
 
-
+    fun  notification() {
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener {
+            it.result?.token?.let {
+                println("Este es el token del dispositivo: ${it}")
+            }
+        }
+    }
 }

@@ -34,8 +34,7 @@ class MainAdapter(private val context: Context): RecyclerView.Adapter<MainAdapte
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val local:Model = dataList[position]
         holder.bindView(local)
-        holder.itemView.setOnClickListener {view->
-
+        holder.itemView.setOnClickListener { view->
             val action = HomeFragmentDirections.homeAction(local)
             view.findNavController().navigate(action)
         }
@@ -45,7 +44,7 @@ class MainAdapter(private val context: Context): RecyclerView.Adapter<MainAdapte
     inner class MainViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         fun  bindView(local:Model) {
             Glide.with(context).load(local.image).into(itemView.Image)
-            itemView.tittle.text= local.title
+            itemView.tittle.text = local.title
             itemView.descripcion.text = local.descripcion
             itemView.Fila.text = local.num
             itemView.Dist.text = local.dist

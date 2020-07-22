@@ -29,7 +29,6 @@ import kotlinx.android.synthetic.main.row.view.*
 class HomeFragment2 : Fragment() {
     private lateinit var viewModel: FirestoreViewModel
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -56,7 +55,6 @@ class HomeFragment2 : Fragment() {
 
         val keyLocal = local.keyLocal
 
-
         bt.setOnClickListener{
             alerta(keyLocal,local.dist)
 //            viewModel.enviarDatos(keyLocal)
@@ -64,14 +62,13 @@ class HomeFragment2 : Fragment() {
         return layout
     }
 
-    fun alerta(keyLocal: String?,distancia:String?) {
+    fun alerta(keyLocal: String?, distancia:String?) {
         val alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.setTitle("Alerta")
         alertDialog.setMessage("Está a punto de sumarse a la fila online. ¿Está seguro?")
 
         alertDialog.setPositiveButton("Si") { _, _ ->
-            viewModel.enviarDatos(keyLocal,distancia)
-            findNavController().navigate(R.id.fragment2_to_fila)
+            observer(keyLocal, distancia)
         }
 
         alertDialog.setNegativeButton("No") { _, _ ->
@@ -80,5 +77,11 @@ class HomeFragment2 : Fragment() {
         alertDialog.show()
     }
 
-
+    private fun observer(keyLocal: String?, distancia: String?) {
+        viewModel.enviarDatos(keyLocal, distancia).observeForever {
+            if (it) {
+                findNavController().navigate(R.id.fragment2_to_fila)
+            }
+        }
+    }
 }

@@ -70,7 +70,12 @@
     <string name="title_settings">Mi Cuenta</string>
     <string name="title">Title</string>
     <string name="posici_n">Posición</string>
-    <string name="usuario">Usuario</string>
+    <string name="usuario">usuario</string>
+    <string name="email">E-Mail</string>
+    <string name="nombre">Nombre</string>
+    <string name="editar_email">Editar E-Mail</string>
+    <string name="editar_contrasenia">Editar contraseña</string>
+    <string name="password">Contraseña: ********</string>
 
 
 </resources>

@@ -24,23 +24,16 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val layout=inflater.inflate(R.layout.fragment_home, container, false)
-       val shimmer_view_container= layout.findViewById<ShimmerFrameLayout>(R.id.shimmer_view_container)
-      //  val swipeRefreshLayout=layout.findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
+        val shimmer_view_container= layout.findViewById<ShimmerFrameLayout>(R.id.shimmer_view_container)
+
         val recycler = layout.findViewById<RecyclerView>(R.id.recyclerview)
-
-       /*swipeRefreshLayout.setOnClickListener {
-            shimmer_view_container.startShimmer()
-            observerData()
-
-
-
-        }*/
 
         shimmer_view_container.startShimmer()
 
         observerData()
 
-
+       /* shimmer_view_container.stopShimmer()
+        shimmer_view_container.visibility=View.GONE*/
 
         adapter = MainAdapter(requireActivity().applicationContext)
         recycler.layoutManager = GridLayoutManager(requireActivity().applicationContext,1)
@@ -82,6 +75,7 @@ class HomeFragment : Fragment() {
             shimmer_view_container.visibility=View.GONE
             adapter.setListData(it)
             adapter.notifyDataSetChanged()
+
         })
     }
 

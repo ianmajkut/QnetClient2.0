@@ -44,7 +44,7 @@ class FilaFragment : Fragment() {
         shimmer_view_container.startShimmer()
 
         observerData()
-        Toast.makeText(activity, "${adapter.itemCount}", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(activity, "${adapter.itemCount}", Toast.LENGTH_SHORT).show()
         if(adapter.itemCount != 0){
             txt_MisColas.visibility = View.GONE
         }
@@ -52,7 +52,8 @@ class FilaFragment : Fragment() {
         return layout
 
     }
-    fun observerData(){
+
+    fun observerData() {
         viewModel.fetchMisColas().observe(viewLifecycleOwner, Observer {
 
             shimmer_view_container.stopShimmer()

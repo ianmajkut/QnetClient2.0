@@ -48,7 +48,7 @@ class AdapterFila (private val context: Context): RecyclerView.Adapter<AdapterFi
         fun  bindView(local: Model) {
             itemView.tittle.text= local.title
             itemView.descripcion.text = local.descripcion
-            itemView.Fila.text = local.posicion
+            itemView.Fila.text = local.posicion!!.toInt().plus(1).toString()
             itemView.Dist.text = local.dist
         }
     }

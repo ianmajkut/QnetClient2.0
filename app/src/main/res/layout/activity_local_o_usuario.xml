@@ -44,8 +44,7 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:elevation="5dp"
         android:text="@string/usuario"
-        android:textColor="#ffffff"
-        />
+        android:textColor="#ffffff" />
 
 
 </LinearLayout>

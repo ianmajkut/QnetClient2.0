@@ -16,18 +16,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.*
+
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_login_register.*
+import kotlin.properties.Delegates
 
 
 class login_register : Fragment() {
     private val PERMISSION_ID = 1000
     private var loadingDialog: Dialog? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private var latitude by Delegates.notNull<Double>()
+    private var longitude by Delegates.notNull<Double>()
     private lateinit var viewModel: FirestoreViewModel
+    private var loadingDialog: Dialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +46,7 @@ class login_register : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         viewModel = FirestoreViewModel()
+        getLocation()
         buttonNew.setOnClickListener {
             findNavController().navigate(R.id.next_action)
         }
@@ -51,7 +58,7 @@ class login_register : Fragment() {
         }
     }
 
-    private fun getLastLocation() {
+    private fun getLocation() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -62,7 +69,7 @@ class login_register : Fragment() {
         ) {
             ActivityCompat.requestPermissions(requireActivity(),
                 arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                android.Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
+                    android.Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
             return
         }
         fusedLocationProviderClient.lastLocation.addOnCompleteListener {
@@ -71,6 +78,8 @@ class login_register : Fragment() {
                     "Location",
                     "Latitude: " + it.result?.latitude + ", Longitude: " + it.result?.longitude
                 )
+                latitude = it.result?.latitude!!
+                longitude = it.result?.longitude!!
             }
         }
     }
@@ -92,25 +101,11 @@ class login_register : Fragment() {
         val password = edtxt_Password.text.toString().trim()
 
         if (name.isNotEmpty() && password.isNotEmpty()) {
-            //Aca progress bar
+            //@Ian falta poner un progress bar para ver el progreso
             showLoading()
-           obsever(name, password)
-
+            obsever(name, password)
         } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
-        }
-    }
-    private fun obsever(name:String,password:String)
-    {
-        viewModel.singInUser(name,password).observeForever{
-            if(it) {
-                Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
-                viewModel.localesCercanos()
-                hideLoading()
-                findNavController().navigate(R.id.menu_principal_action)
-            }else{
-                Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
-            }
         }
     }
 
@@ -123,4 +118,31 @@ class login_register : Fragment() {
         loadingDialog = CommonUtils.showLoadingDialog(requireContext())
     }
 
+    private fun obsever(name:String,password:String) {
+        viewModel.singInUser(name,password).observeForever{
+            if(it) {
+//                Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
+                observer2()
+            } else {
+                Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun observer2() {
+        viewModel.updateUbicacion(latitude, longitude).observeForever {
+            if (it) {
+                observer3()
+            }
+        }
+    }
+
+    private fun observer3() {
+        viewModel.localesCercanos().observeForever {
+            if (it) {
+                hideLoading()
+                findNavController().navigate(R.id.menu_principal_action)
+            }
+        }
+    }
 }

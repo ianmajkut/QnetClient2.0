@@ -15,7 +15,7 @@ fun showLoadingDialog(context:Context):Dialog{
     progressDialog.let {
         it.show()
         it.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
-       it.setContentView(R.layout.progress_dialog)
+        it.setContentView(R.layout.progress_dialog)
         it.setCancelable(false)
         it.setCanceledOnTouchOutside(false)
 
