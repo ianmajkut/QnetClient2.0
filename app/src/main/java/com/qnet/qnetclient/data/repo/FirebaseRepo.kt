@@ -10,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.functions.FirebaseFunctions
+import com.google.firebase.iid.FirebaseInstanceId
 import com.ian.bottomnavigation.ui.home.Model
 import com.qnet.qnetclient.appusuario.ui.settings.SettingsModel
 import com.qnet.qnetclient.data.classes.References
@@ -57,6 +58,7 @@ class FirebaseRepo {
     fun updateUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
+        notification()
 
         val data = hashMapOf(
             "ubicacion" to GeoPoint(latitude!!, longitude!!)
@@ -205,5 +207,13 @@ class FirebaseRepo {
             getLocalData()
         }
         return mutableData
+    }
+
+    fun  notification() {
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener {
+            it.result?.token?.let {
+                println("Este es el token del dispositivo: ${it}")
+            }
+        }
     }
 }

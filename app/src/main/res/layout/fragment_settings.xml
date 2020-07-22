@@ -20,15 +20,16 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="300dp"
-        android:layout_height="441dp"
+        android:layout_height="480dp"
         app:cardCornerRadius="10dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19999999">
 
-       <ScrollView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -49,11 +50,16 @@
 
                 <LinearLayout
                     android:id="@+id/linearlayoutprofile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="285dp"
+                    android:layout_height="300dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
                     android:orientation="vertical"
-                    app:layout_constraintTop_toBottomOf="@id/logo"
-                    android:padding="20dp">
+                    android:padding="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/logo">
 
 
                     <TextView
@@ -72,35 +78,37 @@
                         android:drawableStart="@drawable/ic_create_black_24dp"
                         android:text="@string/email"
                         android:textSize="17sp" />
+
                     <Button
                         android:id="@+id/btn_editar_mail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Editar"
+                        android:layout_marginBottom="5dp"
                         android:backgroundTint="#0000"
+                        android:text="@string/editar_email"
                         android:textAllCaps="false"
                         android:textColor="#000000"
-                        android:textSize="15sp"
-                        android:layout_marginBottom="5dp"/>
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/tv_password"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_create_black_24dp"
-                        android:text="Contraseña"
+                        android:text="@string/password"
                         android:textSize="17sp" />
+
                     <Button
                         android:id="@+id/btn_editar_contra"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Editar"
                         android:backgroundTint="#0000"
+                        android:text="@string/editar_contrasenia"
                         android:textAllCaps="false"
                         android:textColor="#000000"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
 
-                 <!--   <Button
+                    <!--   <Button
                         android:id="@+id/btn_editar"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
@@ -118,15 +126,15 @@
                         android:id="@+id/btn_cerrarsesion"
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/btn_border"
                         android:backgroundTint="#fece2f"
+                        android:elevation="2dp"
                         android:text="Cerrar Sesión"
                         android:textAllCaps="false"
                         android:textColor="#000000"
-                        android:textSize="18sp"
-                        android:elevation="2dp"/>
+                        android:textSize="18sp" />
 
 
                 </LinearLayout>
@@ -136,8 +144,6 @@
 
 
         </ScrollView>
-
-
 
 
     </androidx.cardview.widget.CardView>

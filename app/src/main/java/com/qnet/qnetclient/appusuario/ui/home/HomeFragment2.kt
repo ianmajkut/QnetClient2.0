@@ -55,7 +55,6 @@ class HomeFragment2 : Fragment() {
 
         val keyLocal = local.keyLocal
 
-
         bt.setOnClickListener{
             alerta(keyLocal,local.dist)
 //            viewModel.enviarDatos(keyLocal)

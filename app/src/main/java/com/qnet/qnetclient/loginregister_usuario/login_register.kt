@@ -99,8 +99,7 @@ class login_register : Fragment() {
         val password = edtxt_Password.text.toString().trim()
 
         if (name.isNotEmpty() && password.isNotEmpty()) {
-           obsever(name, password)
-            //@Ian falta poner un progress bar para ver el progreso
+            obsever(name, password)
             showLoading()
         } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()

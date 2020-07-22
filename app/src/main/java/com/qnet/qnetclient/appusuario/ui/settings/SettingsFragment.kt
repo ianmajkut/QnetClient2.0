@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_settings.*
 
 
 class SettingsFragment : Fragment() {
+    private var mAuth = FirebaseAuth.getInstance()
     private var viewModel = FirestoreViewModel()
 
     override fun onCreateView(
@@ -43,11 +45,17 @@ class SettingsFragment : Fragment() {
 
         }
 
+        btn_cerrarsesion.setOnClickListener {
+
+            mAuth.signOut()
+            findNavController().navigate(R.id.action_navigation_settings_to_local_o_usuario)
+
+        }
     }
 
     fun setUserData() {
         viewModel.fetchUserData().observe(viewLifecycleOwner, Observer {
-            tv_nombre.text = ("Nombre: " + it.name.toString())
+            tv_nombre.text = ("Nombre:\n" + it.name.toString())
             tv_mail.text = ("E-Mail:\n" + it.email.toString())
         })
     }
