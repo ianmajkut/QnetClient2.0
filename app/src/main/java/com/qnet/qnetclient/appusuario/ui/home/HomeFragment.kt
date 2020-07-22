@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.appusuario.AppUser
@@ -23,16 +24,23 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val layout=inflater.inflate(R.layout.fragment_home, container, false)
-        val shimmer_view_container= layout.findViewById<ShimmerFrameLayout>(R.id.shimmer_view_container)
-
+       val shimmer_view_container= layout.findViewById<ShimmerFrameLayout>(R.id.shimmer_view_container)
+      //  val swipeRefreshLayout=layout.findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
         val recycler = layout.findViewById<RecyclerView>(R.id.recyclerview)
+
+       /*swipeRefreshLayout.setOnClickListener {
+            shimmer_view_container.startShimmer()
+            observerData()
+
+
+
+        }*/
 
         shimmer_view_container.startShimmer()
 
         observerData()
 
-       /* shimmer_view_container.stopShimmer()
-        shimmer_view_container.visibility=View.GONE*/
+
 
         adapter = MainAdapter(requireActivity().applicationContext)
         recycler.layoutManager = GridLayoutManager(requireActivity().applicationContext,1)
@@ -65,9 +73,11 @@ class HomeFragment : Fragment() {
         searchView.setOnClickListener {view ->  }
     }
 
-    fun observerData() {
-           // shimmer_view_container.startShimmer()
+    fun observerData(){
+
+
         viewModel.fetchLocalData().observe(viewLifecycleOwner, Observer {
+            //swipeRefreshLayout.isRefreshing=false
             shimmer_view_container.stopShimmer()
             shimmer_view_container.visibility=View.GONE
             adapter.setListData(it)
