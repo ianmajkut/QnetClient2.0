@@ -88,4 +88,8 @@ class FirestoreViewModel : ViewModel(){
         return mutableData
     }
 
+    fun sacarUser(user:String?) {
+        repo.sacarUser(user)
+    }
+
 }

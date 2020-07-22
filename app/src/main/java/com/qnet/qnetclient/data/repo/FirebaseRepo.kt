@@ -236,4 +236,8 @@ class FirebaseRepo {
             }
         }
     }
+
+    fun sacarUser(user:String?){
+    TODO("HAY QUE HACER ESTO UACHIN")
+    }
 }
