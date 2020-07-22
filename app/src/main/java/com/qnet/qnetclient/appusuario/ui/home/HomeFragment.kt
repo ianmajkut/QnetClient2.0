@@ -62,7 +62,6 @@ class HomeFragment : Fragment() {
         viewModel.fetchLocalData().observe(viewLifecycleOwner, Observer {
             adapter.setListData(it)
             adapter.notifyDataSetChanged()
-
         })
     }
 

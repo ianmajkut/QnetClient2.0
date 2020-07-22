@@ -12,6 +12,7 @@ import com.ian.bottomnavigation.ui.home.Model
 import com.qnet.qnetclient.data.classes.References
 import com.qnet.qnetclient.data.classes.ReferenceLocalesCercanos
 import com.qnet.qnetclient.data.classes.ReferenceUsuarios
+import com.qnet.qnetclient.data.classes.Usuario
 
 class FirebaseRepo {
     private val db = FirebaseFirestore.getInstance()
@@ -171,13 +172,36 @@ class FirebaseRepo {
         return mutableData
     }
 
+    fun getUsers():LiveData<MutableList<Usuario>> {
+        val mutableData = MutableLiveData<MutableList<Usuario>>()
+        val listData = mutableListOf<Usuario>()
+        getUsersReference().observeForever{
+            if(it.queueNumber!=null) {
+                aux=0
+                for (reference in it.queuedPeople) {
+                    aux++
+                    db.document("users/${reference}").get().addOnSuccessListener {result ->
+                        val name = result.getString("name")
+                        val usuario = Usuario(name,aux)
+                        listData.add(usuario)
+                        mutableData.value = listData
+                    }.addOnFailureListener { e ->
+                        Log.w(TAG, "Error adding document", e)
+                    }
+                }
+            }
+        }
+        return mutableData
+    }
+
     private fun getUsersReference():LiveData<ReferenceUsuarios> {
         mAuth = FirebaseAuth.getInstance()
+        var location =  mAuth.currentUser?.uid
         val mutableData = MutableLiveData<ReferenceUsuarios>()
-        db.document("locales/${mAuth.currentUser?.uid}").get().addOnSuccessListener { result ->
-            val queuedPeople = result.get("queuedPeople")
+        db.document("locales/hk1UzSqC8RK28KpC4rpd").get().addOnSuccessListener { result ->
+            val queuedPeople = result.data?.get("queuedPeople")
             val queueNumber = result.getLong("queueNumber").toString()
-            mutableData.value = ReferenceUsuarios(queuedPeople as Array<String>?,queueNumber)
+            mutableData.value = ReferenceUsuarios(queuedPeople as ArrayList<String>,queueNumber)
         }
         return mutableData
     }

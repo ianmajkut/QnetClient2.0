@@ -9,18 +9,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ian.bottomnavigation.ui.home.Model
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.appusuario.ui.fila.AdapterFila
+import com.qnet.qnetclient.data.classes.Usuario
 import kotlinx.android.synthetic.main.row.view.*
+import kotlinx.android.synthetic.main.row.view.tittle
+import kotlinx.android.synthetic.main.row_filalocal.view.*
 
 class AdapterLocal (private val context: Context): RecyclerView.Adapter<AdapterLocal.LocalViewHolder>() {
 
-    private var dataList = mutableListOf<Model>()
+    private var dataList = mutableListOf<Usuario>()
 
-    fun setListData(data:MutableList<Model>) {
+    fun setListData(data:MutableList<Usuario>) {
         dataList = data
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterLocal.LocalViewHolder {
-        val layout = LayoutInflater.from(context).inflate(R.layout.row_filausuario,parent,false)
+        val layout = LayoutInflater.from(context).inflate(R.layout.row_filalocal,parent,false)
         return LocalViewHolder(layout)
     }
 
@@ -33,7 +36,7 @@ class AdapterLocal (private val context: Context): RecyclerView.Adapter<AdapterL
     }
 
     override fun onBindViewHolder(holder: AdapterLocal.LocalViewHolder, position: Int) {
-        val local: Model = dataList[position]
+        val local: Usuario = dataList[position]
         holder.bindView(local)
         holder.itemView.setOnClickListener {view->
             //view.findNavController().navigate(R.id.fila_to_qr)
@@ -41,11 +44,9 @@ class AdapterLocal (private val context: Context): RecyclerView.Adapter<AdapterL
     }
 
     inner class LocalViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
-        fun  bindView(local: Model) {
-            /*itemView.tittle.text= local.title
-            itemView.descripcion.text = local.descripcion
-            itemView.Fila.text = local.posicion
-            itemView.Dist.text = local.dist*/
+        fun  bindView(user: Usuario) {
+            itemView.tittle.text= user.name
+            itemView.position.text = user.position.toString()
         }
     }
 }

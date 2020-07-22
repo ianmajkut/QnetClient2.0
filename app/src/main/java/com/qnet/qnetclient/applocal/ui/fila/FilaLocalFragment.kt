@@ -23,7 +23,7 @@ class FilaLocalFragment : Fragment() {
 
         val layout = inflater.inflate(R.layout.fragment_fila_local, container, false)
 
-        val recycler = layout.findViewById<RecyclerView>(R.id.recyclerViewMisColas)
+        val recycler = layout.findViewById<RecyclerView>(R.id.recyclerview)
 
         recycler.layoutManager = GridLayoutManager(requireActivity().applicationContext,1)
         adapter = AdapterLocal(requireActivity().applicationContext)
@@ -34,7 +34,7 @@ class FilaLocalFragment : Fragment() {
 
     }
     private fun observerData(){
-        viewModel.fetchMisColas().observe(viewLifecycleOwner, Observer {
+        viewModel.fetchUsuarios().observe(viewLifecycleOwner, Observer {
             adapter.setListData(it)
             adapter.notifyDataSetChanged()
 

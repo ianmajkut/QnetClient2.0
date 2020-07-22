@@ -120,7 +120,7 @@ class login_register : Fragment() {
 
     private fun showLoading(){
         hideLoading()
-        loadingDialog=CommonUtils.showLoadingDialog(requireContext())
+        loadingDialog = CommonUtils.showLoadingDialog(requireContext())
     }
 
 }

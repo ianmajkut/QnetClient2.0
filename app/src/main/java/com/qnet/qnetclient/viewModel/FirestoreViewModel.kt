@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.ian.bottomnavigation.ui.home.Model
 import com.qnet.qnetclient.domain.FirestoreUseCase
 import com.qnet.qnetclient.data.AuthUser
+import com.qnet.qnetclient.data.classes.Usuario
 import com.qnet.qnetclient.data.repo.FirebaseRepo
 
 class FirestoreViewModel : ViewModel(){
@@ -51,6 +52,14 @@ class FirestoreViewModel : ViewModel(){
     fun fetchMisColas():LiveData<MutableList<Model>>{
         val mutableData = MutableLiveData<MutableList<Model>>()
         repo.getMisColas().observeForever{
+            mutableData.value = it
+        }
+        return mutableData
+    }
+
+    fun fetchUsuarios():LiveData<MutableList<Usuario>>{
+        val mutableData = MutableLiveData<MutableList<Usuario>>()
+        repo.getUsers().observeForever{
             mutableData.value = it
         }
         return mutableData
