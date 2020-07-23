@@ -80,6 +80,7 @@
             </com.google.android.material.textfield.TextInputLayout>-->
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edtxt_EmailLocal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/correo_electr_nico"
@@ -101,6 +102,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edtxt_PasswordLocal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/contra"

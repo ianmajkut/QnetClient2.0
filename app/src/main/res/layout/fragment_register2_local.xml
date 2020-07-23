@@ -39,6 +39,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
+                android:id="@+id/edtxt_nombreLocal"
                 android:layout_height="wrap_content"
                 android:hint="@string/nombre_completo"
                 app:startIconDrawable="@drawable/ic_create_black_24dp"
@@ -96,6 +97,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
+                android:id="@+id/edtxt_ubicacion"
                 android:layout_height="wrap_content"
                 android:hint="@string/ubicacion"
                 app:startIconDrawable="@drawable/ic_baseline_location_on_24"
@@ -118,6 +120,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/edtxt_horario"
                 android:hint="@string/horario"
                 app:startIconDrawable="@drawable/ic_baseline_query_builder_24"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -139,6 +142,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/edtxt_tipo"
                 android:hint="@string/tipo_de_local"
                 app:startIconDrawable="@drawable/ic_baseline_store_24"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -161,6 +165,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/edtxt_informacion"
                 android:hint="@string/Informarcion"
                 app:startIconDrawable="@drawable/ic_baseline_info_24"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

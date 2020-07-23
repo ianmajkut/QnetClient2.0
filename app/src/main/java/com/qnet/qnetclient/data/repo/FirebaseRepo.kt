@@ -1,9 +1,12 @@
 package com.qnet.qnetclient.data.repo
 
 import android.content.ContentValues.TAG
+import android.provider.Settings.Global.getString
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,9 +15,11 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.iid.FirebaseInstanceId
 import com.ian.bottomnavigation.ui.home.Model
+import com.qnet.qnetclient.R
 import com.qnet.qnetclient.appusuario.ui.settings.SettingsModel
 import com.qnet.qnetclient.data.classes.References
 import com.qnet.qnetclient.data.classes.ReferenceLocalesCercanos
+import kotlin.coroutines.coroutineContext
 import com.qnet.qnetclient.data.classes.ReferenceUsuarios
 import com.qnet.qnetclient.data.classes.Usuario
 
@@ -24,7 +29,7 @@ class FirebaseRepo {
     private lateinit var mAuth: FirebaseAuth
     private var aux = 0
 
-    fun uploadData(name:String,dni:Int) {
+    fun uploadData(name: String, dni: Int) {
         mAuth = FirebaseAuth.getInstance()
         val user = hashMapOf(
             "name" to name,
@@ -40,6 +45,28 @@ class FirebaseRepo {
             }
     }
 
+    fun uploadLocal(name: String,ubicacion:String,horario:String,tipo:String,informacion:String):LiveData<Boolean>{
+        val mutableData = MutableLiveData<Boolean>()
+        mAuth = FirebaseAuth.getInstance()
+        val locales = hashMapOf(
+            "name" to  name,
+            "ubicacion" to ubicacion,
+            "horario" to horario,
+            "tipo" to tipo,
+            "informacion" to informacion
+        )
+        db.document("users/${mAuth.currentUser?.uid}")
+            .set(locales as Map<String,Any>)
+            .addOnSuccessListener {
+                mutableData.value = true
+            }
+            .addOnFailureListener{
+                mutableData.value = false
+            }
+
+        return mutableData
+    }
+
     fun agregarCola(keyLocal: String?, dist:String?): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
         functions = FirebaseFunctions.getInstance()
@@ -51,10 +78,26 @@ class FirebaseRepo {
             "push" to true
         )
         functions.getHttpsCallable("agregarCola")
-            .call(data).addOnCompleteListener {task ->
+            .call(data).addOnCompleteListener { task ->
                 mutableData.value = task.isSuccessful
             }
         return mutableData
+    }
+
+    fun sacarUser(user: String?) {
+        functions = FirebaseFunctions.getInstance()
+
+        val data = hashMapOf(
+            "keyUsuario" to user
+        )
+        functions.getHttpsCallable("eliminarCola")
+            .call(data).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Log.i("eliminarCola", "Seccssfully removed.")
+                } else {
+                    Log.i("eliminarCola", "Failure.")
+                }
+            }
     }
 
     fun updateUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
@@ -102,16 +145,24 @@ class FirebaseRepo {
     fun getLocalData(): LiveData<MutableList<Model>> {
         val mutableData = MutableLiveData<MutableList<Model>>()
         val listData = mutableListOf<Model>()
-        getLocalesReference().observeForever{
-            for(reference in it)
-            {
+
+        getLocalesReference().observeForever {
+            for (reference in it) {
                 db.document("locales/${reference.keyLocal}").get().addOnSuccessListener { result ->
 
                     val title = result.getString("title")
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
                     val image = result.getString("image")
-                    val local = Model(title, descripcion, num, reference.distancia, image,null,reference.keyLocal)
+                    val local = Model(
+                        title,
+                        descripcion,
+                        num,
+                        reference.distancia,
+                        image,
+                        null,
+                        reference.keyLocal
+                    )
                     listData.add(local)
                     mutableData.value = listData
 
@@ -124,41 +175,53 @@ class FirebaseRepo {
         return mutableData
     }
 
-    private fun getLocalesReference():LiveData<MutableList<ReferenceLocalesCercanos>>{
+    fun getLocalesReference(): LiveData<MutableList<ReferenceLocalesCercanos>> {
         mAuth = FirebaseAuth.getInstance()
         val mutableData = MutableLiveData<MutableList<ReferenceLocalesCercanos>>()
-        db.collection("users/${mAuth.currentUser?.uid}/localesCercanos").get().addOnSuccessListener { reference ->
-            val listData = mutableListOf<ReferenceLocalesCercanos>()
-            for (document in reference){
-                val keyLocal = document.getString("keyLocal")
-                val distancia = document.getLong("distancia").toString()
-                listData.add(
-                    ReferenceLocalesCercanos(
-                        keyLocal,
-                        distancia
+        db.collection("users/${mAuth.currentUser?.uid}/localesCercanos").get()
+            .addOnSuccessListener { reference ->
+                val listData = mutableListOf<ReferenceLocalesCercanos>()
+                for (document in reference) {
+                    val keyLocal = document.getString("keyLocal")
+                    val distancia = document.getLong("distancia").toString()
+                    listData.add(
+                        ReferenceLocalesCercanos(
+                            keyLocal,
+                            distancia
+                        )
                     )
-                )
+                }
+                mutableData.value = listData
+            }.addOnFailureListener { e ->
+                Log.w(TAG, "Error getting document", e)
             }
-            mutableData.value = listData
-        }.addOnFailureListener { e ->
-            Log.w(TAG, "Error getting document", e)
+        if (mutableData == null && aux < 5) {
+            aux++
+            getLocalesReference()
         }
         return mutableData
     }
 
-    fun getMisColas():LiveData<MutableList<Model>> {
+    fun getMisColas(): LiveData<MutableList<Model>> {
         val mutableData = MutableLiveData<MutableList<Model>>()
         var mutableReference = mutableListOf<References>()
         val listData = mutableListOf<Model>()
-        getMisColasReference().observeForever{
-            for(reference in it)
-            {
-                db.document("locales/${reference.keyLocal}").get().addOnSuccessListener {result ->
+        getMisColasReference().observeForever {
+            for (reference in it) {
+                db.document("locales/${reference.keyLocal}").get().addOnSuccessListener { result ->
                     val title = result.getString("title")
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
                     val image = result.getString("image")
-                    val local = Model(title, descripcion, num, reference.distancia, image,reference.posicion,reference.keyLocal)
+                    val local = Model(
+                        title,
+                        descripcion,
+                        num,
+                        reference.distancia,
+                        image,
+                        reference.posicion,
+                        reference.keyLocal
+                    )
                     listData.add(local)
                     mutableData.value = listData
                 }.addOnFailureListener { e ->
@@ -171,41 +234,43 @@ class FirebaseRepo {
         return mutableData
     }
 
-    private fun getMisColasReference():LiveData<MutableList<References>>  {
+    private fun getMisColasReference(): LiveData<MutableList<References>> {
         mAuth = FirebaseAuth.getInstance()
         val mutableData = MutableLiveData<MutableList<References>>()
-        db.collection("users/${mAuth.currentUser?.uid}/misColas").get().addOnSuccessListener { reference ->
-            val listData = mutableListOf<References>()
-            for (document in reference){
-                val keyLocal = document.getString("keyLocal")
-                val posicion = document.getLong("posicion").toString()
-                val distancia = document.getLong("distancia").toString()
-                listData.add(
-                    References(
-                        keyLocal,
-                        posicion,
-                        distancia
+        db.collection("users/${mAuth.currentUser?.uid}/misColas").get()
+            .addOnSuccessListener { reference ->
+                val listData = mutableListOf<References>()
+                for (document in reference) {
+                    val keyLocal = document.getString("keyLocal")
+                    val posicion = document.getLong("posicion").toString()
+                    val distancia = document.getLong("distancia").toString()
+                    listData.add(
+                        References(
+                            keyLocal,
+                            posicion,
+                            distancia
+                        )
                     )
-                )
+                }
+                mutableData.value = listData
+            }.addOnFailureListener { e ->
+                Log.w(TAG, "Error getting document", e)
             }
-            mutableData.value = listData
-        }.addOnFailureListener { e ->
-            Log.w(TAG, "Error getting document", e)
-        }
         return mutableData
     }
 
-    fun getUsers():LiveData<MutableList<Usuario>> {
+    fun getUsers(): LiveData<MutableList<Usuario>> {
         val mutableData = MutableLiveData<MutableList<Usuario>>()
         val listData = mutableListOf<Usuario>()
-        getUsersReference().observeForever{
-            if(it.queueNumber!=null) {
-                aux=0
+
+        getUsersReference().observeForever {
+            if (it.queueNumber != null) {
+                aux = 0
                 for (reference in it.queuedPeople) {
                     aux++
-                    db.document("users/${reference}").get().addOnSuccessListener {result ->
+                    db.document("users/${reference}").get().addOnSuccessListener { result ->
                         val name = result.getString("name")
-                        val usuario = Usuario(name,aux)
+                        val usuario = Usuario(name, aux)
                         listData.add(usuario)
                         mutableData.value = listData
                     }.addOnFailureListener { e ->
@@ -217,23 +282,29 @@ class FirebaseRepo {
         return mutableData
     }
 
-    private fun getUsersReference():LiveData<ReferenceUsuarios> {
+    fun getUsersReference(): LiveData<ReferenceUsuarios> {
         mAuth = FirebaseAuth.getInstance()
-        var location =  mAuth.currentUser?.uid
+        var location = mAuth.currentUser?.uid
         val mutableData = MutableLiveData<ReferenceUsuarios>()
         db.document("locales/hk1UzSqC8RK28KpC4rpd").get().addOnSuccessListener { result ->
             val queuedPeople = result.data?.get("queuedPeople")
             val queueNumber = result.getLong("queueNumber").toString()
-            mutableData.value = ReferenceUsuarios(queuedPeople as ArrayList<String>,queueNumber)
+            mutableData.value = ReferenceUsuarios(queuedPeople as ArrayList<String>, queueNumber)
         }
         return mutableData
     }
 
-    fun  notification() {
-        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener {
-            it.result?.token?.let {
-                println("Este es el token del dispositivo: ${it}")
+    fun notification() {
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener(
+            OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w(TAG, "getInstanced failed", task.exception)
+                    return@OnCompleteListener
+                }
+
+                val token = task.result?.token
+                Log.d("notification", token)
             }
-        }
+        )
     }
 }
