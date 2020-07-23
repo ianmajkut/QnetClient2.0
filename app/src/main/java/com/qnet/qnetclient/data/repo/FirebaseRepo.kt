@@ -15,6 +15,8 @@ import com.ian.bottomnavigation.ui.home.Model
 import com.qnet.qnetclient.appusuario.ui.settings.SettingsModel
 import com.qnet.qnetclient.data.classes.References
 import com.qnet.qnetclient.data.classes.ReferenceLocalesCercanos
+import com.qnet.qnetclient.data.classes.ReferenceUsuarios
+import com.qnet.qnetclient.data.classes.Usuario
 
 class FirebaseRepo {
     private val db = FirebaseFirestore.getInstance()
@@ -101,8 +103,8 @@ class FirebaseRepo {
         val mutableData = MutableLiveData<MutableList<Model>>()
         val listData = mutableListOf<Model>()
         getLocalesReference().observeForever{
-            for(reference in it)  {
-
+            for(reference in it)
+            {
                 db.document("locales/${reference.keyLocal}").get().addOnSuccessListener { result ->
 
                     val title = result.getString("title")
@@ -116,11 +118,7 @@ class FirebaseRepo {
                 }.addOnFailureListener { e ->
                     Log.w(TAG, "Error adding document", e)
                 }
-                if (mutableData == null && aux < 3) {
-                    aux++
-                    getLocalData()
-                }
-                aux=0
+
             }
         }
         return mutableData
@@ -145,10 +143,6 @@ class FirebaseRepo {
         }.addOnFailureListener { e ->
             Log.w(TAG, "Error getting document", e)
         }
-        if (mutableData == null && aux < 5) {
-            aux++
-            getLocalesReference()
-        }
         return mutableData
     }
 
@@ -169,10 +163,6 @@ class FirebaseRepo {
                     mutableData.value = listData
                 }.addOnFailureListener { e ->
                     Log.w(TAG, "Error adding document", e)
-                }
-                if (mutableData == null && aux < 5) {
-                    aux++
-                    getLocalData()
                 }
                 aux=0
 
@@ -202,9 +192,39 @@ class FirebaseRepo {
         }.addOnFailureListener { e ->
             Log.w(TAG, "Error getting document", e)
         }
-        if (mutableData == null && aux < 5) {
-            aux++
-            getLocalData()
+        return mutableData
+    }
+
+    fun getUsers():LiveData<MutableList<Usuario>> {
+        val mutableData = MutableLiveData<MutableList<Usuario>>()
+        val listData = mutableListOf<Usuario>()
+        getUsersReference().observeForever{
+            if(it.queueNumber!=null) {
+                aux=0
+                for (reference in it.queuedPeople) {
+                    aux++
+                    db.document("users/${reference}").get().addOnSuccessListener {result ->
+                        val name = result.getString("name")
+                        val usuario = Usuario(name,aux)
+                        listData.add(usuario)
+                        mutableData.value = listData
+                    }.addOnFailureListener { e ->
+                        Log.w(TAG, "Error adding document", e)
+                    }
+                }
+            }
+        }
+        return mutableData
+    }
+
+    private fun getUsersReference():LiveData<ReferenceUsuarios> {
+        mAuth = FirebaseAuth.getInstance()
+        var location =  mAuth.currentUser?.uid
+        val mutableData = MutableLiveData<ReferenceUsuarios>()
+        db.document("locales/hk1UzSqC8RK28KpC4rpd").get().addOnSuccessListener { result ->
+            val queuedPeople = result.data?.get("queuedPeople")
+            val queueNumber = result.getLong("queueNumber").toString()
+            mutableData.value = ReferenceUsuarios(queuedPeople as ArrayList<String>,queueNumber)
         }
         return mutableData
     }

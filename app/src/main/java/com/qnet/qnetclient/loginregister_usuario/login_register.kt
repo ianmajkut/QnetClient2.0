@@ -25,13 +25,15 @@ import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_login_register.*
 import kotlin.properties.Delegates
 
+
 class login_register : Fragment() {
     private val PERMISSION_ID = 1000
+    private var loadingDialog: Dialog? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var latitude by Delegates.notNull<Double>()
     private var longitude by Delegates.notNull<Double>()
     private lateinit var viewModel: FirestoreViewModel
-    private var loadingDialog: Dialog? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -99,8 +101,9 @@ class login_register : Fragment() {
         val password = edtxt_Password.text.toString().trim()
 
         if (name.isNotEmpty() && password.isNotEmpty()) {
-            obsever(name, password)
+            //@Ian falta poner un progress bar para ver el progreso
             showLoading()
+            obsever(name, password)
         } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
         }

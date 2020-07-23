@@ -7,11 +7,13 @@ import androidx.lifecycle.ViewModel
 import com.ian.bottomnavigation.ui.home.Model
 import com.qnet.qnetclient.appusuario.ui.settings.SettingsModel
 import com.qnet.qnetclient.data.AuthUser
+import com.qnet.qnetclient.data.classes.Usuario
 import com.qnet.qnetclient.data.repo.FirebaseRepo
 
 class FirestoreViewModel : ViewModel(){
     private val repo = FirebaseRepo()
     private val repoAuth = AuthUser()
+
 
     fun createUser(eMail: String, password: String) {
         Log.i("Verif", "createUser() FirestoreViewModel.kt")
@@ -77,4 +79,13 @@ class FirestoreViewModel : ViewModel(){
         }
         return mutableData
     }
+
+    fun fetchUsuarios():LiveData<MutableList<Usuario>>{
+        val mutableData = MutableLiveData<MutableList<Usuario>>()
+        repo.getUsers().observeForever{
+            mutableData.value = it
+        }
+        return mutableData
+    }
+
 }

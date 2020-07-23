@@ -1,4 +1,4 @@
-package com.qnet.qnetclient.loginresiter_local
+package com.qnet.qnetclient.loginregister_local
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,24 +8,27 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 
 import com.qnet.qnetclient.R
+import kotlinx.android.synthetic.main.fragment_login_register.buttonNext
+import kotlinx.android.synthetic.main.fragment_register2.back_icon
 
-import kotlinx.android.synthetic.main.fragment_verification.*
 
-
-class verification_local : Fragment() {
+class register2_local : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_verification_local, container, false)
+        return inflater.inflate(R.layout.fragment_register2_local, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        verification.setOnClickListener{
-            findNavController().navigate(R.id.menu_action_local)
+        buttonNext.setOnClickListener{
+            findNavController().navigate(R.id.verification_action_local)
         }
-
+        back_icon.setOnClickListener{
+            findNavController().navigate(R.id.back_action_local)
+        }
 
     }
 
