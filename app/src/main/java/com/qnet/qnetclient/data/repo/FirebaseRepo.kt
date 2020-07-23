@@ -2,6 +2,7 @@ package com.qnet.qnetclient.data.repo
 
 import android.content.ContentValues.TAG
 import android.provider.Settings.Global.getString
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -14,6 +15,7 @@ import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.storage.FirebaseStorage
 import com.ian.bottomnavigation.ui.home.Model
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.appusuario.ui.settings.SettingsModel
@@ -22,6 +24,8 @@ import com.qnet.qnetclient.data.classes.ReferenceLocalesCercanos
 import kotlin.coroutines.coroutineContext
 import com.qnet.qnetclient.data.classes.ReferenceUsuarios
 import com.qnet.qnetclient.data.classes.Usuario
+import java.util.*
+import kotlin.collections.ArrayList
 
 class FirebaseRepo {
     private val db = FirebaseFirestore.getInstance()
@@ -55,8 +59,44 @@ class FirebaseRepo {
             "tipo" to tipo,
             "informacion" to informacion
         )
-        db.document("users/${mAuth.currentUser?.uid}")
+        db.document("locales/${mAuth.currentUser?.uid}")
             .set(locales as Map<String,Any>)
+            .addOnSuccessListener {
+                mutableData.value = true
+            }
+            .addOnFailureListener{
+                mutableData.value = false
+            }
+
+        return mutableData
+    }
+
+    fun uploadImage(uri: Uri?):LiveData<Boolean>{
+        val mutableData = MutableLiveData<Boolean>()
+        if (uri == null) return mutableData
+        val filename = UUID.randomUUID().toString()
+        val ref= FirebaseStorage.getInstance().getReference("/images/$filename")
+
+        ref.putFile(uri).addOnSuccessListener {
+            referenceImage(it.metadata?.path).observeForever{result ->
+                mutableData.value = result
+            }
+        }.addOnFailureListener{
+            mutableData.value= false
+        }
+        return mutableData
+    }
+
+    private fun referenceImage(path:String?):LiveData<Boolean>{
+        val mutableData  = MutableLiveData<Boolean>()
+        mAuth = FirebaseAuth.getInstance()
+
+        val data = hashMapOf(
+            "image" to path
+        )
+
+        db.document("locales/${mAuth.currentUser?.uid}")
+            .set(data)
             .addOnSuccessListener {
                 mutableData.value = true
             }

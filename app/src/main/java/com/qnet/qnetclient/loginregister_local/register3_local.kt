@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.findNavController
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_register2.*
 import kotlinx.android.synthetic.main.fragment_register3_local.*
 import kotlinx.android.synthetic.main.fragment_register3_local.back_icon
@@ -21,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_register3_local.buttonNext
 
 class register3_local : Fragment() {
 
+    private lateinit var viewModel: FirestoreViewModel
     private val IMAGE_PICK_CODE = 1000;
     private val PERMISSION_CODE = 1001;
 
@@ -82,6 +85,17 @@ class register3_local : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
             image_view.setImageURI(data?.data)
+            //setImage(data?.data)
+        }
+    }
+
+    private fun setImage(image : Uri?){
+        viewModel.loadImage(image).observeForever{
+            if (it){
+                //imagen subida
+            }else{
+                //error al subir imagen
+            }
         }
     }
 
