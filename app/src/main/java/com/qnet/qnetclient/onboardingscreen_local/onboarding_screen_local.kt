@@ -1,6 +1,9 @@
 package com.qnet.qnetclient.onboardingscreen_local
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
@@ -12,10 +15,14 @@ import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.loginregister_local.login_register_screen_local
+import com.qnet.qnetclient.loginregister_usuario.login_register_screen
 import kotlinx.android.synthetic.main.activity_onboarding_screen.*
 
 class onboarding_screen_local : AppCompatActivity() {
 
+    lateinit var preference2: SharedPreferences
+    val pref_show_intro2 = "Intro2"
+    lateinit var activity : Activity
 
     private val introSlideAdapterLocal=
         IntroSlideAdapterLocal(
@@ -42,6 +49,16 @@ class onboarding_screen_local : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_onboarding_screen_local)
+        activity = this
+        preference2 = getSharedPreferences("IntroSlider2" , Context.MODE_PRIVATE)
+
+        if(!preference2.getBoolean(pref_show_intro2,true)){
+            Intent(applicationContext, login_register_screen_local::class.java).also{
+                startActivity(it)
+                finish()
+            }
+        }
+
         introSliderViewPager.adapter=introSlideAdapterLocal
         setupIndicators()
         setCurrentIndicator(0)
@@ -55,15 +72,17 @@ class onboarding_screen_local : AppCompatActivity() {
             if(introSliderViewPager.currentItem+1<introSlideAdapterLocal.itemCount){
                 introSliderViewPager.currentItem+=1
             }else{
-                Intent(applicationContext, login_register_screen_local::class.java).also{
+               /* Intent(applicationContext, login_register_screen_local::class.java).also{
                     startActivity(it)
-                }
+                }*/
+                goToLoginRegisterScreen()
             }
         }
         textSkipIntro.setOnClickListener{
-            Intent(applicationContext, login_register_screen_local::class.java).also{
+           /* Intent(applicationContext, login_register_screen_local::class.java).also{
                 startActivity(it)
-            }
+            }*/
+            goToLoginRegisterScreen()
         }
     }
 
@@ -104,4 +123,17 @@ class onboarding_screen_local : AppCompatActivity() {
             }
         }
     }
+
+    fun goToLoginRegisterScreen(){
+        Intent(applicationContext, login_register_screen_local::class.java).also{
+            val editor2 = preference2.edit()
+            editor2.putBoolean(pref_show_intro2,false)
+            editor2.apply()
+            startActivity(it)
+            finish()
+        }
+
+
+    }
+
 }

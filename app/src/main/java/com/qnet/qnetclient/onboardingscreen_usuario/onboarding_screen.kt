@@ -1,6 +1,9 @@
 package com.qnet.qnetclient.onboardingscreen_usuario
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
@@ -15,6 +18,10 @@ import com.qnet.qnetclient.loginregister_usuario.login_register_screen
 import kotlinx.android.synthetic.main.activity_onboarding_screen.*
 
 class onboarding_screen : AppCompatActivity() {
+
+    lateinit var preference: SharedPreferences
+    val pref_show_intro = "Intro"
+    lateinit var activity : Activity
 
 
    private val introSlideAdapter=
@@ -42,6 +49,16 @@ class onboarding_screen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_onboarding_screen)
+        activity = this
+        preference = getSharedPreferences("IntroSlider" , Context.MODE_PRIVATE)
+
+        if(!preference.getBoolean(pref_show_intro,true)){
+            Intent(applicationContext, login_register_screen::class.java).also{
+                startActivity(it)
+                finish()
+            }
+        }
+
         introSliderViewPager.adapter=introSlideAdapter
         setupIndicators()
         setCurrentIndicator(0)
@@ -55,15 +72,17 @@ class onboarding_screen : AppCompatActivity() {
             if(introSliderViewPager.currentItem+1<introSlideAdapter.itemCount){
                 introSliderViewPager.currentItem+=1
             }else{
-            Intent(applicationContext, login_register_screen::class.java).also{
+          /*  Intent(applicationContext, login_register_screen::class.java).also{
                 startActivity(it)
-            }
+            }*/
+                goToLoginRegisterScreen()
             }
         }
         textSkipIntro.setOnClickListener{
-            Intent(applicationContext, login_register_screen::class.java).also{
+           /* Intent(applicationContext, login_register_screen::class.java).also{
                 startActivity(it)
-            }
+            }*/
+            goToLoginRegisterScreen()
         }
     }
 
@@ -98,4 +117,17 @@ class onboarding_screen : AppCompatActivity() {
             }
         }
     }
+
+    fun goToLoginRegisterScreen(){
+        Intent(applicationContext, login_register_screen::class.java).also{
+            val editor = preference.edit()
+            editor.putBoolean(pref_show_intro,false)
+            editor.apply()
+            startActivity(it)
+            finish()
+        }
+
+
+    }
+
 }
