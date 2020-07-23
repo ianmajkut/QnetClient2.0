@@ -16,22 +16,22 @@ class AuthUser {
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private var aux:Boolean = false
 
-    fun createAccount(email: String, password: String) {
-        Log.i("Verif", "createUser() AuthUser.kt")
-        mAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
+    fun createAccount(email: String, password: String):LiveData<Boolean> {
+        val mutableData = MutableLiveData<Boolean>()
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     mAuth.currentUser!!.sendEmailVerification().addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Log.i("Verif", "E-Mail sent to ${mAuth.currentUser!!.email}")
+                            mutableData.value = task.isSuccessful
                         } else {
-                            Log.i("Verif", "Exception: ", task.exception)
+                            mutableData.value = task.isSuccessful
                         }
                     }
                 } else {
-
+                    mutableData.value = task.isSuccessful
                 }
             }
+        return mutableData
     }
 
     fun singInAccount(email: String,password: String): LiveData<Boolean>

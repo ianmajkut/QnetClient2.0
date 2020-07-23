@@ -16,6 +16,7 @@ import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.activity_lector_qr.*
 
 import java.lang.Exception
@@ -25,7 +26,7 @@ class LectorQr_Activity : AppCompatActivity() {
     private  val CodigoPermisoCamara=1001
     private lateinit var cameraSource: CameraSource
     private lateinit var detector: BarcodeDetector
-
+    private val viewModel by lazy { FirestoreViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,6 +110,7 @@ class LectorQr_Activity : AppCompatActivity() {
                 val qrCode: SparseArray<Barcode> = detections.detectedItems
                 val code= qrCode.valueAt(0)
                 textScanResult.text=code.displayValue
+
             }else{
 
                 textScanResult.text=""
@@ -117,6 +119,10 @@ class LectorQr_Activity : AppCompatActivity() {
 
         }
 
+    }
+
+    private fun sacarUser(user:String?){
+        viewModel.sacarUser(user)
     }
 
 

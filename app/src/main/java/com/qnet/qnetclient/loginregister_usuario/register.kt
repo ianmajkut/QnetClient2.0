@@ -25,9 +25,7 @@ class register: Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_register, container, false)
     }
@@ -52,15 +50,23 @@ class register: Fragment() {
         val dni = edtxt_DNI.text.toString().trim().toIntOrNull()
 
         if (name.isNotEmpty() && password.isNotEmpty() && eMail.isNotEmpty() && dni != null && password.length>6) {
-            Log.i("Verif", "createUser() register.kt")
-            viewModel.createUser(eMail, password)
-            val action = registerDirections.nextAction(name, dni)
-            findNavController().navigate(action)
-            Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
+            crearUsuario(eMail, password,name,dni)
         } else {
             Toast.makeText(activity, "Error falta algun campo", Toast.LENGTH_SHORT).show()
         }
     }
 
+    fun crearUsuario(eMail:String,password:String,name:String,dni:Int){
+        viewModel.createUser(eMail, password).observeForever(){
+            if(it){
+                val action = registerDirections.nextAction(name, dni)
+                findNavController().navigate(action)
+                Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(activity, "Error al crear usuario", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
 
 }
