@@ -40,6 +40,28 @@ class FirebaseRepo {
             }
     }
 
+    fun uploadLocal(name: String,ubicacion:String,horario:String,tipo:String,informacion:String):LiveData<Boolean>{
+        val mutableData = MutableLiveData<Boolean>()
+        mAuth = FirebaseAuth.getInstance()
+        val locales = hashMapOf(
+            "name" to  name,
+            "ubicacion" to ubicacion,
+            "horario" to horario,
+            "tipo" to tipo,
+            "informacion" to informacion
+        )
+        db.document("users/${mAuth.currentUser?.uid}")
+            .set(locales as Map<String,Any>)
+            .addOnSuccessListener {
+                mutableData.value = true
+            }
+            .addOnFailureListener{
+                mutableData.value = false
+            }
+
+        return mutableData
+    }
+
     fun agregarCola(keyLocal: String?, dist:String?): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
         functions = FirebaseFunctions.getInstance()
@@ -238,6 +260,6 @@ class FirebaseRepo {
     }
 
     fun sacarUser(user:String?){
-    TODO("HAY QUE HACER ESTO UACHIN")
+        TODO("HAY QUE HACER ESTO UACHIN")
     }
 }

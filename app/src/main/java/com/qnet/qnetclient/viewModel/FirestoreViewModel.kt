@@ -15,9 +15,12 @@ class FirestoreViewModel : ViewModel(){
     private val repoAuth = AuthUser()
 
 
-    fun createUser(eMail: String, password: String) {
-        Log.i("Verif", "createUser() FirestoreViewModel.kt")
-        repoAuth.createAccount(eMail,password)
+    fun createUser(eMail: String, password: String):LiveData<Boolean> {
+        val mutableData = MutableLiveData<Boolean>()
+        repoAuth.createAccount(eMail,password).observeForever{
+            mutableData.value = it
+        }
+        return mutableData
     }
 
     fun uploadData(name: String,dni: Int) {
@@ -90,6 +93,14 @@ class FirestoreViewModel : ViewModel(){
 
     fun sacarUser(user:String?) {
         repo.sacarUser(user)
+    }
+
+    fun loadLocal(name: String,ubicacion:String,horario:String,tipo:String,informacion:String):LiveData<Boolean>{
+        val mutableData = MutableLiveData<Boolean>()
+        repo.uploadLocal(name,ubicacion,horario,tipo,informacion).observeForever{
+            mutableData.value = it
+        }
+        return mutableData
     }
 
 }
