@@ -1,7 +1,6 @@
 package com.qnet.qnetclient.data.repo
 
 import android.content.ContentValues.TAG
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -28,7 +27,7 @@ class FirebaseRepo {
     private lateinit var mAuth: FirebaseAuth
     private var aux = 0
 
-    fun uploadData(name:String,dni:Int) {
+    fun uploadData(name: String, dni: Int) {
         mAuth = FirebaseAuth.getInstance()
         val user = hashMapOf(
             "name" to name,
@@ -117,6 +116,22 @@ class FirebaseRepo {
                 mutableData.value = task.isSuccessful
             }
         return mutableData
+    }
+
+    fun sacarUser(user: String?) {
+        functions = FirebaseFunctions.getInstance()
+
+        val data = hashMapOf(
+            "keyUsuario" to user
+        )
+        functions.getHttpsCallable("eliminarCola")
+            .call(data).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Log.i("eliminarCola", "Seccssfully removed.")
+                } else {
+                    Log.i("eliminarCola", "Failure.")
+                }
+            }
     }
 
     fun updateUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
@@ -297,9 +312,5 @@ class FirebaseRepo {
                 println("Este es el token del dispositivo: ${it}")
             }
         }
-    }
-
-    fun sacarUser(user:String?){
-        TODO("HAY QUE HACER ESTO UACHIN")
     }
 }

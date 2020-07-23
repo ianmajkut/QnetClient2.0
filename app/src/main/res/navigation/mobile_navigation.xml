@@ -47,9 +47,7 @@
             app:popUpTo="@id/navigation_settings" />
         <action
             android:id="@+id/action_navigation_settings_to_local_o_usuario"
-            app:destination="@id/local_o_usuario"
-            app:popUpTo="@id/local_o_usuario"
-            app:popUpToInclusive="true" />
+            app:destination="@id/local_o_usuario" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment2"
