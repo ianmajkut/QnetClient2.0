@@ -1,5 +1,6 @@
 package com.qnet.qnetclient.viewModel
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -98,6 +99,14 @@ class FirestoreViewModel : ViewModel(){
     fun loadLocal(name: String,ubicacion:String,horario:String,tipo:String,informacion:String):LiveData<Boolean>{
         val mutableData = MutableLiveData<Boolean>()
         repo.uploadLocal(name,ubicacion,horario,tipo,informacion).observeForever{
+            mutableData.value = it
+        }
+        return mutableData
+    }
+
+    fun loadImage(uri: Uri?):LiveData<Boolean>{
+        val mutableData = MutableLiveData<Boolean>()
+        repo.uploadImage(uri).observeForever{
             mutableData.value = it
         }
         return mutableData
