@@ -1,4 +1,4 @@
-package com.qnet.qnetclient.loginresiter_local
+package com.qnet.qnetclient.loginregister_local
 
 import android.os.Bundle
 import android.util.Log

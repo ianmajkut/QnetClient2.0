@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -56,6 +57,9 @@ class QRFilaUsuarioFragment : Fragment() {
         alertDialog.setTitle("Alerta")
         alertDialog.setMessage("Está a punto de salir de la fila actual. ¿Está seguro?")
 
+        alertDialog.setNegativeButton("No") { _, _ ->
+
+        }
         alertDialog.setPositiveButton("Si") { _, _ ->
             findNavController().navigate(R.id.qr_to_fila)
         }

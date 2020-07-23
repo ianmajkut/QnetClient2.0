@@ -31,11 +31,7 @@ class CambiarMailUsuarioFragment : Fragment() {
 
         }
 
-        back_icon.setOnClickListener {
 
-            findNavController().navigate(R.id.mail_to_settings)
-
-        }
 
     }
 

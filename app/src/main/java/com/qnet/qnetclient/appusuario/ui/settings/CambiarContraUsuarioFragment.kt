@@ -33,11 +33,7 @@ class CambiarContraUsuarioFragment : Fragment() {
 
         }
 
-        back_icon.setOnClickListener {
 
-            findNavController().navigate(R.id.contra_to_settings)
-
-        }
 
     }
 

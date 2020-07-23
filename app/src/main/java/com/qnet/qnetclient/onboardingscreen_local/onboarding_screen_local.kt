@@ -11,10 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.qnet.qnetclient.R
-import com.qnet.qnetclient.loginregister_usuario.login_register_screen
-import com.qnet.qnetclient.loginresiter_local.login_register_screen_local
-import com.qnet.qnetclient.onboardingscreen_usuario.IntroSlide
-import com.qnet.qnetclient.onboardingscreen_usuario.IntroSlideAdapter
+import com.qnet.qnetclient.loginregister_local.login_register_screen_local
 import kotlinx.android.synthetic.main.activity_onboarding_screen.*
 
 class onboarding_screen_local : AppCompatActivity() {
