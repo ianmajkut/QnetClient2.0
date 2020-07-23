@@ -76,6 +76,7 @@
     <string name="editar_email">Editar E-Mail</string>
     <string name="editar_contrasenia">Editar contraseña</string>
     <string name="password">Contraseña: ********</string>
+    <string name="Qnet_App_Name">Qnet</string>
 
 
 </resources>
