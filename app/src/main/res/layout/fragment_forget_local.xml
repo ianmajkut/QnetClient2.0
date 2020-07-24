@@ -86,16 +86,7 @@
             android:textColorHint="@color/colorPrimaryDark"
             app:hintTextColor="@color/colorPrimaryDark"
             app:boxStrokeColor="@color/colorPrimaryDark"
-            app:boxStrokeWidthFocused="2dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress">
-
-            </com.google.android.material.textfield.TextInputEditText>
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:boxStrokeWidthFocused="2dp"/>
 
         <Button
             android:id="@+id/buttonNext"
