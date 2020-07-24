@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_register3_local.buttonNext
 class register3_local : Fragment() {
 
     private lateinit var viewModel: FirestoreViewModel
+    private lateinit var image:Uri
     private val IMAGE_PICK_CODE = 1000;
     private val PERMISSION_CODE = 1001;
 
@@ -35,12 +36,13 @@ class register3_local : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = FirestoreViewModel()
         pedirPermiso()
         img_pick_btn.setOnClickListener{
             elegirImagen()
         }
         buttonNext.setOnClickListener {
-            findNavController().navigate(R.id.verification_action_local)
+            setImage()
         }
         back_icon.setOnClickListener{
             findNavController().navigate(R.id.back_action_local)
@@ -84,17 +86,19 @@ class register3_local : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
-            image_view.setImageURI(data?.data)
-            //setImage(data?.data)
+            if(data?.data!=null) {
+                image = data.data!!
+                image_view.setImageURI(image)
+            }
         }
     }
 
-    private fun setImage(image : Uri?){
+    private fun setImage(){
         viewModel.loadImage(image).observeForever{
             if (it){
-                //imagen subida
+                findNavController().navigate(R.id.verification_action_local)
             }else{
-                //error al subir imagen
+                Toast.makeText(activity, "Error al cargar imagen", Toast.LENGTH_SHORT).show()
             }
         }
     }

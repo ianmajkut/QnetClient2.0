@@ -32,9 +32,9 @@ class register_local : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = FirestoreViewModel()
         buttonNext.setOnClickListener{
-            //loadUser()
-            findNavController().navigate(R.id.next_action_local)
+            loadUser()
         }
         back_icon.setOnClickListener{
             findNavController().navigate(R.id.back_action_local)
@@ -44,8 +44,8 @@ class register_local : Fragment() {
 
     fun loadUser() {
         Log.i("Verif", "loadUser() register.kt")
-        val eMail = edtxt_EmailLocal.toString()
-        val password = edtxt_PasswordLocal.toString()
+        val eMail = edtxt_EmailLocal.text.toString().trim()
+        val password = edtxt_PasswordLocal.text.toString().trim()
 
         if (eMail.isNotEmpty() && password.isNotEmpty()) {
             crearUsuario(eMail, password)
@@ -54,7 +54,8 @@ class register_local : Fragment() {
         }
     }
     fun crearUsuario(eMail:String,password:String){
-        viewModel.createUser(eMail, password).observeForever(){
+        viewModel.createUser(eMail, password)
+            .observeForever(){
             if(it){
                 findNavController().navigate(R.id.next_action_local)
                 Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()

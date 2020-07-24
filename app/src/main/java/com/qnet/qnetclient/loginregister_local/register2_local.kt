@@ -29,8 +29,9 @@ class register2_local : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = FirestoreViewModel()
         buttonNext.setOnClickListener{
-            findNavController().navigate(R.id.verification_action_local)
+            loadData()
         }
         back_icon.setOnClickListener{
             findNavController().navigate(R.id.back_action_local)
@@ -38,11 +39,11 @@ class register2_local : Fragment() {
 
     }
     private fun loadData(){
-        val nombre = edtxt_nombreLocal.toString()
-        val ubicacion= edtxt_ubicacion.toString()
-        val horario = edtxt_horario.toString()
-        val tipo = edtxt_tipo.toString()
-        val informacion = edtxt_informacion.toString()
+        val nombre = edtxt_nombreLocal.text.toString()
+        val ubicacion= edtxt_ubicacion.text.toString()
+        val horario = edtxt_horario.text.toString()
+        val tipo = edtxt_tipo.text.toString()
+        val informacion = edtxt_informacion.text.toString()
 
         if(nombre.isNotEmpty()&&ubicacion.isNotEmpty()&&horario.isNotEmpty()&&tipo.isNotEmpty()&&informacion.isNotEmpty()){
             viewModel.loadLocal(nombre,ubicacion, horario, tipo, informacion).observeForever{

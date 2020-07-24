@@ -20,11 +20,11 @@ class AuthUser {
         val mutableData = MutableLiveData<Boolean>()
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    mAuth.currentUser!!.sendEmailVerification().addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            mutableData.value = task.isSuccessful
+                    mAuth.currentUser!!.sendEmailVerification().addOnCompleteListener { result ->
+                        if (result.isSuccessful) {
+                            mutableData.value = result.isSuccessful
                         } else {
-                            mutableData.value = task.isSuccessful
+                            mutableData.value = result.isSuccessful
                         }
                     }
                 } else {

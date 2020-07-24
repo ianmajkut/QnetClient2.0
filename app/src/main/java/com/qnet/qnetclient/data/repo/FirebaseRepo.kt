@@ -1,6 +1,7 @@
 package com.qnet.qnetclient.data.repo
 
 import android.content.ContentValues.TAG
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -48,7 +49,7 @@ class FirebaseRepo {
         mAuth = FirebaseAuth.getInstance()
         val locales = hashMapOf(
             "name" to  name,
-            "ubicacion" to ubicacion,
+            "direccion" to ubicacion,
             "horario" to horario,
             "tipo" to tipo,
             "informacion" to informacion

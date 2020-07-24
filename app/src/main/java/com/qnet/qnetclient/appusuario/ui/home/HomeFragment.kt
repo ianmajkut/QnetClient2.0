@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
-        inflater?.inflate(R.menu.searchbar, menu)
+        inflater.inflate(R.menu.searchbar, menu)
         val searchView = SearchView((context as AppUser).supportActionBar?.themedContext ?: context)
         menu.findItem(R.id.action_search).apply {
             setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
