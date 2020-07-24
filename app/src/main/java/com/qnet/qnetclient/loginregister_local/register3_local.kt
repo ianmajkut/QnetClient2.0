@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.findNavController
 import com.qnet.qnetclient.R
-import kotlinx.android.synthetic.main.fragment_register2.*
 import kotlinx.android.synthetic.main.fragment_register3_local.*
 import kotlinx.android.synthetic.main.fragment_register3_local.back_icon
 import kotlinx.android.synthetic.main.fragment_register3_local.buttonNext
@@ -37,7 +36,7 @@ class register3_local : Fragment() {
             elegirImagen()
         }
         buttonNext.setOnClickListener {
-            findNavController().navigate(R.id.verification_action_local)
+            findNavController().navigate(R.id.action_register3_local_to_mapsRegisterLocalActivity)
         }
         back_icon.setOnClickListener{
             findNavController().navigate(R.id.back_action_local)

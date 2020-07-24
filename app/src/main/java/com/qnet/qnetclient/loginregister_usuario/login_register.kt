@@ -4,6 +4,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
@@ -33,6 +35,8 @@ class login_register : Fragment() {
     private var latitude by Delegates.notNull<Double>()
     private var longitude by Delegates.notNull<Double>()
     private lateinit var viewModel: FirestoreViewModel
+    
+
 
 
     override fun onCreateView(
@@ -47,6 +51,8 @@ class login_register : Fragment() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         viewModel = FirestoreViewModel()
         getLocation()
+
+
         buttonNew.setOnClickListener {
             findNavController().navigate(R.id.next_action)
         }
@@ -57,6 +63,11 @@ class login_register : Fragment() {
             login()
         }
     }
+
+
+
+
+
 
     private fun getLocation() {
         if (ActivityCompat.checkSelfPermission(
@@ -100,6 +111,9 @@ class login_register : Fragment() {
         val name = edtxt_eMail.text.toString().trim()
         val password = edtxt_Password.text.toString().trim()
 
+
+
+
         if (name.isNotEmpty() && password.isNotEmpty()) {
             //@Ian falta poner un progress bar para ver el progreso
             showLoading()
@@ -108,6 +122,9 @@ class login_register : Fragment() {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
         }
     }
+
+
+
 
     private fun hideLoading(){
         loadingDialog?.let { if (it.isShowing)it.cancel() }
@@ -124,6 +141,7 @@ class login_register : Fragment() {
 //                Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
                 observer2()
             } else {
+                hideLoading()
                 Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
             }
         }

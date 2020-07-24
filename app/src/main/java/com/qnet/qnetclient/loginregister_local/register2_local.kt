@@ -13,7 +13,6 @@ import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_login_register.buttonNext
 import kotlinx.android.synthetic.main.fragment_register2.back_icon
 import kotlinx.android.synthetic.main.fragment_register2_local.*
-import kotlinx.android.synthetic.main.fragment_register_local.*
 
 
 class register2_local : Fragment() {
@@ -30,10 +29,10 @@ class register2_local : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         buttonNext.setOnClickListener{
-            findNavController().navigate(R.id.verification_action_local)
+            findNavController().navigate(R.id.next_action_local)
         }
         back_icon.setOnClickListener{
-            findNavController().navigate(R.id.back_action_local)
+            findNavController().navigate(R.id.action_register2_local_to_login_register_local)
         }
 
     }
@@ -47,7 +46,7 @@ class register2_local : Fragment() {
         if(nombre.isNotEmpty()&&ubicacion.isNotEmpty()&&horario.isNotEmpty()&&tipo.isNotEmpty()&&informacion.isNotEmpty()){
             viewModel.loadLocal(nombre,ubicacion, horario, tipo, informacion).observeForever{
                 if(it){
-                    findNavController().navigate(R.id.verification_action_local)
+                    findNavController().navigate(R.id.next_action_local)
                     Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
                 }else{
                     Toast.makeText(activity, "Error al cargar datos", Toast.LENGTH_SHORT).show()
