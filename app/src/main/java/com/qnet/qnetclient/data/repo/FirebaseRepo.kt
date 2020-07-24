@@ -1,10 +1,12 @@
 package com.qnet.qnetclient.data.repo
 
 import android.content.ContentValues.TAG
+import android.provider.Settings.Global.getString
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -113,7 +115,7 @@ class FirebaseRepo {
             "push" to true
         )
         functions.getHttpsCallable("agregarCola")
-            .call(data).addOnCompleteListener {task ->
+            .call(data).addOnCompleteListener { task ->
                 mutableData.value = task.isSuccessful
             }
         return mutableData
@@ -138,7 +140,6 @@ class FirebaseRepo {
     fun updateUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
-        notification()
 
         val data = hashMapOf(
             "ubicacion" to GeoPoint(latitude!!, longitude!!)
@@ -180,16 +181,24 @@ class FirebaseRepo {
     fun getLocalData(): LiveData<MutableList<Model>> {
         val mutableData = MutableLiveData<MutableList<Model>>()
         val listData = mutableListOf<Model>()
-        getLocalesReference().observeForever{
-            for(reference in it)
-            {
+
+        getLocalesReference().observeForever {
+            for (reference in it) {
                 db.document("locales/${reference.keyLocal}").get().addOnSuccessListener { result ->
 
                     val title = result.getString("title")
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
                     val image = result.getString("image")
-                    val local = Model(title, descripcion, num, reference.distancia, image,null,reference.keyLocal)
+                    val local = Model(
+                        title,
+                        descripcion,
+                        num,
+                        reference.distancia,
+                        image,
+                        null,
+                        reference.keyLocal
+                    )
                     listData.add(local)
                     mutableData.value = listData
 
@@ -249,41 +258,43 @@ class FirebaseRepo {
         return mutableData
     }
 
-    private fun getMisColasReference():LiveData<MutableList<References>>  {
+    private fun getMisColasReference(): LiveData<MutableList<References>> {
         mAuth = FirebaseAuth.getInstance()
         val mutableData = MutableLiveData<MutableList<References>>()
-        db.collection("users/${mAuth.currentUser?.uid}/misColas").get().addOnSuccessListener { reference ->
-            val listData = mutableListOf<References>()
-            for (document in reference){
-                val keyLocal = document.getString("keyLocal")
-                val posicion = document.getLong("posicion").toString()
-                val distancia = document.getLong("distancia").toString()
-                listData.add(
-                    References(
-                        keyLocal,
-                        posicion,
-                        distancia
+        db.collection("users/${mAuth.currentUser?.uid}/misColas").get()
+            .addOnSuccessListener { reference ->
+                val listData = mutableListOf<References>()
+                for (document in reference) {
+                    val keyLocal = document.getString("keyLocal")
+                    val posicion = document.getLong("posicion").toString()
+                    val distancia = document.getLong("distancia").toString()
+                    listData.add(
+                        References(
+                            keyLocal,
+                            posicion,
+                            distancia
+                        )
                     )
-                )
+                }
+                mutableData.value = listData
+            }.addOnFailureListener { e ->
+                Log.w(TAG, "Error getting document", e)
             }
-            mutableData.value = listData
-        }.addOnFailureListener { e ->
-            Log.w(TAG, "Error getting document", e)
-        }
         return mutableData
     }
 
-    fun getUsers():LiveData<MutableList<Usuario>> {
+    fun getUsers(): LiveData<MutableList<Usuario>> {
         val mutableData = MutableLiveData<MutableList<Usuario>>()
         val listData = mutableListOf<Usuario>()
-        getUsersReference().observeForever{
-            if(it.queueNumber!=null) {
-                aux=0
+
+        getUsersReference().observeForever {
+            if (it.queueNumber != null) {
+                aux = 0
                 for (reference in it.queuedPeople) {
                     aux++
-                    db.document("users/${reference}").get().addOnSuccessListener {result ->
+                    db.document("users/${reference}").get().addOnSuccessListener { result ->
                         val name = result.getString("name")
-                        val usuario = Usuario(name,aux)
+                        val usuario = Usuario(name, aux)
                         listData.add(usuario)
                         mutableData.value = listData
                     }.addOnFailureListener { e ->
@@ -295,23 +306,15 @@ class FirebaseRepo {
         return mutableData
     }
 
-    private fun getUsersReference():LiveData<ReferenceUsuarios> {
+    fun getUsersReference(): LiveData<ReferenceUsuarios> {
         mAuth = FirebaseAuth.getInstance()
-        var location =  mAuth.currentUser?.uid
+        var location = mAuth.currentUser?.uid
         val mutableData = MutableLiveData<ReferenceUsuarios>()
         db.document("locales/hk1UzSqC8RK28KpC4rpd").get().addOnSuccessListener { result ->
             val queuedPeople = result.data?.get("queuedPeople")
             val queueNumber = result.getLong("queueNumber").toString()
-            mutableData.value = ReferenceUsuarios(queuedPeople as ArrayList<String>,queueNumber)
+            mutableData.value = ReferenceUsuarios(queuedPeople as ArrayList<String>, queueNumber)
         }
         return mutableData
-    }
-
-    fun  notification() {
-        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener {
-            it.result?.token?.let {
-                println("Este es el token del dispositivo: ${it}")
-            }
-        }
     }
 }

@@ -31,8 +31,8 @@
         tools:layout="@layout/fragment_register_local" >
         <action
             android:id="@+id/next_action_local"
-            app:destination="@id/register2_local"
-            app:popUpTo="@id/register_local" />
+            app:destination="@id/verification_local"
+            app:popUpTo="@id/login_register_local" />
         <action
             android:id="@+id/back_action_local"
             app:destination="@id/login_register_local"
@@ -58,13 +58,13 @@
         android:label="fragment_register2_local"
         tools:layout="@layout/fragment_register2_local" >
         <action
-            android:id="@+id/back_action_local"
-            app:destination="@id/register_local"
-            app:popUpTo="@id/register_local" />
-        <action
-            android:id="@+id/verification_action_local"
+            android:id="@+id/next_action_local"
             app:destination="@id/register3_local"
             app:popUpTo="@id/register2_local" />
+        <action
+            android:id="@+id/action_register2_local_to_login_register_local"
+            app:destination="@id/login_register_local"
+            app:popUpTo="@id/login_register_local" />
     </fragment>
     <fragment
         android:id="@+id/verification_local"
@@ -72,10 +72,9 @@
         android:label="fragment_verification_local"
         tools:layout="@layout/fragment_verification_local" >
         <action
-            android:id="@+id/menu_action_local"
-            app:destination="@id/login_register_local"
-            app:popUpTo="@id/login_register_local"
-            app:popUpToInclusive="true" />
+            android:id="@+id/next_action_local"
+            app:destination="@id/register2_local"
+            app:popUpTo="@id/login_register_local" />
     </fragment>
     <fragment
         android:id="@+id/new_password_fragment_local"
@@ -111,12 +110,17 @@
         android:name="com.qnet.qnetclient.loginregister_local.register3_local"
         android:label="register3_local" >
         <action
-            android:id="@+id/verification_action_local"
-            app:destination="@id/verification_local"
-            app:popUpTo="@id/register3_local" />
-        <action
             android:id="@+id/back_action_local"
             app:destination="@id/register2_local"
             app:popUpTo="@id/register2_local" />
+        <action
+            android:id="@+id/action_register3_local_to_mapsRegisterLocalActivity"
+            app:destination="@id/mapsRegisterLocalActivity"
+            app:popUpTo="@id/register3_local" />
     </fragment>
+    <activity
+        android:id="@+id/mapsRegisterLocalActivity"
+        android:name="com.qnet.qnetclient.register_mapa_local.MapsRegisterLocalActivity"
+        android:label="activity_maps_register_local"
+        tools:layout="@layout/activity_maps_register_local" />
 </navigation>
