@@ -77,6 +77,7 @@
     <string name="editar_contrasenia">Editar contraseña</string>
     <string name="password">Contraseña: ********</string>
     <string name="Qnet_App_Name">Qnet</string>
+    <string name="title_activity_maps_register_local">Map</string>
 
 
 </resources>

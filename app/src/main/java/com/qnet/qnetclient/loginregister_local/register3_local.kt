@@ -40,7 +40,7 @@ class register3_local : Fragment() {
             elegirImagen()
         }
         buttonNext.setOnClickListener {
-            findNavController().navigate(R.id.verification_action_local)
+            findNavController().navigate(R.id.action_register3_local_to_mapsRegisterLocalActivity)
         }
         back_icon.setOnClickListener{
             findNavController().navigate(R.id.back_action_local)
