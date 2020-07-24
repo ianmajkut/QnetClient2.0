@@ -143,7 +143,6 @@ class FirebaseRepo {
     fun updateUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
-        notification()
 
         val data = hashMapOf(
             "ubicacion" to GeoPoint(latitude!!, longitude!!)
@@ -332,19 +331,5 @@ class FirebaseRepo {
             mutableData.value = ReferenceUsuarios(queuedPeople as ArrayList<String>, queueNumber)
         }
         return mutableData
-    }
-
-    fun notification() {
-        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener(
-            OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Log.w(TAG, "getInstanced failed", task.exception)
-                    return@OnCompleteListener
-                }
-
-                val token = task.result?.token
-                Log.d("notification", token)
-            }
-        )
     }
 }

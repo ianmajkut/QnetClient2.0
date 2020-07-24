@@ -1,6 +1,9 @@
 package com.qnet.qnetclient
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -18,6 +21,14 @@ class local_o_usuario : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_local_o_usuario)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelId = getString(R.string.default_notification_channel_id)
+            val channelName = getString(R.string.default_notification_channel_name)
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager?.createNotificationChannel(NotificationChannel(channelId,
+            channelName, NotificationManager.IMPORTANCE_DEFAULT))
+        }
 
         buttonLocal.setOnClickListener {
             val intent=Intent(this, onboarding_screen_local::class.java)
