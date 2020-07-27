@@ -35,9 +35,6 @@ class login_register : Fragment() {
     private var latitude by Delegates.notNull<Double>()
     private var longitude by Delegates.notNull<Double>()
     private lateinit var viewModel: FirestoreViewModel
-    
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +49,6 @@ class login_register : Fragment() {
         viewModel = FirestoreViewModel()
         getLocation()
 
-
         buttonNew.setOnClickListener {
             findNavController().navigate(R.id.next_action)
         }
@@ -63,11 +59,6 @@ class login_register : Fragment() {
             login()
         }
     }
-
-
-
-
-
 
     private fun getLocation() {
         if (ActivityCompat.checkSelfPermission(
@@ -111,9 +102,6 @@ class login_register : Fragment() {
         val name = edtxt_eMail.text.toString().trim()
         val password = edtxt_Password.text.toString().trim()
 
-
-
-
         if (name.isNotEmpty() && password.isNotEmpty()) {
             //@Ian falta poner un progress bar para ver el progreso
             showLoading()
@@ -122,9 +110,6 @@ class login_register : Fragment() {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
         }
     }
-
-
-
 
     private fun hideLoading(){
         loadingDialog?.let { if (it.isShowing)it.cancel() }

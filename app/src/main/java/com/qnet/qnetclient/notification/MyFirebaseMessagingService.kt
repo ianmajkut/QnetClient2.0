@@ -28,6 +28,10 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         remoteMessage.notification?.let { sendNotification(it) }
     }
 
+    override fun onNewToken(p0: String) {
+        super.onNewToken(p0)
+    }
+
     private fun sendNotification(notification: RemoteMessage.Notification) {
         val intent = Intent(this, AppUser::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

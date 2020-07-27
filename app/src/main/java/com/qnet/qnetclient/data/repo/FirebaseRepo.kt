@@ -50,7 +50,6 @@ class FirebaseRepo {
             }
     }
 
-
     fun uploadImage(uri: Uri?,info:InfoRegister):LiveData<Boolean>{
         val mutableData = MutableLiveData<Boolean>()
         if (uri == null) return mutableData
@@ -120,7 +119,7 @@ class FirebaseRepo {
         val data = hashMapOf(
             "keyUsuario" to user,
             "keyLocal" to local,
-            "llamadaLcal" to llamadaLocal,
+            "llamadaLocal" to llamadaLocal,
             "push" to true
         )
         functions.getHttpsCallable("eliminarCola")

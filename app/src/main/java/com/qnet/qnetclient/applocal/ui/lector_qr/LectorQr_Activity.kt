@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.util.SparseArray
 import android.view.SurfaceHolder
 import android.widget.Toast
@@ -15,6 +16,7 @@ import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
+import com.google.firebase.auth.FirebaseAuth
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.loginregister_usuario.mAuth
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
@@ -24,9 +26,10 @@ import java.lang.Exception
 
 class LectorQr_Activity : AppCompatActivity() {
 
-    private  val CodigoPermisoCamara=1001
+    private  val CodigoPermisoCamara = 1001
     private lateinit var cameraSource: CameraSource
     private lateinit var detector: BarcodeDetector
+    private lateinit var mAuth: FirebaseAuth
     private val viewModel by lazy { FirestoreViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,14 +40,12 @@ class LectorQr_Activity : AppCompatActivity() {
             != PackageManager.PERMISSION_GRANTED){
 
             pedirPermisoCamara()
-        }else{
+        } else {
             setupControls()
         }
-
     }
 
-
-    private fun setupControls(){
+    private fun setupControls() {
 
         detector= BarcodeDetector.Builder(this@LectorQr_Activity).build()
         cameraSource= CameraSource.Builder(this@LectorQr_Activity, detector)
@@ -55,9 +56,9 @@ class LectorQr_Activity : AppCompatActivity() {
 
     }
 
-
     private fun pedirPermisoCamara(){
-        ActivityCompat.requestPermissions(this@LectorQr_Activity, arrayOf(Manifest.permission.CAMERA),
+        ActivityCompat.requestPermissions(this@LectorQr_Activity,
+            arrayOf(Manifest.permission.CAMERA),
             CodigoPermisoCamara)
     }
 
@@ -67,14 +68,12 @@ class LectorQr_Activity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if(requestCode==CodigoPermisoCamara && grantResults.isNotEmpty()){
-            if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
+        if(requestCode == CodigoPermisoCamara && grantResults.isNotEmpty()) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 setupControls()
-            }else{
+            } else {
                 Toast.makeText(applicationContext, "Permiso Denegado", Toast.LENGTH_SHORT).show()
-
             }
-
         }
     }
 
@@ -87,16 +86,23 @@ class LectorQr_Activity : AppCompatActivity() {
             cameraSource.stop()
         }
 
-
         override fun surfaceCreated(surfaceHolder:  SurfaceHolder?) {
             try {
+                if (ActivityCompat.checkSelfPermission(
+                        this@LectorQr_Activity,
+                        Manifest.permission.CAMERA
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    ActivityCompat.requestPermissions(this@LectorQr_Activity,
+                        arrayOf(android.Manifest.permission.CAMERA),
+                        CodigoPermisoCamara)
+                    return
+                }
                 cameraSource.start(surfaceHolder)
-            }catch (exception:Exception){
+            } catch (exception:Exception){
                 Toast.makeText(applicationContext, "Algo salio mal", Toast.LENGTH_SHORT).show()
             }
         }
-
-
     }
 
     private  val processor = object : Detector.Processor<Barcode>{
@@ -104,15 +110,15 @@ class LectorQr_Activity : AppCompatActivity() {
         }
 
         override fun receiveDetections(detections: Detector.Detections<Barcode>?) {
-
+            mAuth = FirebaseAuth.getInstance()
             if(detections!=null && detections.detectedItems.isNotEmpty()){
                 val qrCode: SparseArray<Barcode> = detections.detectedItems
                 val code= qrCode.valueAt(0)
                 textScanResult.text=code.displayValue
-                sacarUser(code.displayValue, mAuth.currentUser?.uid,true)
+                sacarUser(code.displayValue, mAuth.currentUser?.uid, true)
 
-            }else{
-                textScanResult.text=""
+            } else {
+                textScanResult.text = ""
             }
         }
     }
