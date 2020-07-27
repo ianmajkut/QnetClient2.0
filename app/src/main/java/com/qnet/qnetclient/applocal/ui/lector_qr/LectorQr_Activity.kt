@@ -16,6 +16,7 @@ import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.loginregister_usuario.mAuth
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.activity_lector_qr.*
 
@@ -108,7 +109,7 @@ class LectorQr_Activity : AppCompatActivity() {
                 val qrCode: SparseArray<Barcode> = detections.detectedItems
                 val code= qrCode.valueAt(0)
                 textScanResult.text=code.displayValue
-                sacarUser(code.displayValue)
+                sacarUser(code.displayValue, mAuth.currentUser?.uid,true)
 
             }else{
                 textScanResult.text=""

@@ -23,9 +23,8 @@ import kotlinx.android.synthetic.main.fragment_q_r_fila_usuario.*
 class QRFilaUsuarioFragment : Fragment() {
 
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val viewModel: FirestoreViewModel = FirestoreViewModel()
-    private var keyLocal: String? = ""
     private lateinit var viewModel: FirestoreViewModel
+    private var keyLocal: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.provider.Settings.Global.getString
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
@@ -16,9 +17,11 @@ import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.storage.FirebaseStorage
 import com.ian.bottomnavigation.ui.home.Model
+import com.qnet.qnetclient.R
 import com.qnet.qnetclient.appusuario.ui.settings.SettingsModel
 import com.qnet.qnetclient.data.classes.References
 import com.qnet.qnetclient.data.classes.ReferenceLocalesCercanos
+import kotlin.coroutines.coroutineContext
 import com.qnet.qnetclient.data.classes.ReferenceUsuarios
 import com.qnet.qnetclient.data.classes.Usuario
 import com.qnet.qnetclient.loginregister_local.InfoRegister
@@ -231,10 +234,6 @@ class FirebaseRepo {
             for(reference in it)
             {
                 db.document("locales/${reference.keyLocal}").get().addOnSuccessListener {result ->
-
-        getMisColasReference().observeForever {
-            for (reference in it) {
-                db.document("locales/${reference.keyLocal}").get().addOnSuccessListener { result ->
                     val title = result.getString("title")
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
