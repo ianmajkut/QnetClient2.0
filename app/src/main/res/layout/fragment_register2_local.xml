@@ -39,7 +39,6 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:id="@+id/edtxt_nombreLocal"
                 android:layout_height="wrap_content"
                 android:hint="@string/nombre_completo"
                 app:startIconDrawable="@drawable/ic_create_black_24dp"
@@ -51,6 +50,7 @@
                 app:boxStrokeWidthFocused="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtxt_nombreLocal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text">
@@ -71,6 +71,7 @@
                 app:boxStrokeWidthFocused="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/telefono"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone">
@@ -97,7 +98,6 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:id="@+id/edtxt_ubicacion"
                 android:layout_height="wrap_content"
                 android:hint="@string/ubicacion"
                 app:startIconDrawable="@drawable/ic_baseline_location_on_24"
@@ -109,6 +109,7 @@
                 app:boxStrokeWidthFocused="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtxt_ubicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailSubject">
@@ -120,7 +121,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edtxt_horario"
                 android:hint="@string/horario"
                 app:startIconDrawable="@drawable/ic_baseline_query_builder_24"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -131,6 +131,7 @@
                 app:boxStrokeWidthFocused="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtxt_horario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text">
@@ -142,7 +143,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edtxt_tipo"
                 android:hint="@string/tipo_de_local"
                 app:startIconDrawable="@drawable/ic_baseline_store_24"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -153,6 +153,7 @@
                 app:boxStrokeWidthFocused="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtxt_tipo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text">
@@ -165,7 +166,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edtxt_informacion"
                 android:hint="@string/Informarcion"
                 app:startIconDrawable="@drawable/ic_baseline_info_24"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -176,6 +176,7 @@
                 app:boxStrokeWidthFocused="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtxt_informacion"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text">

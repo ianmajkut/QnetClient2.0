@@ -4,7 +4,6 @@ import android.content.ContentValues.TAG
 import android.provider.Settings.Global.getString
 import android.net.Uri
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
@@ -17,13 +16,12 @@ import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.storage.FirebaseStorage
 import com.ian.bottomnavigation.ui.home.Model
-import com.qnet.qnetclient.R
 import com.qnet.qnetclient.appusuario.ui.settings.SettingsModel
 import com.qnet.qnetclient.data.classes.References
 import com.qnet.qnetclient.data.classes.ReferenceLocalesCercanos
-import kotlin.coroutines.coroutineContext
 import com.qnet.qnetclient.data.classes.ReferenceUsuarios
 import com.qnet.qnetclient.data.classes.Usuario
+import com.qnet.qnetclient.loginregister_local.InfoRegister
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -49,37 +47,18 @@ class FirebaseRepo {
             }
     }
 
-    fun uploadLocal(name: String,ubicacion:String,horario:String,tipo:String,informacion:String):LiveData<Boolean>{
-        val mutableData = MutableLiveData<Boolean>()
-        mAuth = FirebaseAuth.getInstance()
-        val locales = hashMapOf(
-            "name" to  name,
-            "ubicacion" to ubicacion,
-            "horario" to horario,
-            "tipo" to tipo,
-            "informacion" to informacion
-        )
-        db.document("locales/${mAuth.currentUser?.uid}")
-            .set(locales as Map<String,Any>)
-            .addOnSuccessListener {
-                mutableData.value = true
-            }
-            .addOnFailureListener{
-                mutableData.value = false
-            }
 
-        return mutableData
-    }
-
-    fun uploadImage(uri: Uri?):LiveData<Boolean>{
+    fun uploadImage(uri: Uri?,info:InfoRegister):LiveData<Boolean>{
         val mutableData = MutableLiveData<Boolean>()
         if (uri == null) return mutableData
         val filename = UUID.randomUUID().toString()
         val ref= FirebaseStorage.getInstance().getReference("/images/$filename")
 
         ref.putFile(uri).addOnSuccessListener {
-            referenceImage(it.metadata?.path).observeForever{result ->
-                mutableData.value = result
+            ref.downloadUrl.addOnSuccessListener {
+                referenceImage(it.toString(),info).observeForever{result ->
+                    mutableData.value = result
+                }
             }
         }.addOnFailureListener{
             mutableData.value= false
@@ -87,12 +66,19 @@ class FirebaseRepo {
         return mutableData
     }
 
-    private fun referenceImage(path:String?):LiveData<Boolean>{
+    private fun referenceImage(path:String?,info: InfoRegister):LiveData<Boolean>{
         val mutableData  = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
 
         val data = hashMapOf(
-            "image" to path
+            "image" to path,
+            "title" to  info.nombre,
+            "direccion" to info.ubicacion,
+            "horario" to info.horario,
+            "descripcion" to info.tipo,
+            "informacion" to info.informacion,
+            "queueNumber" to Int,
+            "queuedPeople" to ArrayList<String>()
         )
 
         db.document("locales/${mAuth.currentUser?.uid}")
@@ -215,37 +201,36 @@ class FirebaseRepo {
         return mutableData
     }
 
-    fun getLocalesReference(): LiveData<MutableList<ReferenceLocalesCercanos>> {
+    private fun getLocalesReference():LiveData<MutableList<ReferenceLocalesCercanos>>{
         mAuth = FirebaseAuth.getInstance()
         val mutableData = MutableLiveData<MutableList<ReferenceLocalesCercanos>>()
-        db.collection("users/${mAuth.currentUser?.uid}/localesCercanos").get()
-            .addOnSuccessListener { reference ->
-                val listData = mutableListOf<ReferenceLocalesCercanos>()
-                for (document in reference) {
-                    val keyLocal = document.getString("keyLocal")
-                    val distancia = document.getLong("distancia").toString()
-                    listData.add(
-                        ReferenceLocalesCercanos(
-                            keyLocal,
-                            distancia
-                        )
+        db.collection("users/${mAuth.currentUser?.uid}/localesCercanos").get().addOnSuccessListener { reference ->
+            val listData = mutableListOf<ReferenceLocalesCercanos>()
+            for (document in reference){
+                val keyLocal = document.getString("keyLocal")
+                val distancia = document.getLong("distancia").toString()
+                listData.add(
+                    ReferenceLocalesCercanos(
+                        keyLocal,
+                        distancia
                     )
-                }
-                mutableData.value = listData
-            }.addOnFailureListener { e ->
-                Log.w(TAG, "Error getting document", e)
+                )
             }
-        if (mutableData == null && aux < 5) {
-            aux++
-            getLocalesReference()
+            mutableData.value = listData
+        }.addOnFailureListener { e ->
+            Log.w(TAG, "Error getting document", e)
         }
         return mutableData
     }
 
-    fun getMisColas(): LiveData<MutableList<Model>> {
+    fun getMisColas():LiveData<MutableList<Model>> {
         val mutableData = MutableLiveData<MutableList<Model>>()
         var mutableReference = mutableListOf<References>()
         val listData = mutableListOf<Model>()
+        getMisColasReference().observeForever{
+            for(reference in it)
+            {
+                db.document("locales/${reference.keyLocal}").get().addOnSuccessListener {result ->
 
         getMisColasReference().observeForever {
             for (reference in it) {
@@ -254,15 +239,7 @@ class FirebaseRepo {
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
                     val image = result.getString("image")
-                    val local = Model(
-                        title,
-                        descripcion,
-                        num,
-                        reference.distancia,
-                        image,
-                        reference.posicion,
-                        reference.keyLocal
-                    )
+                    val local = Model(title, descripcion, num, reference.distancia, image,reference.posicion,reference.keyLocal)
                     listData.add(local)
                     mutableData.value = listData
                 }.addOnFailureListener { e ->
@@ -325,9 +302,9 @@ class FirebaseRepo {
 
     fun getUsersReference(): LiveData<ReferenceUsuarios> {
         mAuth = FirebaseAuth.getInstance()
-        var location = mAuth.currentUser?.uid
+        val location = mAuth.currentUser?.uid
         val mutableData = MutableLiveData<ReferenceUsuarios>()
-        db.document("locales/hk1UzSqC8RK28KpC4rpd").get().addOnSuccessListener { result ->
+        db.document("locales/${location}").get().addOnSuccessListener { result ->
             val queuedPeople = result.data?.get("queuedPeople")
             val queueNumber = result.getLong("queueNumber").toString()
             mutableData.value = ReferenceUsuarios(queuedPeople as ArrayList<String>, queueNumber)

@@ -108,6 +108,7 @@ class LectorQr_Activity : AppCompatActivity() {
                 val qrCode: SparseArray<Barcode> = detections.detectedItems
                 val code= qrCode.valueAt(0)
                 textScanResult.text=code.displayValue
+                sacarUser(code.displayValue)
 
             }else{
                 textScanResult.text=""

@@ -10,6 +10,7 @@ import com.qnet.qnetclient.appusuario.ui.settings.SettingsModel
 import com.qnet.qnetclient.data.AuthUser
 import com.qnet.qnetclient.data.classes.Usuario
 import com.qnet.qnetclient.data.repo.FirebaseRepo
+import com.qnet.qnetclient.loginregister_local.InfoRegister
 
 class FirestoreViewModel : ViewModel(){
     private val repo = FirebaseRepo()
@@ -102,17 +103,10 @@ class FirestoreViewModel : ViewModel(){
         return mutableData
     }
 
-    fun loadLocal(name: String,ubicacion:String,horario:String,tipo:String,informacion:String):LiveData<Boolean>{
-        val mutableData = MutableLiveData<Boolean>()
-        repo.uploadLocal(name,ubicacion,horario,tipo,informacion).observeForever{
-            mutableData.value = it
-        }
-        return mutableData
-    }
 
-    fun loadImage(uri: Uri?):LiveData<Boolean>{
+    fun loadImage(uri: Uri?,info:InfoRegister):LiveData<Boolean>{
         val mutableData = MutableLiveData<Boolean>()
-        repo.uploadImage(uri).observeForever{
+        repo.uploadImage(uri,info).observeForever{
             mutableData.value = it
         }
         return mutableData

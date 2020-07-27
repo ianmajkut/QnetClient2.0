@@ -9,10 +9,13 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.loginregister_usuario.register2Directions
+import com.qnet.qnetclient.loginregister_usuario.registerDirections
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_login_register.buttonNext
 import kotlinx.android.synthetic.main.fragment_register2.back_icon
 import kotlinx.android.synthetic.main.fragment_register2_local.*
+import kotlinx.android.synthetic.main.fragment_register_local.*
 
 
 class register2_local : Fragment() {
@@ -28,30 +31,27 @@ class register2_local : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = FirestoreViewModel()
         buttonNext.setOnClickListener{
-            findNavController().navigate(R.id.next_action_local)
+            loadData()
         }
         back_icon.setOnClickListener{
-            findNavController().navigate(R.id.action_register2_local_to_login_register_local)
+            findNavController().navigate(R.id.back_action_local)
         }
 
     }
     private fun loadData(){
-        val nombre = edtxt_nombreLocal.toString()
-        val ubicacion= edtxt_ubicacion.toString()
-        val horario = edtxt_horario.toString()
-        val tipo = edtxt_tipo.toString()
-        val informacion = edtxt_informacion.toString()
+        val nombre = edtxt_nombreLocal.text.toString()
+        val ubicacion= edtxt_ubicacion.text.toString()
+        val horario = edtxt_horario.text.toString()
+        val tipo = edtxt_tipo.text.toString()
+        val informacion = edtxt_informacion.text.toString()
 
         if(nombre.isNotEmpty()&&ubicacion.isNotEmpty()&&horario.isNotEmpty()&&tipo.isNotEmpty()&&informacion.isNotEmpty()){
-            viewModel.loadLocal(nombre,ubicacion, horario, tipo, informacion).observeForever{
-                if(it){
-                    findNavController().navigate(R.id.next_action_local)
-                    Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
-                }else{
-                    Toast.makeText(activity, "Error al cargar datos", Toast.LENGTH_SHORT).show()
-                }
-            }
+            val data = InfoRegister(nombre,ubicacion, horario, tipo, informacion)
+            val action = register2_localDirections.nextActionLocal(data)
+            findNavController().navigate(action)
+            Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
         }else{
             Toast.makeText(activity, "Error falta algun campo", Toast.LENGTH_SHORT).show()
         }
