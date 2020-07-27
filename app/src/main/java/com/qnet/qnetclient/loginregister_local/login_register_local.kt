@@ -35,6 +35,7 @@ class login_register_local : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = FirestoreViewModel()
             buttonNew.setOnClickListener{
                 findNavController().navigate(R.id.next_action_local)
             }
@@ -48,12 +49,12 @@ class login_register_local : Fragment() {
     }
 
     private fun login() {
-        val name = edtxt_eMail.text.toString().trim()
-        val password = edtxt_Password.text.toString().trim()
+        val name = edtxt_UserLocal.text.toString().trim()
+        val password = edtxt_PasswordLocal.text.toString().trim()
 
         if (name.isNotEmpty() && password.isNotEmpty()) {
             //@Ian falta poner un progress bar para ver el progreso
-            showLoading()
+            //showLoading()
             obsever(name, password)
         } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
@@ -72,7 +73,7 @@ class login_register_local : Fragment() {
     private fun obsever(name:String,password:String) {
         viewModel.singInUser(name,password).observeForever{
             if(it) {
-                hideLoading()
+                //hideLoading()
                 findNavController().navigate(R.id.menu_principal_action_local)
             } else {
                 Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()

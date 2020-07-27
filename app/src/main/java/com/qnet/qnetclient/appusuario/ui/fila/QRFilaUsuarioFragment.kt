@@ -1,6 +1,7 @@
 package com.qnet.qnetclient.appusuario.ui.fila
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +24,6 @@ class QRFilaUsuarioFragment : Fragment() {
 
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var viewModel: FirestoreViewModel
-    private val viewModel: FirestoreViewModel = FirestoreViewModel()
     private var keyLocal: String? = ""
 
     override fun onCreateView(
