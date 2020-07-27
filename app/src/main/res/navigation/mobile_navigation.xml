@@ -72,6 +72,9 @@
             android:id="@+id/qr_to_fila"
             app:destination="@id/navigation_fila"
             app:popUpTo="@id/navigation_fila" />
+        <argument
+            android:name="Local"
+            app:argType="com.ian.bottomnavigation.ui.home.Model" />
     </fragment>
     <fragment
         android:id="@+id/cambiarMailUsuarioFragment"

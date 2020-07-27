@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.provider.Settings.Global.getString
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
@@ -16,9 +17,11 @@ import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.storage.FirebaseStorage
 import com.ian.bottomnavigation.ui.home.Model
+import com.qnet.qnetclient.R
 import com.qnet.qnetclient.appusuario.ui.settings.SettingsModel
 import com.qnet.qnetclient.data.classes.References
 import com.qnet.qnetclient.data.classes.ReferenceLocalesCercanos
+import kotlin.coroutines.coroutineContext
 import com.qnet.qnetclient.data.classes.ReferenceUsuarios
 import com.qnet.qnetclient.data.classes.Usuario
 import com.qnet.qnetclient.loginregister_local.InfoRegister
@@ -110,20 +113,21 @@ class FirebaseRepo {
         return mutableData
     }
 
-    fun sacarUser(user: String?) {
+    fun sacarUser(user: String?, local: String?, llamadaLocal: Boolean): LiveData<Boolean> {
+        val mutableData = MutableLiveData<Boolean>()
         functions = FirebaseFunctions.getInstance()
 
         val data = hashMapOf(
-            "keyUsuario" to user
+            "keyUsuario" to user,
+            "keyLocal" to local,
+            "llamadaLcal" to llamadaLocal,
+            "push" to true
         )
         functions.getHttpsCallable("eliminarCola")
             .call(data).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Log.i("eliminarCola", "Seccssfully removed.")
-                } else {
-                    Log.i("eliminarCola", "Failure.")
-                }
+                mutableData.value = it.isSuccessful
             }
+        return mutableData
     }
 
     fun updateUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
@@ -305,5 +309,19 @@ class FirebaseRepo {
             mutableData.value = ReferenceUsuarios(queuedPeople as ArrayList<String>, queueNumber)
         }
         return mutableData
+    }
+
+    fun refreshToken() {
+        mAuth = FirebaseAuth.getInstance()
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener {
+            if (it.isSuccessful) {
+                val data = hashMapOf(
+                    "token" to it.result?.token
+                )
+                db.document("users/${mAuth.currentUser?.uid}").set(
+                    data, SetOptions.merge()
+                )
+            }
+        }
     }
 }

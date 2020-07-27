@@ -159,6 +159,7 @@ class login_register : Fragment() {
         viewModel.localesCercanos().observeForever {
             if (it) {
                 hideLoading()
+                viewModel.refreshToken()
                 findNavController().navigate(R.id.menu_principal_action)
             }
         }

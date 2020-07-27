@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ian.bottomnavigation.ui.fila.FilaFragmentDirections
 import com.ian.bottomnavigation.ui.home.HomeFragmentDirections
 import com.ian.bottomnavigation.ui.home.MainAdapter
 import com.ian.bottomnavigation.ui.home.Model
@@ -38,15 +39,15 @@ class AdapterFila (private val context: Context): RecyclerView.Adapter<AdapterFi
         val local: Model = dataList[position]
         holder.bindView(local)
         holder.itemView.setOnClickListener {view->
-
-            view.findNavController().navigate(R.id.fila_to_qr)
+            val action = FilaFragmentDirections.filaToQr(local)
+            view.findNavController().navigate(action)
         }
     }
 
 
     inner class FilaViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         fun  bindView(local: Model) {
-            itemView.tittle.text= local.title
+            itemView.tittle.text = local.title
             itemView.descripcion.text = local.descripcion
             itemView.Fila.text = local.posicion!!.toInt().plus(1).toString()
             itemView.Dist.text = local.dist

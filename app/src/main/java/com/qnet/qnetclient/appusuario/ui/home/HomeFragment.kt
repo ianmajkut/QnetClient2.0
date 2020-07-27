@@ -68,7 +68,6 @@ class HomeFragment : Fragment() {
 
     fun observerData(){
 
-
         viewModel.fetchLocalData().observe(viewLifecycleOwner, Observer {
             //swipeRefreshLayout.isRefreshing=false
             shimmer_view_container.stopShimmer()

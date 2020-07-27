@@ -93,8 +93,14 @@ class FirestoreViewModel : ViewModel(){
         return mutableData
     }
 
-    fun sacarUser(user:String?) {
-        repo.sacarUser(user)
+    fun sacarUser(user:String?, local: String?, llamadaLocal: Boolean): LiveData<Boolean> {
+        val mutableData = MutableLiveData<Boolean>()
+        repo.sacarUser(user, local, llamadaLocal).observeForever {
+            if (it) {
+                mutableData.value = it
+            }
+        }
+        return mutableData
     }
 
 
@@ -106,4 +112,7 @@ class FirestoreViewModel : ViewModel(){
         return mutableData
     }
 
+    fun refreshToken() {
+        repo.refreshToken()
+    }
 }

@@ -23,6 +23,8 @@ class QRFilaUsuarioFragment : Fragment() {
 
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var viewModel: FirestoreViewModel
+    private val viewModel: FirestoreViewModel = FirestoreViewModel()
+    private var keyLocal: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -37,10 +39,13 @@ class QRFilaUsuarioFragment : Fragment() {
                 val bitmap= encoder.encodeBitmap(mAuth.currentUser?.uid, BarcodeFormat.QR_CODE,
                     500, 500)
                 ivBarcode.setImageBitmap(bitmap)
-            }catch (e:Exception){
+            } catch (e:Exception) {
                 e.printStackTrace()
             }
 
+        val local = QRFilaUsuarioFragmentArgs.fromBundle(requireArguments()).Local
+        keyLocal = local.keyLocal
+        Log.d("QRFILA", "kyeLocal: $keyLocal")
 
         return layout
 
@@ -64,8 +69,15 @@ class QRFilaUsuarioFragment : Fragment() {
 
         }
         alertDialog.setPositiveButton("Si") { _, _ ->
-            viewModel.sacarUser(mAuth.currentUser?.uid)
-            findNavController().navigate(R.id.qr_to_fila)
+            viewModel.sacarUser(
+                mAuth.currentUser?.uid,
+                keyLocal,
+                false
+            ).observeForever {
+                if (it) {
+                    findNavController().navigate(R.id.qr_to_fila)
+                }
+            }
         }
         alertDialog.show()
     }
