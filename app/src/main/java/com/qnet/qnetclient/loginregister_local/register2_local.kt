@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.loginregister_usuario.register2Directions
+import com.qnet.qnetclient.loginregister_usuario.registerDirections
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_login_register.buttonNext
 import kotlinx.android.synthetic.main.fragment_register2.back_icon
@@ -46,14 +48,10 @@ class register2_local : Fragment() {
         val informacion = edtxt_informacion.text.toString()
 
         if(nombre.isNotEmpty()&&ubicacion.isNotEmpty()&&horario.isNotEmpty()&&tipo.isNotEmpty()&&informacion.isNotEmpty()){
-            viewModel.loadLocal(nombre,ubicacion, horario, tipo, informacion).observeForever{
-                if(it){
-                    findNavController().navigate(R.id.verification_action_local)
-                    Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
-                }else{
-                    Toast.makeText(activity, "Error al cargar datos", Toast.LENGTH_SHORT).show()
-                }
-            }
+            val data = InfoRegister(nombre,ubicacion, horario, tipo, informacion)
+            val action = register2_localDirections.nextActionLocal(data)
+            findNavController().navigate(action)
+            Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
         }else{
             Toast.makeText(activity, "Error falta algun campo", Toast.LENGTH_SHORT).show()
         }

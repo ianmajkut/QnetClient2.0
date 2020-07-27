@@ -35,7 +35,7 @@ class verification_local : Fragment() {
             if (user.isEmailVerified) {
                 Log.i("Verif", "verified")
                 Toast.makeText(activity, "E-Mail verified", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.menu_action_local)
+                findNavController().navigate(R.id.next_action_local)
             } else {
                 Toast.makeText(activity, "E-Mail not verified", Toast.LENGTH_SHORT).show()
                 Log.i("Verif", "not verified")

@@ -49,8 +49,7 @@
             app:popUpTo="@id/login_register" />
         <action
             android:id="@+id/forget_action"
-            app:destination="@id/new_password_fragment"
-            app:popUpTo="@id/forget" />
+            app:destination="@id/new_password_success" />
     </fragment>
     <fragment
         android:id="@+id/register2"
@@ -95,20 +94,6 @@
             android:name="dni"
             android:defaultValue="0"
             app:argType="integer" />
-    </fragment>
-    <fragment
-        android:id="@+id/new_password_fragment"
-        android:name="com.qnet.qnetclient.loginregister_usuario.new_password_fragment"
-        android:label="fragment_new_password_fragment"
-        tools:layout="@layout/fragment_new_password_fragment">
-        <action
-            android:id="@+id/forget_back_action"
-            app:destination="@id/forget"
-            app:popUpTo="@id/forget" />
-        <action
-            android:id="@+id/forget_action"
-            app:destination="@id/new_password_success"
-            app:popUpTo="@id/login_register" />
     </fragment>
     <fragment
         android:id="@+id/new_password_success"

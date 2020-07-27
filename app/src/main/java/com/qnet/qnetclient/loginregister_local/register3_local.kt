@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.findNavController
+import com.ian.bottomnavigation.ui.home.HomeFragment2Args
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_register2.*
@@ -28,9 +29,12 @@ class register3_local : Fragment() {
     private val IMAGE_PICK_CODE = 1000;
     private val PERMISSION_CODE = 1001;
 
+    lateinit var infoRegister: InfoRegister
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+        infoRegister = register3_localArgs.fromBundle(requireArguments()).InfoRegister
         return inflater.inflate(R.layout.fragment_register3_local, container, false)
     }
 
@@ -94,9 +98,9 @@ class register3_local : Fragment() {
     }
 
     private fun setImage(){
-        viewModel.loadImage(image).observeForever{
+        viewModel.loadImage(image,infoRegister).observeForever{
             if (it){
-                findNavController().navigate(R.id.verification_action_local)
+                findNavController().navigate(R.id.next_action_local)
             }else{
                 Toast.makeText(activity, "Error al cargar imagen", Toast.LENGTH_SHORT).show()
             }

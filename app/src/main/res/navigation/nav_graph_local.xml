@@ -48,9 +48,8 @@
             app:destination="@id/login_register_local"
             app:popUpTo="@id/login_register_local" />
         <action
-            android:id="@+id/forget_action_local"
-            app:destination="@id/new_password_fragment_local"
-            app:popUpTo="@id/forget_local" />
+            android:id="@+id/forget_action"
+            app:destination="@id/new_password_success_local" />
     </fragment>
     <fragment
         android:id="@+id/register2_local"
@@ -77,20 +76,6 @@
             app:popUpTo="@id/login_register_local" />
     </fragment>
     <fragment
-        android:id="@+id/new_password_fragment_local"
-        android:name="com.qnet.qnetclient.loginregister_local.new_password_fragment_local"
-        android:label="fragment_new_password_fragment_local"
-        tools:layout="@layout/fragment_new_password_fragment_local" >
-        <action
-            android:id="@+id/forget_back_action_local"
-            app:destination="@id/forget_local"
-            app:popUpTo="@id/forget_local" />
-        <action
-            android:id="@+id/forget_action_local"
-            app:destination="@id/new_password_success_local"
-            app:popUpTo="@id/login_register_local" />
-    </fragment>
-    <fragment
         android:id="@+id/new_password_success_local"
         android:name="com.qnet.qnetclient.loginregister_local.new_password_success_local"
         android:label="fragment_new_password_success_local"
@@ -114,9 +99,12 @@
             app:destination="@id/register2_local"
             app:popUpTo="@id/register2_local" />
         <action
-            android:id="@+id/action_register3_local_to_mapsRegisterLocalActivity"
+            android:id="@+id/next_action_local"
             app:destination="@id/mapsRegisterLocalActivity"
             app:popUpTo="@id/register3_local" />
+        <argument
+            android:name="InfoRegister"
+            app:argType="com.qnet.qnetclient.loginregister_local.InfoRegister" />
     </fragment>
     <activity
         android:id="@+id/mapsRegisterLocalActivity"

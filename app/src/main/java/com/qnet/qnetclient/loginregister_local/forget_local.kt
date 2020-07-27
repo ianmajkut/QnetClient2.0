@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 
 import com.qnet.qnetclient.R
 import kotlinx.android.synthetic.main.fragment_forget.*
@@ -27,11 +29,29 @@ class forget_local : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         buttonNext.setOnClickListener{
-            findNavController().navigate(R.id.forget_action_local)
+            reestablecerPassword()
         }
         back_icon.setOnClickListener{
             findNavController().navigate(R.id.forget_back_action_local)
         }
+
+    }
+
+    private fun reestablecerPassword() {
+
+        val eMail = edtxt_eMailReestablecer.text.toString().trim()
+
+        if(eMail.isNotEmpty()) {
+            FirebaseAuth.getInstance().sendPasswordResetEmail(eMail)
+                .addOnCompleteListener{ task ->
+                    if (task.isSuccessful) {
+                        findNavController().navigate(R.id.forget_action_local)
+                    } else {
+                        Toast.makeText(activity, "Error Email No Existe", Toast.LENGTH_SHORT).show()
+                    }
+                }
+        }
+
 
     }
 
