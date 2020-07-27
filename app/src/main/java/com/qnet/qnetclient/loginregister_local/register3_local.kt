@@ -46,7 +46,8 @@ class register3_local : Fragment() {
             elegirImagen()
         }
         buttonNext.setOnClickListener {
-            setImage()
+            findNavController().navigate(R.id.next_action_local)
+            //setImage()
         }
         back_icon.setOnClickListener{
             findNavController().navigate(R.id.back_action_local)
