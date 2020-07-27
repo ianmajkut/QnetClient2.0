@@ -124,20 +124,21 @@ class FirebaseRepo {
         return mutableData
     }
 
-    fun sacarUser(user: String?) {
+    fun sacarUser(user: String?, local: String?, llamadaLocal: Boolean): LiveData<Boolean> {
+        val mutableData = MutableLiveData<Boolean>()
         functions = FirebaseFunctions.getInstance()
 
         val data = hashMapOf(
-            "keyUsuario" to user
+            "keyUsuario" to user,
+            "keyLocal" to local,
+            "llamadaLcal" to llamadaLocal,
+            "push" to true
         )
         functions.getHttpsCallable("eliminarCola")
             .call(data).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Log.i("eliminarCola", "Seccssfully removed.")
-                } else {
-                    Log.i("eliminarCola", "Failure.")
-                }
+                mutableData.value = it.isSuccessful
             }
+        return mutableData
     }
 
     fun updateUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
@@ -245,6 +246,7 @@ class FirebaseRepo {
         val mutableData = MutableLiveData<MutableList<Model>>()
         var mutableReference = mutableListOf<References>()
         val listData = mutableListOf<Model>()
+
         getMisColasReference().observeForever {
             for (reference in it) {
                 db.document("locales/${reference.keyLocal}").get().addOnSuccessListener { result ->
@@ -331,5 +333,15 @@ class FirebaseRepo {
             mutableData.value = ReferenceUsuarios(queuedPeople as ArrayList<String>, queueNumber)
         }
         return mutableData
+    }
+
+    fun refreshToken(token: String?) {
+        mAuth = FirebaseAuth.getInstance()
+
+        val data = hashMapOf(
+            "token" to token
+        )
+
+        db.document("users/${mAuth.currentUser?.uid}").update(data as Map<String, Any>)
     }
 }

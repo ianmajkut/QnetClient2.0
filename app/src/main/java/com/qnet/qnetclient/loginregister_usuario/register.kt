@@ -58,7 +58,7 @@ class register: Fragment() {
 
     fun crearUsuario(eMail:String,password:String,name:String,dni:Int){
         viewModel.createUser(eMail, password).observeForever(){
-            if(it){
+            if(it) {
                 val action = registerDirections.nextAction(name, dni)
                 findNavController().navigate(action)
                 Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()

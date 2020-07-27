@@ -98,32 +98,24 @@ class LectorQr_Activity : AppCompatActivity() {
 
     }
 
-    private  val processor=object : Detector.Processor<Barcode>{
+    private  val processor = object : Detector.Processor<Barcode>{
         override fun release() {
-
         }
 
         override fun receiveDetections(detections: Detector.Detections<Barcode>?) {
 
             if(detections!=null && detections.detectedItems.isNotEmpty()){
-
                 val qrCode: SparseArray<Barcode> = detections.detectedItems
                 val code= qrCode.valueAt(0)
                 textScanResult.text=code.displayValue
 
             }else{
-
                 textScanResult.text=""
-
             }
-
         }
-
     }
 
-    private fun sacarUser(user:String?){
-        viewModel.sacarUser(user)
+    private fun sacarUser(user:String?, local: String?, llamadaLocal: Boolean) {
+        viewModel.sacarUser(user, local, llamadaLocal)
     }
-
-
 }
