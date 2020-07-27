@@ -241,10 +241,10 @@ class FirebaseRepo {
                     listData.add(local)
                     mutableData.value = listData
                 }.addOnFailureListener { e ->
+                    mutableData.value = null
                     Log.w(TAG, "Error adding document", e)
                 }
-                aux=0
-
+                aux = 0
             }
         }
         return mutableData

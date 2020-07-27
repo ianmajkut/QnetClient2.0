@@ -50,7 +50,7 @@ class local_o_usuario : AppCompatActivity() {
             finish()
             return
         } else {
-            backToast = makeText(baseContext, "Presione nuevamente 'Atras' para salir", LENGTH_SHORT)
+            backToast = makeText(baseContext, "Presione nuevamente \"Atrás\" para salir", LENGTH_SHORT)
             backToast.show()
         }
         backPressedTime = System.currentTimeMillis()

@@ -36,7 +36,6 @@ class FilaFragment : Fragment() {
         val txt_MisColas = layout.findViewById<TextView>(R.id.text_notifications)
         val shimmer_view_container= layout.findViewById<ShimmerFrameLayout>(R.id.shimmer_view_container)
 
-
         recycler.layoutManager = GridLayoutManager(requireActivity().applicationContext,1)
         adapter = AdapterFila(requireActivity().applicationContext)
         recycler.adapter = adapter
@@ -57,8 +56,8 @@ class FilaFragment : Fragment() {
         viewModel.fetchMisColas().observe(viewLifecycleOwner, Observer {
 
             shimmer_view_container.stopShimmer()
-            shimmer_view_container.visibility=View.GONE
-
+            shimmer_view_container.visibility = View.GONE
+            text_notifications.visibility = View.GONE
             adapter.setListData(it)
             adapter.notifyDataSetChanged()
 

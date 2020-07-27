@@ -16,23 +16,23 @@ class AppLocal : AppCompatActivity() {
         setContentView(R.layout.activity_app_local)
     }
 
-    override fun onBackPressed() {
-        if (backPressedTime + 2000 > System.currentTimeMillis()) {
-            val intent = Intent(this, AppLocal::class.java)
-            startActivity(intent)
-            backToast.cancel()
-            super.onBackPressed()
-            moveTaskToBack(true)
-            finish()
-            return
-        } else {
-            backToast = Toast.makeText(
-                baseContext,
-                "Presione nuevamente 'Atras' para salir",
-                Toast.LENGTH_SHORT
-            )
-            backToast.show()
-        }
-        backPressedTime = System.currentTimeMillis()
-    }
+//    override fun onBackPressed() {
+//        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+//            val intent = Intent(this, AppLocal::class.java)
+//            startActivity(intent)
+//            backToast.cancel()
+//            super.onBackPressed()
+//            moveTaskToBack(true)
+//            finish()
+//            return
+//        } else {
+//            backToast = Toast.makeText(
+//                baseContext,
+//                "Presione nuevamente \"Atrás\" para salir",
+//                Toast.LENGTH_SHORT
+//            )
+//            backToast.show()
+//        }
+//        backPressedTime = System.currentTimeMillis()
+//    }
 }

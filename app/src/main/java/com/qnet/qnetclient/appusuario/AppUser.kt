@@ -65,12 +65,11 @@ class AppUser : AppCompatActivity() {
         } else {
             backToast = Toast.makeText(
                 baseContext,
-                "Presione nuevamente 'Atras' para salir",
+                "Presione nuevamente \"Atrás\" para salir",
                 Toast.LENGTH_SHORT
             )
             backToast.show()
         }
         backPressedTime = System.currentTimeMillis()
-
     }
 }
