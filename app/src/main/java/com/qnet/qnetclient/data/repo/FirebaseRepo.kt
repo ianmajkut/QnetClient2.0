@@ -335,13 +335,17 @@ class FirebaseRepo {
         return mutableData
     }
 
-    fun refreshToken(token: String?) {
+    fun refreshToken() {
         mAuth = FirebaseAuth.getInstance()
-
-        val data = hashMapOf(
-            "token" to token
-        )
-
-        db.document("users/${mAuth.currentUser?.uid}").update(data as Map<String, Any>)
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener {
+            if (it.isSuccessful) {
+                val data = hashMapOf(
+                    "token" to it.result?.token
+                )
+                db.document("users/${mAuth.currentUser?.uid}").set(
+                    data, SetOptions.merge()
+                )
+            }
+        }
     }
 }

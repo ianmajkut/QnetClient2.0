@@ -118,7 +118,7 @@ class FirestoreViewModel : ViewModel(){
         return mutableData
     }
 
-    fun refreshToken(token: String?) {
-        repo.refreshToken(token)
+    fun refreshToken() {
+        repo.refreshToken()
     }
 }

@@ -24,32 +24,9 @@ import com.qnet.qnetclient.local_o_usuario
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 
 class MyFirebaseMessagingService: FirebaseMessagingService() {
-    private lateinit var viewModel: FirestoreViewModel
-
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-//        Log.d("notifications", "From: ${remoteMessage.from}")
-//        if (remoteMessage.data.isNotEmpty()) {
-//            Log.d("notification", "Message data payload: ${remoteMessage.data}")
-//            scheduleJob()
-//        }
-//        remoteMessage.notification?.let {
-//            Log.d("notifications", "Message Notification Body: ${it.body}")
-//        }
-        viewModel = FirestoreViewModel()
-
         remoteMessage.notification?.let { sendNotification(it) }
     }
-
-    override fun onNewToken(token: String) {
-        super.onNewToken(token)
-        viewModel.refreshToken(token)
-//        Log.d("notifications", "Refreshed token: $token")
-    }
-
-//    private fun scheduleJob() {
-//        val work = OneTimeWorkRequest.Builder(MyWorker::class.java).build()
-//        WorkManager.getInstance(application).beginWith(work).enqueue()
-//    }
 
     private fun sendNotification(notification: RemoteMessage.Notification) {
         val intent = Intent(this, AppUser::class.java)
