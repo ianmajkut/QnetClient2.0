@@ -33,6 +33,7 @@ class LectorQr_Activity : AppCompatActivity() {
     private  val CodigoPermisoCamara=1001
     private lateinit var cameraSource: CameraSource
     private lateinit var detector: BarcodeDetector
+    private lateinit var mAuth: FirebaseAuth
     private val viewModel by lazy { FirestoreViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,6 +97,16 @@ class LectorQr_Activity : AppCompatActivity() {
 
         override fun surfaceCreated(surfaceHolder:  SurfaceHolder?) {
             try {
+                if (ActivityCompat.checkSelfPermission(
+                        this@LectorQr_Activity,
+                        Manifest.permission.CAMERA
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    ActivityCompat.requestPermissions(this@LectorQr_Activity,
+                        arrayOf(android.Manifest.permission.CAMERA),
+                        CodigoPermisoCamara)
+                    return
+                }
                 cameraSource.start(surfaceHolder)
             }catch (exception:Exception){
                 Toast.makeText(applicationContext, "Algo salio mal", Toast.LENGTH_SHORT).show()

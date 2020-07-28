@@ -50,7 +50,6 @@ class FirebaseRepo {
             }
     }
 
-
     fun uploadImage(uri: Uri?,info:InfoRegister):LiveData<Boolean>{
         val mutableData = MutableLiveData<Boolean>()
         if (uri == null) return mutableData
@@ -120,7 +119,7 @@ class FirebaseRepo {
         val data = hashMapOf(
             "keyUsuario" to user,
             "keyLocal" to local,
-            "llamadaLcal" to llamadaLocal,
+            "llamadaLocal" to llamadaLocal,
             "push" to true
         )
         functions.getHttpsCallable("eliminarCola")
@@ -242,10 +241,10 @@ class FirebaseRepo {
                     listData.add(local)
                     mutableData.value = listData
                 }.addOnFailureListener { e ->
+                    mutableData.value = null
                     Log.w(TAG, "Error adding document", e)
                 }
-                aux=0
-
+                aux = 0
             }
         }
         return mutableData
