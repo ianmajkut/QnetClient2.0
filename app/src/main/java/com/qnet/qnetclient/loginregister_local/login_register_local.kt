@@ -54,7 +54,7 @@ class login_register_local : Fragment() {
 
         if (name.isNotEmpty() && password.isNotEmpty()) {
             //@Ian falta poner un progress bar para ver el progreso
-            //showLoading()
+            showLoading()
             obsever(name, password)
         } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
@@ -73,7 +73,7 @@ class login_register_local : Fragment() {
     private fun obsever(name:String,password:String) {
         viewModel.singInUser(name,password).observeForever{
             if(it) {
-                //hideLoading()
+                hideLoading()
                 findNavController().navigate(R.id.menu_principal_action_local)
             } else {
                 Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()

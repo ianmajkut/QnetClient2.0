@@ -115,4 +115,12 @@ class FirestoreViewModel : ViewModel(){
     fun refreshToken() {
         repo.refreshToken()
     }
+
+    fun sacarUser(reference:String?):LiveData<Usuario>{
+        val mutableData = MutableLiveData<Usuario>()
+        repo.sacarUser(reference).observeForever{
+            mutableData.value = it
+        }
+        return mutableData
+    }
 }

@@ -32,7 +32,7 @@ class FirebaseRepo {
     private val db = FirebaseFirestore.getInstance()
     private lateinit var functions: FirebaseFunctions
     private lateinit var mAuth: FirebaseAuth
-    private var aux = 0
+    private var aux:Long = 0
 
     fun uploadData(name: String, dni: Int) {
         mAuth = FirebaseAuth.getInstance()
@@ -323,5 +323,26 @@ class FirebaseRepo {
                 )
             }
         }
+    }
+
+    fun sacarUser(reference:String?):LiveData<Usuario>{
+        val mutabData = MutableLiveData<Usuario>()
+        mAuth = FirebaseAuth.getInstance()
+        var usuario = Usuario(null,null)
+        db.document("users/${reference}").get().addOnSuccessListener { result ->
+            val name = result.getString("name")
+            usuario.name = name
+        }.addOnFailureListener{
+            mutabData.value = Usuario(null,-1)
+        }
+        db.document("users/${reference}/misColas/${mAuth.currentUser?.uid}").get().addOnSuccessListener {
+            val posicion = it.getLong("posicion")
+            usuario.position = posicion
+            mutabData.value = usuario
+        }.addOnFailureListener{
+            mutabData.value = Usuario(null,-1)
+        }
+        //mutabData.value = usuario
+        return mutabData
     }
 }

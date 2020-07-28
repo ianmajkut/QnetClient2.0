@@ -33,8 +33,7 @@ class register2_local : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = FirestoreViewModel()
         buttonNext.setOnClickListener{
-            //loadData()
-            findNavController().navigate(R.id.next_action_local)
+            loadData()
         }
         back_icon.setOnClickListener{
             findNavController().navigate(R.id.back_action_local)

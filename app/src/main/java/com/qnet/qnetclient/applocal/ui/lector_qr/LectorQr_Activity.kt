@@ -5,17 +5,23 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.SparseArray
 import android.view.SurfaceHolder
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.util.isNotEmpty
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
+import com.google.firebase.auth.FirebaseAuth
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.data.classes.Usuario
 import com.qnet.qnetclient.loginregister_usuario.mAuth
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.activity_lector_qr.*
@@ -108,7 +114,8 @@ class LectorQr_Activity : AppCompatActivity() {
             if(detections!=null && detections.detectedItems.isNotEmpty()){
                 val qrCode: SparseArray<Barcode> = detections.detectedItems
                 val code= qrCode.valueAt(0)
-                textScanResult.text=code.displayValue
+                //textScanResult.text=code.displayValue
+                mAuth = FirebaseAuth.getInstance()
                 sacarUser(code.displayValue, mAuth.currentUser?.uid,true)
 
             }else{
@@ -118,6 +125,33 @@ class LectorQr_Activity : AppCompatActivity() {
     }
 
     private fun sacarUser(user:String?, local: String?, llamadaLocal: Boolean) {
-        viewModel.sacarUser(user, local, llamadaLocal)
+        Handler(Looper.getMainLooper()).post{
+            viewModel.sacarUser(user).observeForever {
+                if (it!=null) {
+                    if (it.position!! > -1) {
+                        alerta(user, local, llamadaLocal, it)
+                    }
+                }
+            }
+        }
+
     }
+
+    fun alerta(user:String?, local: String?, llamadaLocal: Boolean,usuario: Usuario?){
+        val alertDialog = AlertDialog.Builder(this)
+        alertDialog.setTitle("Sacar de la Cola")
+        alertDialog.setMessage("Está a punto de sacar a ${usuario?.name} que esta en la posicion ${usuario?.position}." +
+                "¿Esta seguro?")
+
+        alertDialog.setNegativeButton("No") { _, _ ->
+
+        }
+        alertDialog.setPositiveButton("Si") { _, _ ->
+            viewModel.sacarUser(user, local, llamadaLocal).observeForever {
+
+            }
+        }
+        alertDialog.show()
+    }
+
 }
