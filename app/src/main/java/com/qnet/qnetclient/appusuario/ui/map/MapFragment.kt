@@ -66,7 +66,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationClickL
         map.isIndoorEnabled = false
         map.uiSettings.isTiltGesturesEnabled = false
         map.uiSettings.isRotateGesturesEnabled = false
-        map.uiSettings.isScrollGesturesEnabled = false
         map.setOnMyLocationButtonClickListener(this)
         map.setOnMyLocationClickListener(this)
         map.setOnMarkerClickListener(this)
