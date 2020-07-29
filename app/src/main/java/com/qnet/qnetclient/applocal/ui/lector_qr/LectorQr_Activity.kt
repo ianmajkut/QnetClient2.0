@@ -139,7 +139,7 @@ class LectorQr_Activity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).post{
             viewModel.sacarUser(user).observeForever {
                 if (it!=null) {
-                    if (it.position!! > -1) {
+                    if (it.position != null) {
                         alerta(user, local, llamadaLocal, it)
                     }
                 }
@@ -150,19 +150,31 @@ class LectorQr_Activity : AppCompatActivity() {
 
     fun alerta(user:String?, local: String?, llamadaLocal: Boolean,usuario: Usuario?){
         val alertDialog = AlertDialog.Builder(this)
-        alertDialog.setTitle("Sacar de la Cola")
-        alertDialog.setMessage("Está a punto de sacar a ${usuario?.name} que esta en la posicion ${usuario?.position}." +
-                "¿Esta seguro?")
+        if (usuario?.name != null && usuario.position != null) {
+            alertDialog.setTitle("Sacar de la Cola")
+            alertDialog.setMessage(
+                "Está a punto de sacar a ${usuario.name} que esta en la posicion ${usuario.position}." +
+                        "¿Esta seguro?"
+            )
 
-        alertDialog.setNegativeButton("No") { _, _ ->
+            alertDialog.setNegativeButton("No") { _, _ ->
 
-        }
-        alertDialog.setPositiveButton("Si") { _, _ ->
-            viewModel.sacarUser(user, local, llamadaLocal).observeForever {
+            }
+            alertDialog.setPositiveButton("Si") { _, _ ->
+                viewModel.sacarUser(user, local, llamadaLocal).observeForever {
+                    TODO("Que hacer cuando te saca de la cola")
+                }
+            }
+            alertDialog.show()
+        }else{
+            alertDialog.setTitle("Error")
+            alertDialog.setMessage(
+                "Usuario no existe en la cola"
+            )
+            alertDialog.setPositiveButton("Ok") { _, _ ->
 
             }
         }
-        alertDialog.show()
     }
 
 }

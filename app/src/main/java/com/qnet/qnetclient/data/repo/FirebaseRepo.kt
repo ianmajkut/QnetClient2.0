@@ -332,14 +332,14 @@ class FirebaseRepo {
             val name = result.getString("name")
             usuario.name = name
         }.addOnFailureListener{
-            mutabData.value = Usuario(null,-1)
+            mutabData.value = Usuario(null,null)
         }
         db.document("users/${reference}/misColas/${mAuth.currentUser?.uid}").get().addOnSuccessListener {
             val posicion = it.getLong("posicion")
             usuario.position = posicion
             mutabData.value = usuario
         }.addOnFailureListener{
-            mutabData.value = Usuario(null,-1)
+            mutabData.value = Usuario(null,null)
         }
         //mutabData.value = usuario
         return mutabData
