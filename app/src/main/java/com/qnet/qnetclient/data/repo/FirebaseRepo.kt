@@ -79,6 +79,7 @@ class FirebaseRepo {
             "horario" to info.horario,
             "descripcion" to info.tipo,
             "informacion" to info.informacion,
+            "telefono" to info.telefono,
             "queueNumber" to Int,
             "queuedPeople" to ArrayList<String>()
         )
@@ -143,6 +144,20 @@ class FirebaseRepo {
         return mutableData
     }
 
+    fun localUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
+        val mutableData = MutableLiveData<Boolean>()
+        mAuth = FirebaseAuth.getInstance()
+
+        val data = hashMapOf(
+            "ubicacion" to GeoPoint(latitude!!, longitude!!)
+        )
+        db.collection("locales").document(mAuth.currentUser?.uid.toString())
+            .set(data, SetOptions.merge()).addOnCompleteListener {
+                mutableData.value = it.isSuccessful
+            }
+        return mutableData
+    }
+
     fun localesCercanos(): LiveData<Boolean> {
         functions = FirebaseFunctions.getInstance()
         val mutableData = MutableLiveData<Boolean>()
@@ -182,14 +197,16 @@ class FirebaseRepo {
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
                     val image = result.getString("image")
-                    val local = Model(
-                        title,
+                    val direccion = result.getString("direccion")
+                    val horario = result.getString("horario")
+                    val informacion = result.getString("informacion")
+                    val local = Model(title,
                         descripcion,
                         num,
                         reference.distancia,
                         image,
                         null,
-                        reference.keyLocal
+                        reference.keyLocal,direccion, horario, informacion
                     )
                     listData.add(local)
                     mutableData.value = listData
@@ -237,7 +254,7 @@ class FirebaseRepo {
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
                     val image = result.getString("image")
-                    val local = Model(title, descripcion, num, reference.distancia, image,reference.posicion,reference.keyLocal)
+                    val local = Model(title, descripcion, num, reference.distancia, image,reference.posicion,reference.keyLocal,null,null,null)
                     listData.add(local)
                     mutableData.value = listData
                 }.addOnFailureListener { e ->

@@ -42,6 +42,10 @@ class HomeFragment2 : Fragment() {
         val descripcion:TextView = layout.findViewById(R.id.descripcion)
         val distancia:TextView = layout.findViewById(R.id.distancia)
         val fila:TextView = layout.findViewById(R.id.fila)
+        val ubicacion:TextView = layout.findViewById(R.id.ubicacion)
+        val horario:TextView = layout.findViewById(R.id.horario)
+        val telefono:TextView = layout.findViewById(R.id.telefono)
+        val mini_Desc:TextView = layout.findViewById(R.id.mini_desc)
 
         viewModel = ViewModelProvider(this).get(FirestoreViewModel::class.java)
 
@@ -50,6 +54,10 @@ class HomeFragment2 : Fragment() {
         descripcion.text= local.descripcion
         fila.text= local.num
         distancia.text = local.dist
+        ubicacion.text = local.direccion
+        horario.text = local.horario
+        telefono.text = local.informacion
+        mini_Desc.text = local.informacion
         //bindearDatos(Local.Local,requireContext())*/
 
         val keyLocal = local.keyLocal

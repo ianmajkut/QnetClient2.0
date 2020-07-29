@@ -46,9 +46,10 @@ class register2_local : Fragment() {
         val horario = edtxt_horario.text.toString()
         val tipo = edtxt_tipo.text.toString()
         val informacion = edtxt_informacion.text.toString()
+        val telefono = telefono.text.toString()
 
         if(nombre.isNotEmpty()&&ubicacion.isNotEmpty()&&horario.isNotEmpty()&&tipo.isNotEmpty()&&informacion.isNotEmpty()){
-            val data = InfoRegister(nombre,ubicacion, horario, tipo, informacion)
+            val data = InfoRegister(nombre,ubicacion, horario, tipo, informacion,telefono)
             val action = register2_localDirections.nextActionLocal(data)
             findNavController().navigate(action)
             Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()

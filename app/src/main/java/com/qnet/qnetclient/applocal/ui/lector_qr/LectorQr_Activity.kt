@@ -127,8 +127,8 @@ class LectorQr_Activity : AppCompatActivity() {
                 val code= qrCode.valueAt(0)
                 //textScanResult.text=code.displayValue
                 mAuth = FirebaseAuth.getInstance()
+                cameraSource.stop()
                 sacarUser(code.displayValue, mAuth.currentUser?.uid,true)
-
             }else{
                 textScanResult.text=""
             }
