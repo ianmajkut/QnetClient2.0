@@ -3,7 +3,6 @@ package com.qnet.qnetclient.loginregister_usuario
 import android.Manifest
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -17,14 +16,13 @@ import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.*
 import com.qnet.qnetclient.R
-import com.qnet.qnetclient.appusuario.AppUser
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_login_register.*
 import kotlin.properties.Delegates
 
 class login_register : Fragment() {
 
-    private val PERMISSION_ID = 1000
+    private val LOCATION_PERMISSION_ID = 1000
     private var loadingDialog: Dialog? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var latitude by Delegates.notNull<Double>()
@@ -86,7 +84,7 @@ class login_register : Fragment() {
         ) {
             ActivityCompat.requestPermissions(requireActivity(),
                 arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
+                    android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_ID)
             return
         }
         fusedLocationProviderClient.lastLocation.addOnCompleteListener {
@@ -106,7 +104,7 @@ class login_register : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == PERMISSION_ID) {
+        if (requestCode == LOCATION_PERMISSION_ID) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.d("Location", "Permission granted")
             }

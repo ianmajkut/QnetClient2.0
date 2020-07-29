@@ -1,14 +1,10 @@
 package com.qnet.qnetclient.data.repo
 
 import android.content.ContentValues.TAG
-import android.provider.Settings.Global.getString
 import android.net.Uri
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
@@ -17,11 +13,9 @@ import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.storage.FirebaseStorage
 import com.ian.bottomnavigation.ui.home.Model
-import com.qnet.qnetclient.R
 import com.qnet.qnetclient.appusuario.ui.settings.SettingsModel
 import com.qnet.qnetclient.data.classes.References
 import com.qnet.qnetclient.data.classes.ReferenceLocalesCercanos
-import kotlin.coroutines.coroutineContext
 import com.qnet.qnetclient.data.classes.ReferenceUsuarios
 import com.qnet.qnetclient.data.classes.Usuario
 import com.qnet.qnetclient.loginregister_local.InfoRegister
@@ -162,7 +156,10 @@ class FirebaseRepo {
             .addOnSuccessListener { result ->
                 val nombre = result.getString("name")
                 val email = mAuth.currentUser?.email
-                val usuario = SettingsModel(nombre, email)
+                val ubicacion = result.getGeoPoint("ubicacion")
+                val latitud = ubicacion?.latitude
+                val longitud = ubicacion?.longitude
+                val usuario = SettingsModel(nombre, email, latitud.toString(), longitud.toString())
                 mutableData.value = usuario
             }.addOnFailureListener {
                 Log.i("getUsuario", "Failed: $it")
@@ -182,6 +179,9 @@ class FirebaseRepo {
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
                     val image = result.getString("image")
+                    val ubicacion = result.getGeoPoint("ubicacion")
+                    val latLocal = ubicacion?.latitude.toString()
+                    val longLocal = ubicacion?.longitude.toString()
                     val local = Model(
                         title,
                         descripcion,
@@ -189,7 +189,9 @@ class FirebaseRepo {
                         reference.distancia,
                         image,
                         null,
-                        reference.keyLocal
+                        reference.keyLocal,
+                        latLocal,
+                        longLocal
                     )
                     listData.add(local)
                     mutableData.value = listData
@@ -237,7 +239,7 @@ class FirebaseRepo {
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
                     val image = result.getString("image")
-                    val local = Model(title, descripcion, num, reference.distancia, image,reference.posicion,reference.keyLocal)
+                    val local = Model(title, descripcion, num, reference.distancia, image,reference.posicion,reference.keyLocal, null, null)
                     listData.add(local)
                     mutableData.value = listData
                 }.addOnFailureListener { e ->

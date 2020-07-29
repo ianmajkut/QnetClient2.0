@@ -19,8 +19,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : Fragment() {
 
     private val viewModel by lazy { FirestoreViewModel()}
-
     private lateinit var adapter: MainAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val layout=inflater.inflate(R.layout.fragment_home, container, false)
