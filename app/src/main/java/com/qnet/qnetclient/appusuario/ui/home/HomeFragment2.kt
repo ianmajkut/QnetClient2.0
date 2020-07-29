@@ -43,7 +43,6 @@ class HomeFragment2 : Fragment() {
         val distancia:TextView = layout.findViewById(R.id.distancia)
         val fila:TextView = layout.findViewById(R.id.fila)
 
-
         viewModel = ViewModelProvider(this).get(FirestoreViewModel::class.java)
 
         Glide.with(requireContext()).load(local.image).into(image)

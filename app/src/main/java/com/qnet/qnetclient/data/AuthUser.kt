@@ -1,6 +1,7 @@
 package com.qnet.qnetclient.data
 
 import android.content.ContentValues.TAG
+import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -31,6 +32,7 @@ class AuthUser {
                     mutableData.value = task.isSuccessful
                 }
             }
+
         return mutableData
     }
 

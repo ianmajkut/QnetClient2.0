@@ -1,5 +1,7 @@
 package com.ian.bottomnavigation.ui.settings
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -68,6 +70,13 @@ class SettingsFragment : Fragment() {
         }
         alertDialog.setPositiveButton("Si") { _, _ ->
             mAuth.signOut()
+            val preferences: SharedPreferences =
+                requireActivity().getSharedPreferences("RememberMe", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = preferences.edit()
+            editor.putBoolean("remember", false)
+            editor.putString("name", null)
+            editor.putString("password", null)
+            editor.apply()
             findNavController().navigate(R.id.action_navigation_settings_to_local_o_usuario)
         }
         alertDialog.show()

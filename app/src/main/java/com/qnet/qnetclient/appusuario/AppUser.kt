@@ -27,6 +27,7 @@ class AppUser : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_app_user)
+
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         val navController = findNavController(R.id.nav_host_fragment)
@@ -45,7 +46,6 @@ class AppUser : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         NavigationUI.setupActionBarWithNavController(this, navController)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

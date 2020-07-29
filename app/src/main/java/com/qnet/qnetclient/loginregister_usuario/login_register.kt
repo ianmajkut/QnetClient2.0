@@ -17,6 +17,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
@@ -25,6 +26,7 @@ import com.google.android.gms.location.*
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_login_register.*
+import kotlin.math.log
 import kotlin.properties.Delegates
 
 
@@ -35,14 +37,13 @@ class login_register : Fragment() {
     private var latitude by Delegates.notNull<Double>()
     private var longitude by Delegates.notNull<Double>()
     private lateinit var viewModel: FirestoreViewModel
-    
-
-
+    private var rememberMe: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_login_register, container, false)
     }
 
@@ -52,6 +53,16 @@ class login_register : Fragment() {
         viewModel = FirestoreViewModel()
         getLocation()
 
+        val preferences: SharedPreferences =
+            requireActivity().getSharedPreferences("RememberMe", Context.MODE_PRIVATE)
+        val checkbox: Boolean = preferences.getBoolean("remember", false)
+        val name: String? = preferences.getString("name", "")
+        val password: String? = preferences.getString("password", "")
+        if (checkbox) {
+            login(name!!, password!!)
+        } else {
+            Toast.makeText(requireContext(), "Please Log In", Toast.LENGTH_SHORT).show()
+        }
 
         buttonNew.setOnClickListener {
             findNavController().navigate(R.id.next_action)
@@ -60,14 +71,17 @@ class login_register : Fragment() {
             findNavController().navigate(R.id.forget_action)
         }
         buttonNext.setOnClickListener {
-            login()
+            getData()
+        }
+
+        checkboxRecordar.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (buttonView.isChecked) {
+                rememberMe = true
+            } else if (!buttonView.isChecked) {
+                rememberMe = false
+            }
         }
     }
-
-
-
-
-
 
     private fun getLocation() {
         if (ActivityCompat.checkSelfPermission(
@@ -107,13 +121,32 @@ class login_register : Fragment() {
         }
     }
 
-    private fun login() {
+    private fun getData() {
         val name = edtxt_eMail.text.toString().trim()
         val password = edtxt_Password.text.toString().trim()
 
+        if (rememberMe) {
+            val preferences: SharedPreferences =
+                requireActivity().getSharedPreferences("RememberMe", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = preferences.edit()
+            editor.putBoolean("remember", true)
+            editor.putString("name", name)
+            editor.putString("password", password)
+            editor.apply()
+        } else {
+            val preferences: SharedPreferences =
+                requireActivity().getSharedPreferences("RememberMe", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = preferences.edit()
+            editor.putBoolean("remember", false)
+            editor.putString("name", null)
+            editor.putString("password", null)
+            editor.apply()
+        }
 
+        login(name, password)
+    }
 
-
+    private fun login(name: String, password: String) {
         if (name.isNotEmpty() && password.isNotEmpty()) {
             //@Ian falta poner un progress bar para ver el progreso
             showLoading()
@@ -122,9 +155,6 @@ class login_register : Fragment() {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
         }
     }
-
-
-
 
     private fun hideLoading(){
         loadingDialog?.let { if (it.isShowing)it.cancel() }
