@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -49,27 +50,31 @@ class AppUser : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = this.findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp()
+//        val navController = this.findNavController(R.id.nav_host_fragment)
+//        return navController.navigateUp()
+        return NavigationUI.navigateUp(
+            Navigation.findNavController(this, R.id.nav_host_fragment),
+            null
+        )
     }
 
-    override fun onBackPressed() {
-        if (backPressedTime + 2000 > System.currentTimeMillis()) {
-            val intent = Intent(this, AppUser::class.java)
-            startActivity(intent)
-            backToast.cancel()
-            super.onBackPressed()
-            moveTaskToBack(true)
-            finish()
-            return
-        } else {
-            backToast = Toast.makeText(
-                baseContext,
-                "Presione nuevamente \"Atrás\" para salir",
-                Toast.LENGTH_SHORT
-            )
-            backToast.show()
-        }
-        backPressedTime = System.currentTimeMillis()
-    }
+//    override fun onBackPressed() {
+//        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+//            val intent = Intent(this, AppUser::class.java)
+//            startActivity(intent)
+//            backToast.cancel()
+//            super.onBackPressed()
+//            moveTaskToBack(true)
+//            finish()
+//            return
+//        } else {
+//            backToast = Toast.makeText(
+//                baseContext,
+//                "Presione nuevamente \"Atrás\" para salir",
+//                Toast.LENGTH_SHORT
+//            )
+//            backToast.show()
+//        }
+//        backPressedTime = System.currentTimeMillis()
+//    }
 }

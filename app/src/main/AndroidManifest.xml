@@ -35,9 +35,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".register_mapa_local.MapsRegisterLocalActivity"
-            android:label="@string/title_activity_maps_register_local"></activity>
+<!--        <activity-->
+<!--            android:name=".register_mapa_local.MapsRegisterLocalActivity"-->
+<!--            android:label="@string/title_activity_maps_register_local" />-->
+
         <activity
             android:name=".applocal.ui.lector_qr.LectorQr_Activity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -70,6 +71,7 @@
             </intent-filter>
         </activity>
 
+<!--        Notification-->
         <service
             android:name=".notification.MyFirebaseMessagingService"
             android:exported="false"

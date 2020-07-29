@@ -1,36 +1,29 @@
 package com.qnet.qnetclient.loginregister_usuario
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
-import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.*
-
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.appusuario.AppUser
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_login_register.*
-import kotlin.math.log
 import kotlin.properties.Delegates
 
-
 class login_register : Fragment() {
+
     private val PERMISSION_ID = 1000
     private var loadingDialog: Dialog? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -42,7 +35,6 @@ class login_register : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_login_register, container, false)
     }
@@ -148,7 +140,6 @@ class login_register : Fragment() {
 
     private fun login(name: String, password: String) {
         if (name.isNotEmpty() && password.isNotEmpty()) {
-            //@Ian falta poner un progress bar para ver el progreso
             showLoading()
             obsever(name, password)
         } else {
@@ -168,7 +159,6 @@ class login_register : Fragment() {
     private fun obsever(name:String,password:String) {
         viewModel.singInUser(name,password).observeForever{
             if(it) {
-//                Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
                 observer2()
             } else {
                 hideLoading()
@@ -190,6 +180,9 @@ class login_register : Fragment() {
             if (it) {
                 hideLoading()
                 viewModel.refreshToken()
+//                val intent = Intent(requireContext(), AppUser::class.java)
+//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                startActivity(intent)
                 findNavController().navigate(R.id.menu_principal_action)
             }
         }
