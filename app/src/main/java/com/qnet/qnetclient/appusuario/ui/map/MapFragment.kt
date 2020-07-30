@@ -12,10 +12,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
+import com.ian.bottomnavigation.ui.home.Model
 
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
@@ -23,7 +25,8 @@ import kotlinx.android.synthetic.main.fragment_map.*
 import java.util.*
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationClickListener,
-    GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMarkerClickListener {
+    GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMarkerClickListener,
+    GoogleMap.OnInfoWindowClickListener {
 
     private val LOCATION_PERMISSION_ID = 1000
     private lateinit var map: GoogleMap
@@ -69,13 +72,14 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationClickL
         map.setOnMyLocationButtonClickListener(this)
         map.setOnMyLocationClickListener(this)
         map.setOnMarkerClickListener(this)
+        map.setOnInfoWindowClickListener(this)
         enableMyLocation()
         map.apply {
             viewModel.fetchUserData().observe(viewLifecycleOwner, Observer {
                 val latUsuario = it.latitud?.toDouble()
                 val longUsuario = it.longitud?.toDouble()
                 val posicionUsuario = LatLng(latUsuario!!, longUsuario!!)
-                moveCamera(
+                animateCamera(
                     CameraUpdateFactory.newLatLngZoom(posicionUsuario, 15.0f)
                 )
             })
@@ -86,13 +90,15 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationClickL
                     val latLocal = it.latitud?.toDouble()
                     val longLocal = it.longitud?.toDouble()
                     val posicionLocal = LatLng(latLocal!!, longLocal!!)
-                    addMarker(
+                    val marker = addMarker(
                         MarkerOptions()
                             .position(posicionLocal)
                             .title(nombreLocal)
                             .snippet(descripcionLocal)
                             .icon(BitmapDescriptorFactory.defaultMarker(random.nextInt(360).toFloat()))
                     )
+                    val local = it
+                    marker.tag = local
                 }
             })
         }
@@ -107,9 +113,15 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationClickL
 
     override fun onMarkerClick(marker: Marker?): Boolean {
         map.apply {
-            moveCamera(CameraUpdateFactory.newLatLng(marker?.position))
+            animateCamera(CameraUpdateFactory.newLatLng(marker?.position))
         }
         return false
+    }
+
+    override fun onInfoWindowClick(marker: Marker?) {
+        val local = marker?.tag as Model
+        val action = MapFragmentDirections.actionNavigationMapToHomeFragment2(local)
+        findNavController().navigate(action)
     }
 
     private fun enableMyLocation() {

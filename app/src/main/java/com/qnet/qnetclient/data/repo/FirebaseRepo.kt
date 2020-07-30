@@ -28,7 +28,7 @@ class FirebaseRepo {
     private lateinit var mAuth: FirebaseAuth
     private var aux = 0
 
-    fun uploadData(name: String, dni: Int) {
+    fun uploadUserData(name: String, dni: Int) {
         mAuth = FirebaseAuth.getInstance()
         val user = hashMapOf(
             "name" to name,
@@ -63,7 +63,7 @@ class FirebaseRepo {
     }
 
     private fun referenceImage(path:String?,info: InfoRegister):LiveData<Boolean>{
-        val mutableData  = MutableLiveData<Boolean>()
+        var mutableData  = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
 
         val data = hashMapOf(
@@ -73,17 +73,14 @@ class FirebaseRepo {
             "horario" to info.horario,
             "descripcion" to info.tipo,
             "informacion" to info.informacion,
-            "queueNumber" to Int,
-            "queuedPeople" to ArrayList<String>()
+            "queueNumber" to 0,
+            "queuedPeople" to arrayListOf(null)
         )
 
         db.document("locales/${mAuth.currentUser?.uid}")
             .set(data)
-            .addOnSuccessListener {
-                mutableData.value = true
-            }
-            .addOnFailureListener{
-                mutableData.value = false
+            .addOnCompleteListener {
+                mutableData.value = it.isSuccessful
             }
 
         return mutableData
@@ -123,14 +120,21 @@ class FirebaseRepo {
         return mutableData
     }
 
-    fun updateUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
+    fun updateUbicacion(latitude: Double?, longitude: Double?, llamadaUsuario: Boolean): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
+        val coleccion: String
+
+        if (llamadaUsuario) {
+            coleccion = "users"
+        } else {
+            coleccion = "locales"
+        }
 
         val data = hashMapOf(
             "ubicacion" to GeoPoint(latitude!!, longitude!!)
         )
-        db.collection("users").document(mAuth.currentUser?.uid.toString())
+        db.collection(coleccion).document(mAuth.currentUser?.uid.toString())
             .set(data, SetOptions.merge()).addOnCompleteListener {
                 mutableData.value = it.isSuccessful
             }

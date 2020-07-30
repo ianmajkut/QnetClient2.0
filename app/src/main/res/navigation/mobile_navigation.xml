@@ -24,9 +24,6 @@
         <action
             android:id="@+id/action_navigation_map_to_homeFragment2"
             app:destination="@id/homeFragment2" />
-        <argument
-            android:name="Local"
-            app:argType="com.ian.bottomnavigation.ui.home.Model" />
     </fragment>
 
     <fragment

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.qnet.qnetclient">
 
@@ -9,11 +8,10 @@
          location permissions for the "MyLocation" functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -31,13 +29,12 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
+
+        <!-- GoogleMaps API_KEY -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
-<!--        <activity-->
-<!--            android:name=".register_mapa_local.MapsRegisterLocalActivity"-->
-<!--            android:label="@string/title_activity_maps_register_local" />-->
+        <!-- GoogleMaps API_KEY fin -->
 
         <activity
             android:name=".applocal.ui.lector_qr.LectorQr_Activity"
@@ -71,11 +68,11 @@
             </intent-filter>
         </activity>
 
-<!--        Notification-->
+        <!-- Notification -->
         <service
             android:name=".notification.MyFirebaseMessagingService"
-            android:exported="false"
-            android:enabled="true" >
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -84,14 +81,13 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorPrimary" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_launcher" />
     </application>
+    <!-- Notification fin -->
 
 </manifest>
