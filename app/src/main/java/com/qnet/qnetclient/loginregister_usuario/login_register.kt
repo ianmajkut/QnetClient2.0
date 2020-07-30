@@ -29,18 +29,19 @@ import kotlin.properties.Delegates
 
 
 class login_register : Fragment() {
-    private val PERMISSION_ID = 1000
+
+    private val LOCATION_PERMISSION_ID = 1000
     private var loadingDialog: Dialog? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var latitude by Delegates.notNull<Double>()
     private var longitude by Delegates.notNull<Double>()
     private lateinit var viewModel: FirestoreViewModel
-
+    private var rememberMe: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_login_register, container, false)
     }
 
@@ -50,6 +51,17 @@ class login_register : Fragment() {
         viewModel = FirestoreViewModel()
         getLocation()
 
+        val preferences: SharedPreferences =
+            requireActivity().getSharedPreferences("RememberMe", Context.MODE_PRIVATE)
+        val checkbox: Boolean = preferences.getBoolean("remember", false)
+        val name: String? = preferences.getString("name", "")
+        val password: String? = preferences.getString("password", "")
+        if (checkbox) {
+            login(name!!, password!!)
+        } else {
+            Toast.makeText(requireContext(), "Please Log In", Toast.LENGTH_SHORT).show()
+        }
+
         buttonNew.setOnClickListener {
             findNavController().navigate(R.id.next_action)
         }
@@ -57,14 +69,18 @@ class login_register : Fragment() {
             findNavController().navigate(R.id.forget_action)
         }
         buttonNext.setOnClickListener {
-            login()
+            getData()
         }
     }
 
-
-
-
-
+        checkboxRecordar.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (buttonView.isChecked) {
+                rememberMe = true
+            } else if (!buttonView.isChecked) {
+                rememberMe = false
+            }
+        }
+    }
 
     private fun getLocation() {
         if (ActivityCompat.checkSelfPermission(
@@ -77,7 +93,7 @@ class login_register : Fragment() {
         ) {
             ActivityCompat.requestPermissions(requireActivity(),
                 arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
+                    android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_ID)
             return
         }
         fusedLocationProviderClient.lastLocation.addOnCompleteListener {
@@ -97,28 +113,46 @@ class login_register : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == PERMISSION_ID) {
+        if (requestCode == LOCATION_PERMISSION_ID) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.d("Location", "Permission granted")
             }
         }
     }
 
-    private fun login() {
+    private fun getData() {
         val name = edtxt_eMail.text.toString().trim()
         val password = edtxt_Password.text.toString().trim()
 
+        if (rememberMe) {
+            val preferences: SharedPreferences =
+                requireActivity().getSharedPreferences("RememberMe", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = preferences.edit()
+            editor.putBoolean("remember", true)
+            editor.putString("name", name)
+            editor.putString("password", password)
+            editor.apply()
+        } else {
+            val preferences: SharedPreferences =
+                requireActivity().getSharedPreferences("RememberMe", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = preferences.edit()
+            editor.putBoolean("remember", false)
+            editor.putString("name", null)
+            editor.putString("password", null)
+            editor.apply()
+        }
+
+        login(name, password)
+    }
+
+    private fun login(name: String, password: String) {
         if (name.isNotEmpty() && password.isNotEmpty()) {
-            //@Ian falta poner un progress bar para ver el progreso
             showLoading()
             obsever(name, password)
         } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
         }
     }
-
-
-
 
     private fun hideLoading(){
         loadingDialog?.let { if (it.isShowing)it.cancel() }
@@ -132,7 +166,6 @@ class login_register : Fragment() {
     private fun obsever(name:String,password:String) {
         viewModel.singInUser(name,password).observeForever{
             if(it) {
-//                Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
                 observer2()
             } else {
                 hideLoading()
@@ -142,7 +175,7 @@ class login_register : Fragment() {
     }
 
     private fun observer2() {
-        viewModel.updateUbicacion(latitude, longitude).observeForever {
+        viewModel.updateUbicacion(latitude, longitude, true).observeForever {
             if (it) {
                 observer3()
             }
@@ -154,6 +187,9 @@ class login_register : Fragment() {
             if (it) {
                 hideLoading()
                 viewModel.refreshToken()
+//                val intent = Intent(requireContext(), AppUser::class.java)
+//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                startActivity(intent)
                 findNavController().navigate(R.id.menu_principal_action)
             }
         }

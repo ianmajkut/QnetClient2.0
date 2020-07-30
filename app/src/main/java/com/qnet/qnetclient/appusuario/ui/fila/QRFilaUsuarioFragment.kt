@@ -23,8 +23,8 @@ import kotlinx.android.synthetic.main.fragment_q_r_fila_usuario.*
 class QRFilaUsuarioFragment : Fragment() {
 
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
-    private lateinit var viewModel: FirestoreViewModel
     private var keyLocal: String? = ""
+    private lateinit var viewModel: FirestoreViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -48,19 +48,16 @@ class QRFilaUsuarioFragment : Fragment() {
         Log.d("QRFILA", "kyeLocal: $keyLocal")
 
         return layout
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         buttonSalir.setOnClickListener {
             alerta()
-
         }
-
     }
 
-    fun alerta(){
+    fun alerta() {
         val alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.setTitle("Alerta")
         alertDialog.setMessage("Está a punto de salir de la fila actual. ¿Está seguro?")
@@ -81,5 +78,4 @@ class QRFilaUsuarioFragment : Fragment() {
         }
         alertDialog.show()
     }
-
 }

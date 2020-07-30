@@ -43,7 +43,7 @@ class verification : Fragment() {
             if (user.isEmailVerified) {
                 Log.i("Verif", "verified")
                 Toast.makeText(activity, "E-Mail verified", Toast.LENGTH_SHORT).show()
-                viewModel.uploadData(name, dni)
+                viewModel.uploadUserData(name, dni)
                 findNavController().navigate(R.id.menu_action)
             } else {
                 Toast.makeText(activity, "E-Mail not verified", Toast.LENGTH_SHORT).show()

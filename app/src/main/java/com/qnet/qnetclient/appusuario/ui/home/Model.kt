@@ -3,9 +3,11 @@ package com.ian.bottomnavigation.ui.home
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Model (var title:String?,var descripcion:String?,var num:String?,var dist:String?, var image:String? ,var posicion:String?,var keyLocal:String?) :
+data class Model (var title: String?, var descripcion: String?, var num: String?, var dist: String?, var image:String?, var posicion: String?, var keyLocal: String?, var latitud: String?, var longitud: String?) :
     Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -24,6 +26,8 @@ data class Model (var title:String?,var descripcion:String?,var num:String?,var 
         parcel.writeString(image)
         parcel.writeString(posicion)
         parcel.writeString(keyLocal)
+        parcel.writeString(latitud)
+        parcel.writeString(longitud)
     }
 
     override fun describeContents(): Int {
@@ -39,4 +43,5 @@ data class Model (var title:String?,var descripcion:String?,var num:String?,var 
             return arrayOfNulls(size)
         }
     }
+
 }

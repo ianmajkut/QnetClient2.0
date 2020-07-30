@@ -10,7 +10,6 @@ import com.qnet.qnetclient.R
 
 class InfoLocal_Fragment : Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment

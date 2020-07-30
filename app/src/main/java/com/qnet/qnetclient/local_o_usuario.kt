@@ -3,6 +3,7 @@ package com.qnet.qnetclient
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -50,7 +51,7 @@ class local_o_usuario : AppCompatActivity() {
             finish()
             return
         } else {
-            backToast = makeText(baseContext, "Presione nuevamente 'Atras' para salir", LENGTH_SHORT)
+            backToast = makeText(baseContext, "Presione nuevamente \"Atrás\" para salir", LENGTH_SHORT)
             backToast.show()
         }
         backPressedTime = System.currentTimeMillis()

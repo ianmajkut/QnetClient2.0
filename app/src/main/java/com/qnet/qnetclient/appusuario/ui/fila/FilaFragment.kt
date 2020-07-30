@@ -1,5 +1,6 @@
 package com.ian.bottomnavigation.ui.fila
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,6 +20,7 @@ import com.ian.bottomnavigation.ui.home.MainAdapter
 
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.appusuario.ui.fila.AdapterFila
+import com.qnet.qnetclient.local_o_usuario
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_fila.*
 import kotlinx.android.synthetic.main.fragment_fila.shimmer_view_container
@@ -26,7 +29,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class FilaFragment : Fragment() {
 
     private val viewModel by lazy { FirestoreViewModel() }
-
     private lateinit var adapter: AdapterFila
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -35,7 +37,6 @@ class FilaFragment : Fragment() {
         val recycler = layout.findViewById<RecyclerView>(R.id.recyclerViewMisColas)
         val txt_MisColas = layout.findViewById<TextView>(R.id.text_notifications)
         val shimmer_view_container= layout.findViewById<ShimmerFrameLayout>(R.id.shimmer_view_container)
-
 
         recycler.layoutManager = GridLayoutManager(requireActivity().applicationContext,1)
         adapter = AdapterFila(requireActivity().applicationContext)
@@ -57,8 +58,8 @@ class FilaFragment : Fragment() {
         viewModel.fetchMisColas().observe(viewLifecycleOwner, Observer {
 
             shimmer_view_container.stopShimmer()
-            shimmer_view_container.visibility=View.GONE
-
+            shimmer_view_container.visibility = View.GONE
+            text_notifications.visibility = View.GONE
             adapter.setListData(it)
             adapter.notifyDataSetChanged()
 

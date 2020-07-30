@@ -31,8 +31,6 @@ class login_register_local : Fragment() {
         return inflater.inflate(R.layout.fragment_login_register_local, container, false)
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = FirestoreViewModel()
@@ -53,7 +51,6 @@ class login_register_local : Fragment() {
         val password = edtxt_PasswordLocal.text.toString().trim()
 
         if (name.isNotEmpty() && password.isNotEmpty()) {
-            //@Ian falta poner un progress bar para ver el progreso
             //showLoading()
             obsever(name, password)
         } else {
@@ -65,7 +62,7 @@ class login_register_local : Fragment() {
         loadingDialog?.let { if (it.isShowing)it.cancel() }
     }
 
-    private fun showLoading(){
+    private fun showLoading() {
         hideLoading()
         loadingDialog = CommonUtils.showLoadingDialog(requireContext())
     }
@@ -80,5 +77,4 @@ class login_register_local : Fragment() {
             }
         }
     }
-
 }

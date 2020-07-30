@@ -101,7 +101,7 @@ class register3_local : Fragment() {
     private fun setImage(){
         viewModel.loadImage(image,infoRegister).observeForever{
             if (it){
-                findNavController().navigate(R.id.next_action_local)
+                findNavController().navigate(R.id.action_register3_local_to_login_register_local)
             }else{
                 Toast.makeText(activity, "Error al cargar imagen", Toast.LENGTH_SHORT).show()
             }

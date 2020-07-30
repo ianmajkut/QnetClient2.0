@@ -20,9 +20,7 @@
             app:popUpTo="@id/login_register" />
         <action
             android:id="@+id/menu_principal_action"
-            app:destination="@id/appUser"
-            app:popUpTo="@id/login_register"
-            app:popUpToInclusive="true" />
+            app:destination="@id/appUser" />
     </fragment>
     <fragment
         android:id="@+id/register"

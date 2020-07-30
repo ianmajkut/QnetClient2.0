@@ -1,14 +1,10 @@
 package com.qnet.qnetclient.data.repo
 
 import android.content.ContentValues.TAG
-import android.provider.Settings.Global.getString
 import android.net.Uri
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
@@ -17,11 +13,9 @@ import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.storage.FirebaseStorage
 import com.ian.bottomnavigation.ui.home.Model
-import com.qnet.qnetclient.R
 import com.qnet.qnetclient.appusuario.ui.settings.SettingsModel
 import com.qnet.qnetclient.data.classes.References
 import com.qnet.qnetclient.data.classes.ReferenceLocalesCercanos
-import kotlin.coroutines.coroutineContext
 import com.qnet.qnetclient.data.classes.ReferenceUsuarios
 import com.qnet.qnetclient.data.classes.Usuario
 import com.qnet.qnetclient.loginregister_local.InfoRegister
@@ -34,7 +28,7 @@ class FirebaseRepo {
     private lateinit var mAuth: FirebaseAuth
     private var aux = 0
 
-    fun uploadData(name: String, dni: Int) {
+    fun uploadUserData(name: String, dni: Int) {
         mAuth = FirebaseAuth.getInstance()
         val user = hashMapOf(
             "name" to name,
@@ -49,7 +43,6 @@ class FirebaseRepo {
                 Log.w(TAG, "Error adding document", it)
             }
     }
-
 
     fun uploadImage(uri: Uri?,info:InfoRegister):LiveData<Boolean>{
         val mutableData = MutableLiveData<Boolean>()
@@ -70,7 +63,7 @@ class FirebaseRepo {
     }
 
     private fun referenceImage(path:String?,info: InfoRegister):LiveData<Boolean>{
-        val mutableData  = MutableLiveData<Boolean>()
+        var mutableData  = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
 
         val data = hashMapOf(
@@ -80,17 +73,14 @@ class FirebaseRepo {
             "horario" to info.horario,
             "descripcion" to info.tipo,
             "informacion" to info.informacion,
-            "queueNumber" to Int,
-            "queuedPeople" to ArrayList<String>()
+            "queueNumber" to 0,
+            "queuedPeople" to arrayListOf(null)
         )
 
         db.document("locales/${mAuth.currentUser?.uid}")
             .set(data)
-            .addOnSuccessListener {
-                mutableData.value = true
-            }
-            .addOnFailureListener{
-                mutableData.value = false
+            .addOnCompleteListener {
+                mutableData.value = it.isSuccessful
             }
 
         return mutableData
@@ -120,7 +110,7 @@ class FirebaseRepo {
         val data = hashMapOf(
             "keyUsuario" to user,
             "keyLocal" to local,
-            "llamadaLcal" to llamadaLocal,
+            "llamadaLocal" to llamadaLocal,
             "push" to true
         )
         functions.getHttpsCallable("eliminarCola")
@@ -130,14 +120,21 @@ class FirebaseRepo {
         return mutableData
     }
 
-    fun updateUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
+    fun updateUbicacion(latitude: Double?, longitude: Double?, llamadaUsuario: Boolean): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
+        val coleccion: String
+
+        if (llamadaUsuario) {
+            coleccion = "users"
+        } else {
+            coleccion = "locales"
+        }
 
         val data = hashMapOf(
             "ubicacion" to GeoPoint(latitude!!, longitude!!)
         )
-        db.collection("users").document(mAuth.currentUser?.uid.toString())
+        db.collection(coleccion).document(mAuth.currentUser?.uid.toString())
             .set(data, SetOptions.merge()).addOnCompleteListener {
                 mutableData.value = it.isSuccessful
             }
@@ -163,7 +160,10 @@ class FirebaseRepo {
             .addOnSuccessListener { result ->
                 val nombre = result.getString("name")
                 val email = mAuth.currentUser?.email
-                val usuario = SettingsModel(nombre, email)
+                val ubicacion = result.getGeoPoint("ubicacion")
+                val latitud = ubicacion?.latitude
+                val longitud = ubicacion?.longitude
+                val usuario = SettingsModel(nombre, email, latitud.toString(), longitud.toString())
                 mutableData.value = usuario
             }.addOnFailureListener {
                 Log.i("getUsuario", "Failed: $it")
@@ -183,6 +183,9 @@ class FirebaseRepo {
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
                     val image = result.getString("image")
+                    val ubicacion = result.getGeoPoint("ubicacion")
+                    val latLocal = ubicacion?.latitude.toString()
+                    val longLocal = ubicacion?.longitude.toString()
                     val local = Model(
                         title,
                         descripcion,
@@ -190,7 +193,9 @@ class FirebaseRepo {
                         reference.distancia,
                         image,
                         null,
-                        reference.keyLocal
+                        reference.keyLocal,
+                        latLocal,
+                        longLocal
                     )
                     listData.add(local)
                     mutableData.value = listData
@@ -238,14 +243,14 @@ class FirebaseRepo {
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
                     val image = result.getString("image")
-                    val local = Model(title, descripcion, num, reference.distancia, image,reference.posicion,reference.keyLocal)
+                    val local = Model(title, descripcion, num, reference.distancia, image,reference.posicion,reference.keyLocal, null, null)
                     listData.add(local)
                     mutableData.value = listData
                 }.addOnFailureListener { e ->
+                    mutableData.value = null
                     Log.w(TAG, "Error adding document", e)
                 }
-                aux=0
-
+                aux = 0
             }
         }
         return mutableData
