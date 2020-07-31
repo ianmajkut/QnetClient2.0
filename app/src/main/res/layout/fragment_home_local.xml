@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".applocal.ui.HomeLocalFragment"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="#fece2f">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,6 +21,7 @@
             android:layout_marginTop="40dp"
             android:fontFamily="@font/helvetica_now_text_bold"
             android:text="Bienvenido"
+            android:textColor="#000000"
             android:textSize="35sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,6 +33,7 @@
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/helvetica_now_text_reg_ita"
             android:text="Tene control de tu local de manera sencilla"
+            android:textColor="#000000"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView4"
@@ -67,14 +70,18 @@
             android:id="@+id/filalocal"
             android:layout_width="160dp"
             android:layout_height="190dp"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="3dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:padding="5dp">
+                android:padding="5dp"
+                >
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
@@ -88,6 +95,7 @@
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"
                     android:text="Fila"
+                    android:textColor="#000000"
                     android:textSize="20sp"/>
 
 
@@ -96,6 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textStyle="italic"
                     android:text="Revisa las personas que hay en la fila de tu local"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="15sp"/>
@@ -108,7 +117,10 @@
             android:layout_width="160dp"
             android:layout_height="190dp"
             android:layout_margin="10dp"
-            android:id="@+id/lectorcodigoQR">
+            android:id="@+id/lectorcodigoQR"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="3dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -130,6 +142,7 @@
                     android:gravity="center"
                     android:layout_marginTop="10dp"
                     android:text="Lector de Código QR"
+                    android:textColor="#000000"
                     android:textSize="20sp"/>
 
 
@@ -139,6 +152,7 @@
                     android:gravity="center"
                     android:text="Verifica que sea el cliente correcto"
                     android:textSize="15sp"
+                    android:textStyle="italic"
                     android:textColor="@android:color/darker_gray"/>
 
             </LinearLayout>
@@ -161,7 +175,10 @@
             android:layout_width="340dp"
             android:layout_height="150dp"
             android:layout_margin="10dp"
-            android:id="@+id/informacionlocal">
+            android:id="@+id/informacionlocal"
+            app:cardCornerRadius="20dp"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="3dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -182,12 +199,14 @@
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"
                     android:text="Información"
+                    android:textColor="#000000"
                     android:textSize="20sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textStyle="italic"
                     android:text="Encontra la informacion de tu cuenta "
                     android:textColor="@android:color/darker_gray"
                     android:textSize="15sp"/>

@@ -170,6 +170,8 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="1dp"
                     android:paddingBottom="50dp"
+                    android:drawableStart="@drawable/ic_baseline_info_24"
+                    android:drawablePadding="5dp"
                     android:text="Wikipedia es una enciclopedia libre,nota 2​ políglota y editada de manera colaborativa. Es administrada por la Fundación Wikimedia, una organización sin ánimo de lucro cuya financiación está basada en donaciones. Sus más de 50 millones de artículos en 300 idiomas han sido redactados en conjunto por voluntarios de todo el mundo,5​ lo que suma más de 2000 millones de ediciones, y permite que cualquier persona pueda sumarse al proyecto6​ para editarlos, a menos que la página se encuentre protegida contra vandalismos para evitar problemas o disputas.
 
 Fue creada el 15 de enero de 2001 por Jimmy Wales y Larry Sanger,7​ y es la mayor y más popular obra de consulta en Internet.8​9​10​ Desde su fundación, Wikipedia no solo ha ganado en popularidad —se encuentra entre los 10 sitios web más populares del mundo—,11​12​ sino que además su éxito ha propiciado la aparición de proyectos hermanos: Wikcionario, Wikilibros, Wikiversidad, Wikiquote, Wikinoticias, Wikisource, Wikiespecies y Wikiviajes.

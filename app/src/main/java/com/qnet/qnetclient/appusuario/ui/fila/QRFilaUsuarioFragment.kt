@@ -45,7 +45,7 @@ class QRFilaUsuarioFragment : Fragment() {
 
         val local = QRFilaUsuarioFragmentArgs.fromBundle(requireArguments()).Local
         keyLocal = local.keyLocal
-        Log.d("QRFILA", "kyeLocal: $keyLocal")
+        Log.d("QRFILA", "keyLocal: $keyLocal")
 
         return layout
     }

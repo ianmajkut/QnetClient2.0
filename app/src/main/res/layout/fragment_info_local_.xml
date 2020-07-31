@@ -1,14 +1,601 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".applocal.ui.info_local.InfoLocal_Fragment">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toplayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="#fece2f">
+
+            <androidx.cardview.widget.CardView
+
+                android:id="@+id/cardView3"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="29dp"
+                android:layout_marginStart="25dp"
+                android:background="#fece2f"
+                app:cardCornerRadius="64dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/shoplogo" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tx_nombreLocal"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="65dp"
+                android:layout_marginEnd="31dp"
+                android:fontFamily="@font/helvetica_now_text_bold"
+                android:text="Nombre Local"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cardView3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btn_editar_nombreLocal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="Editar"
+                android:textAllCaps="true"
+                android:textColor="#ffff"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/tx_nombreLocal"
+                app:layout_constraintTop_toBottomOf="@+id/tx_nombreLocal" />
+
+            <Button
+                android:id="@+id/btn_editar_imagenLocal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="Cambiar"
+                android:textAllCaps="true"
+                android:textColor="#ffff"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="@+id/cardView3"
+                app:layout_constraintStart_toStartOf="@+id/cardView3"
+                app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewInfoLocal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_editar_imagenLocal">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constMisDatos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cardViewInfoLocal">
+
+
+                        <TextView
+                            android:id="@+id/misDatos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/helvetica_now_text_bold"
+                            android:text="Mi Cuenta"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="22sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tx_mailLocal"
+                            android:layout_width="240dp"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_mail_black_24dp"
+                            android:paddingBottom="5dp"
+                            android:text="E-Mail"
+                            android:textSize="17sp"
+                            app:layout_constraintStart_toStartOf="@+id/misDatos"
+                            app:layout_constraintTop_toBottomOf="@+id/misDatos" />
+
+                        <TextView
+                            android:id="@+id/tx_passwordLocal"
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_create_black_24dp"
+                            android:text="@string/password"
+                            android:textSize="17sp"
+                            app:layout_constraintStart_toStartOf="@+id/tx_mailLocal"
+                            app:layout_constraintTop_toBottomOf="@id/tx_mailLocal" />
+
+
+                        <TextView
+                            android:id="@+id/btn_editar_mailLocal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="5dp"
+                            android:backgroundTint="#0000"
+                            android:text="Editar"
+                            android:textAllCaps="true"
+                            android:textColor="#000000"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tx_mailLocal" />
+
+
+                        <TextView
+                            android:id="@+id/btn_editar_passwordLocal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:backgroundTint="#0000"
+                            android:text="Editar"
+                            android:textAllCaps="true"
+                            android:textColor="#000000"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="@id/btn_editar_mailLocal"
+                            app:layout_constraintTop_toTopOf="@+id/tx_passwordLocal" />
+
+                        <TextView
+                            android:id="@+id/miLocal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/helvetica_now_text_bold"
+                            android:text="Mi Local"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="22sp"
+                            app:layout_constraintStart_toStartOf="@+id/tx_passwordLocal"
+                            app:layout_constraintTop_toBottomOf="@id/tx_passwordLocal" />
+
+                        <TextView
+                            android:id="@+id/tx_telefonoLocal"
+                            android:layout_width="240dp"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_phone_black_24dp"
+                            android:paddingBottom="5dp"
+                            android:text="Teléfono"
+                            android:textSize="17sp"
+                            app:layout_constraintStart_toStartOf="@+id/miLocal"
+                            app:layout_constraintTop_toBottomOf="@+id/miLocal" />
+
+                        <TextView
+                            android:id="@+id/btn_editar_telLocal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="5dp"
+                            android:backgroundTint="#0000"
+                            android:text="Editar"
+                            android:textAllCaps="true"
+                            android:textColor="#000000"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tx_telefonoLocal" />
+
+
+                        <TextView
+                            android:id="@+id/tx_ubiLocal"
+                            android:layout_width="240dp"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_baseline_location_on_24"
+                            android:paddingBottom="5dp"
+                            android:text="Ubicación"
+                            android:textSize="17sp"
+                            app:layout_constraintStart_toStartOf="@+id/tx_telefonoLocal"
+                            app:layout_constraintTop_toBottomOf="@+id/tx_telefonoLocal" />
+
+                        <TextView
+                            android:id="@+id/btn_editar_ubiLocal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:backgroundTint="#0000"
+                            android:text="Editar"
+                            android:textAllCaps="true"
+                            android:textColor="#000000"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="@id/btn_editar_telLocal"
+                            app:layout_constraintTop_toTopOf="@+id/tx_ubiLocal" />
+
+                        <TextView
+                            android:id="@+id/tx_horarioLocal"
+                            android:layout_width="240dp"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_baseline_query_builder_24"
+                            android:paddingBottom="5dp"
+                            android:text="Horario"
+                            android:textSize="17sp"
+                            app:layout_constraintStart_toStartOf="@+id/tx_ubiLocal"
+                            app:layout_constraintTop_toBottomOf="@+id/tx_ubiLocal" />
+
+                        <TextView
+                            android:id="@+id/btn_editar_horarioLocal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:backgroundTint="#0000"
+                            android:text="Editar"
+                            android:textAllCaps="true"
+                            android:textColor="#000000"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="@id/btn_editar_ubiLocal"
+                            app:layout_constraintTop_toTopOf="@+id/tx_horarioLocal" />
+
+                        <TextView
+                            android:id="@+id/tx_tipoLocal"
+                            android:layout_width="240dp"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_baseline_store_24"
+                            android:paddingBottom="5dp"
+                            android:text="Tipo de Local"
+                            android:textSize="17sp"
+                            app:layout_constraintStart_toStartOf="@+id/tx_horarioLocal"
+                            app:layout_constraintTop_toBottomOf="@+id/tx_horarioLocal" />
+
+                        <TextView
+                            android:id="@+id/btn_editar_tipoLocal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:backgroundTint="#0000"
+                            android:text="Editar"
+                            android:textAllCaps="true"
+                            android:textColor="#000000"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="@id/btn_editar_horarioLocal"
+                            app:layout_constraintTop_toTopOf="@+id/tx_tipoLocal" />
+
+                        <TextView
+                            android:id="@+id/tx_infoLocal"
+                            android:layout_width="240dp"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_baseline_info_24"
+                            android:paddingBottom="5dp"
+                            android:text="Información InformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformación "
+                            android:textSize="17sp"
+                            app:layout_constraintStart_toStartOf="@+id/tx_tipoLocal"
+                            app:layout_constraintTop_toBottomOf="@+id/tx_tipoLocal" />
+
+                        <TextView
+                            android:id="@+id/btn_editar_infoLocal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:backgroundTint="#0000"
+                            android:text="Editar"
+                            android:textAllCaps="true"
+                            android:textColor="#000000"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="@id/btn_editar_horarioLocal"
+                            app:layout_constraintTop_toTopOf="@+id/tx_infoLocal" />
+
+                        <Button
+                            android:id="@+id/btn_cerrarsesionLocal"
+                            android:layout_width="170dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/btn_border"
+                            android:backgroundTint="#fece2f"
+                            android:elevation="2dp"
+                            android:paddingBottom="5dp"
+                            android:text="Cerrar Sesión"
+                            android:textAllCaps="true"
+                            android:textColor="#000000"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tx_infoLocal" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+
+
+
+
+<!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#D3D3D3"
+            app:layout_constraintTop_toBottomOf="@+id/toplayout"
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="vertical"/>
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constMisDatos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/toplayout"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp">
+
+            <TextView
+                android:id="@+id/misDatos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/helvetica_now_text_bold"
+                android:text="Mi Cuenta"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tx_mailLocal"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:drawableStart="@drawable/ic_mail_black_24dp"
+                android:text="E-Mail"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="@+id/misDatos"
+                app:layout_constraintTop_toBottomOf="@+id/misDatos" />
+
+            <TextView
+                android:id="@+id/tx_passwordLocal"
+                android:layout_width="260dp"
+                android:layout_height="30dp"
+                android:paddingBottom="5dp"
+                android:drawableStart="@drawable/ic_create_black_24dp"
+                android:text="@string/password"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="@+id/tx_mailLocal"
+                app:layout_constraintTop_toBottomOf="@id/tx_mailLocal" />
+
+
+            <TextView
+                android:id="@+id/btn_editar_mailLocal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="#0000"
+                android:text="Editar"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tx_mailLocal" />
+
+
+            <TextView
+                android:id="@+id/btn_editar_passwordLocal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:backgroundTint="#0000"
+                android:text="Editar"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="@id/btn_editar_mailLocal"
+                app:layout_constraintTop_toTopOf="@+id/tx_passwordLocal" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#D3D3D3"
+            app:layout_constraintTop_toBottomOf="@+id/constMisDatos"
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="vertical"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constMiLocal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/constMisDatos"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/miLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/helvetica_now_text_bold"
+            android:text="Mi Local"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tx_telefonoLocal"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:drawableStart="@drawable/ic_phone_black_24dp"
+            android:text="Teléfono"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="@+id/miLocal"
+            app:layout_constraintTop_toBottomOf="@+id/miLocal" />
+
+        <TextView
+            android:id="@+id/btn_editar_telLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="#0000"
+            android:text="Editar"
+            android:textAllCaps="true"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tx_telefonoLocal" />
+
+
+        <TextView
+            android:id="@+id/tx_ubiLocal"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:drawableStart="@drawable/ic_baseline_location_on_24"
+            android:text="Ubicación"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="@+id/tx_telefonoLocal"
+            app:layout_constraintTop_toBottomOf="@+id/tx_telefonoLocal"/>
+
+        <TextView
+            android:id="@+id/btn_editar_ubiLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#0000"
+            android:text="Editar"
+            android:textAllCaps="true"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@id/btn_editar_telLocal"
+            app:layout_constraintTop_toTopOf="@+id/tx_ubiLocal" />
+
+        <TextView
+            android:id="@+id/tx_horarioLocal"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:drawableStart="@drawable/ic_baseline_query_builder_24"
+            android:text="Horario"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="@+id/tx_ubiLocal"
+            app:layout_constraintTop_toBottomOf="@+id/tx_ubiLocal"/>
+
+        <TextView
+            android:id="@+id/btn_editar_horarioLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#0000"
+            android:text="Editar"
+            android:textAllCaps="true"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@id/btn_editar_ubiLocal"
+            app:layout_constraintTop_toTopOf="@+id/tx_horarioLocal" />
+
+        <TextView
+            android:id="@+id/tx_tipoLocal"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:drawableStart="@drawable/ic_baseline_store_24"
+            android:text="Tipo de Local"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="@+id/tx_horarioLocal"
+            app:layout_constraintTop_toBottomOf="@+id/tx_horarioLocal"/>
+
+        <TextView
+            android:id="@+id/btn_editar_tipoLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#0000"
+            android:text="Editar"
+            android:textAllCaps="true"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@id/btn_editar_horarioLocal"
+            app:layout_constraintTop_toTopOf="@+id/tx_tipoLocal" />
+
+        <TextView
+            android:id="@+id/tx_infoLocal"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:drawableStart="@drawable/ic_baseline_info_24"
+            android:text="Información importante:"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="@+id/tx_tipoLocal"
+            app:layout_constraintTop_toBottomOf="@+id/tx_tipoLocal"/>
+
+        <TextView
+            android:id="@+id/btn_editar_infoLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#0000"
+            android:text="Editar"
+            android:textAllCaps="true"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@id/btn_editar_horarioLocal"
+            app:layout_constraintTop_toTopOf="@+id/tx_infoLocal" />
+
+        <Button
+            android:id="@+id/btn_cerrarsesionLocal"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_border"
+            android:backgroundTint="#fece2f"
+            android:elevation="2dp"
+            android:text="Cerrar Sesión"
+            android:textAllCaps="true"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_infoLocal" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+-->
+
+

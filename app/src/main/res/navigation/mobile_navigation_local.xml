@@ -36,9 +36,137 @@
         android:id="@+id/infoLocal_Fragment"
         android:name="com.qnet.qnetclient.applocal.ui.info_local.InfoLocal_Fragment"
         android:label="fragment_info_local_"
-        tools:layout="@layout/fragment_info_local_" />
+        tools:layout="@layout/fragment_info_local_" >
+        <action
+            android:id="@+id/action_infoLocal_Fragment_to_cambiarNombreLocalFragment"
+            app:destination="@id/cambiarNombreLocalFragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+        <action
+            android:id="@+id/action_infoLocal_Fragment_to_cambiarMailLocalFragment"
+            app:destination="@id/cambiarMailLocalFragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+        <action
+            android:id="@+id/action_infoLocal_Fragment_to_cambiarContraLocalFragment"
+            app:destination="@id/cambiarContraLocalFragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+        <action
+            android:id="@+id/action_infoLocal_Fragment_to_cambiarTelefonoLocalFragment"
+            app:destination="@id/cambiarTelefonoLocalFragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+        <action
+            android:id="@+id/action_infoLocal_Fragment_to_cambiarImagenLocalFragment"
+            app:destination="@id/cambiarImagenLocalFragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+        <action
+            android:id="@+id/action_infoLocal_Fragment_to_cambiarHorarioLocalFragment"
+            app:destination="@id/cambiarHorarioLocalFragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+        <action
+            android:id="@+id/action_infoLocal_Fragment_to_cambiarTipoLocalFragment"
+            app:destination="@id/cambiarTipoLocalFragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+        <action
+            android:id="@+id/action_infoLocal_Fragment_to_cambiarInfoImportanteFragment"
+            app:destination="@id/cambiarInfoImportanteFragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+    </fragment>
     <activity
         android:id="@+id/lectorQr_Activity"
         android:name="com.qnet.qnetclient.applocal.ui.lector_qr.LectorQr_Activity"
         android:label="LectorQr_Activity" />
+    <fragment
+        android:id="@+id/cambiarNombreLocalFragment"
+        android:name="com.qnet.qnetclient.applocal.ui.info_local.CambiarNombreLocalFragment"
+        android:label="CambiarNombreLocalFragment" >
+        <action
+            android:id="@+id/action_cambiarNombreLocalFragment_to_infoLocal_Fragment"
+            app:destination="@id/infoLocal_Fragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cambiarMailLocalFragment"
+        android:name="com.qnet.qnetclient.applocal.ui.info_local.CambiarMailLocalFragment"
+        android:label="CambiarMailLocalFragment" >
+        <action
+            android:id="@+id/action_cambiarMailLocalFragment_to_infoLocal_Fragment"
+            app:destination="@id/infoLocal_Fragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+        <action
+            android:id="@+id/action_cambiarMailLocalFragment_to_verificarNuevoMailLocalFragment"
+            app:destination="@id/verificarNuevoMailLocalFragment"
+            app:popUpTo="@id/cambiarMailLocalFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/cambiarTelefonoLocalFragment"
+        android:name="com.qnet.qnetclient.applocal.ui.info_local.CambiarTelefonoLocalFragment"
+        android:label="CambiarTelefonoLocalFragment" >
+        <action
+            android:id="@+id/action_cambiarTelefonoLocalFragment_to_infoLocal_Fragment"
+            app:destination="@id/infoLocal_Fragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cambiarContraLocalFragment"
+        android:name="com.qnet.qnetclient.applocal.ui.info_local.CambiarContraLocalFragment"
+        android:label="CambiarContraLocalFragment" >
+        <action
+            android:id="@+id/action_cambiarContraLocalFragment_to_verificarNuevaContraLocalFragment"
+            app:destination="@id/verificarNuevaContraLocalFragment"
+            app:popUpTo="@id/cambiarContraLocalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cambiarImagenLocalFragment"
+        android:name="com.qnet.qnetclient.applocal.ui.info_local.CambiarImagenLocalFragment"
+        android:label="CambiarImagenLocalFragment" >
+        <action
+            android:id="@+id/action_cambiarImagenLocalFragment_to_infoLocal_Fragment"
+            app:destination="@id/infoLocal_Fragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cambiarTipoLocalFragment"
+        android:name="com.qnet.qnetclient.applocal.ui.info_local.CambiarTipoLocalFragment"
+        android:label="CambiarTipoLocalFragment" >
+        <action
+            android:id="@+id/action_cambiarTipoLocalFragment_to_infoLocal_Fragment"
+            app:destination="@id/infoLocal_Fragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cambiarHorarioLocalFragment"
+        android:name="com.qnet.qnetclient.applocal.ui.info_local.CambiarHorarioLocalFragment"
+        android:label="CambiarHorarioLocalFragment" >
+        <action
+            android:id="@+id/action_cambiarHorarioLocalFragment_to_infoLocal_Fragment"
+            app:destination="@id/infoLocal_Fragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cambiarInfoImportanteFragment"
+        android:name="com.qnet.qnetclient.applocal.ui.info_local.CambiarInfoImportanteFragment"
+        android:label="CambiarInfoImportanteFragment" >
+        <action
+            android:id="@+id/action_cambiarInfoImportanteFragment_to_infoLocal_Fragment"
+            app:destination="@id/infoLocal_Fragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verificarNuevoMailLocalFragment"
+        android:name="com.qnet.qnetclient.applocal.ui.info_local.VerificarNuevoMailLocalFragment"
+        android:label="VerificarNuevoMailLocalFragment" >
+        <action
+            android:id="@+id/action_verificarNuevoMailLocalFragment_to_infoLocal_Fragment"
+            app:destination="@id/infoLocal_Fragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verificarNuevaContraLocalFragment"
+        android:name="com.qnet.qnetclient.applocal.ui.info_local.VerificarNuevaContraLocalFragment"
+        android:label="VerificarNuevaContraLocalFragment" >
+        <action
+            android:id="@+id/action_verificarNuevaContraLocalFragment_to_infoLocal_Fragment"
+            app:destination="@id/infoLocal_Fragment"
+            app:popUpTo="@id/infoLocal_Fragment" />
+    </fragment>
 </navigation>
