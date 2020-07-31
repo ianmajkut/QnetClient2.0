@@ -367,10 +367,22 @@ class FirebaseRepo {
     fun isLocal():LiveData<Boolean>{
         val mutableData = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
+
         db.document("local/${mAuth.currentUser?.uid}").get().addOnSuccessListener {
-            mutableData.value = it.getBoolean("local")
+            val aux = it.getBoolean("local")
+            mutableData.value = aux
         }.addOnFailureListener{
             mutableData.value = false
+        }
+        db.document("users/${mAuth.currentUser?.uid}").get().addOnSuccessListener {
+            val aux = it.getBoolean("local")
+            if(aux==null){
+                mutableData.value = true
+            }else{
+                mutableData.value = aux
+            }
+        }.addOnFailureListener{
+            mutableData.value = true
         }
         return mutableData
     }

@@ -34,14 +34,16 @@ class FirestoreViewModel : ViewModel(){
         repoAuth.singInAccount(eMail,password).observeForever{
             if(it) {
                 repo.isLocal().observeForever { result -> //1 -> es Usuario
-                    if (result!=null) {
-                        mutableData.value = 2   // 2 -> es Local
-                    }else{
-                        mutableData.value =1
+                    if(result!=null) {
+                        if (result) {
+                            mutableData.value = 2   // 2 -> es Local
+                        } else {
+                            mutableData.value = 1 // 1 -> es Usuario
+                        }
                     }
                 }
             }else{
-                mutableData.value = 0
+                mutableData.value = 0 // 0 -> Error
             }
         }
         return mutableData

@@ -1,6 +1,8 @@
 package com.qnet.qnetclient.loginregister_local
 
 import android.app.Dialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -44,6 +46,14 @@ class login_register_local : Fragment() {
             buttonNext.setOnClickListener{
                 login()
             }
+
+        checkboxRecordarLocal.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (buttonView.isChecked) {
+                rememberMe = true
+            } else if (!buttonView.isChecked) {
+                rememberMe = false
+            }
+        }
     }
 
     private fun login() {
@@ -52,6 +62,29 @@ class login_register_local : Fragment() {
 
         if (name.isNotEmpty() && password.isNotEmpty()) {
             //@Ian falta poner un progress bar para ver el progreso
+            if (rememberMe) {
+                val preferences: SharedPreferences =
+                    requireActivity().getSharedPreferences(
+                        "RememberMe",
+                        Context.MODE_PRIVATE
+                    )
+                val editor: SharedPreferences.Editor = preferences.edit()
+                editor.putBoolean("remember", true)
+                editor.putString("name", name)
+                editor.putString("password", password)
+                editor.apply()
+            } else {
+                val preferences: SharedPreferences =
+                    requireActivity().getSharedPreferences(
+                        "RememberMe",
+                        Context.MODE_PRIVATE
+                    )
+                val editor: SharedPreferences.Editor = preferences.edit()
+                editor.putBoolean("remember", false)
+                editor.putString("name", null)
+                editor.putString("password", null)
+                editor.apply()
+            }
             showLoading()
             obsever(name, password)
         } else {
