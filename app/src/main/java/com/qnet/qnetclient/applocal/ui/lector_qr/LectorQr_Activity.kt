@@ -125,9 +125,8 @@ class LectorQr_Activity : AppCompatActivity() {
             if(detections!=null && detections.detectedItems.isNotEmpty()){
                 val qrCode: SparseArray<Barcode> = detections.detectedItems
                 val code= qrCode.valueAt(0)
-                //textScanResult.text=code.displayValue
+                textScanResult.text=code.displayValue
                 mAuth = FirebaseAuth.getInstance()
-                cameraSource.stop()
                 sacarUser(code.displayValue, mAuth.currentUser?.uid,true)
             }else{
                 textScanResult.text=""

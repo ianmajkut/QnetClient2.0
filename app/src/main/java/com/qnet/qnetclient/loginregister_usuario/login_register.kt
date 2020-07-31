@@ -125,30 +125,35 @@ class login_register : Fragment() {
         val name = edtxt_eMail.text.toString().trim()
         val password = edtxt_Password.text.toString().trim()
 
-        if (rememberMe) {
-            val preferences: SharedPreferences =
-                requireActivity().getSharedPreferences("RememberMe", Context.MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = preferences.edit()
-            editor.putBoolean("remember", true)
-            editor.putString("name", name)
-            editor.putString("password", password)
-            editor.apply()
-        } else {
-            val preferences: SharedPreferences =
-                requireActivity().getSharedPreferences("RememberMe", Context.MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = preferences.edit()
-            editor.putBoolean("remember", false)
-            editor.putString("name", null)
-            editor.putString("password", null)
-            editor.apply()
-        }
-
         login(name, password)
     }
 
     private fun login(name: String, password: String) {
         if (name.isNotEmpty() && password.isNotEmpty()) {
             //@Ian falta poner un progress bar para ver el progreso
+            if (rememberMe) {
+                val preferences: SharedPreferences =
+                    requireActivity().getSharedPreferences(
+                        "RememberMe",
+                        Context.MODE_PRIVATE
+                    )
+                val editor: SharedPreferences.Editor = preferences.edit()
+                editor.putBoolean("remember", true)
+                editor.putString("name", name)
+                editor.putString("password", password)
+                editor.apply()
+            } else {
+                val preferences: SharedPreferences =
+                    requireActivity().getSharedPreferences(
+                        "RememberMe",
+                        Context.MODE_PRIVATE
+                    )
+                val editor: SharedPreferences.Editor = preferences.edit()
+                editor.putBoolean("remember", false)
+                editor.putString("name", null)
+                editor.putString("password", null)
+                editor.apply()
+            }
             showLoading()
             obsever(name, password)
         } else {
@@ -167,13 +172,23 @@ class login_register : Fragment() {
 
     private fun obsever(name:String,password:String) {
         viewModel.singInUser(name,password).observeForever{
-            if(it) {
-//                Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
-                observer2()
-            } else {
-                hideLoading()
-                Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
+            if(it!=null) {
+                when (it) {
+                    0 -> {
+                        Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
+                        hideLoading()
+                    }
+                    1 -> {
+                        observer2()
+                    }
+                    2 -> {
+                        Toast.makeText(activity, "El Usuario es un Local", Toast.LENGTH_SHORT)
+                            .show()
+                        hideLoading()
+                    }
+                }
             }
+
         }
     }
 
@@ -181,6 +196,8 @@ class login_register : Fragment() {
         viewModel.updateUbicacion(latitude, longitude).observeForever {
             if (it) {
                 observer3()
+            }else{
+                hideLoading()
             }
         }
     }
@@ -191,6 +208,8 @@ class login_register : Fragment() {
                 hideLoading()
                 viewModel.refreshToken()
                 findNavController().navigate(R.id.menu_principal_action)
+            }else{
+                hideLoading()
             }
         }
     }

@@ -38,7 +38,8 @@ class FirebaseRepo {
         mAuth = FirebaseAuth.getInstance()
         val user = hashMapOf(
             "name" to name,
-            "dni" to dni
+            "dni" to dni,
+            "local" to false
         )
         db.document("users/${mAuth.currentUser?.uid}")
             .set(user as Map<String, Any>)
@@ -81,7 +82,8 @@ class FirebaseRepo {
             "informacion" to info.informacion,
             "telefono" to info.telefono,
             "queueNumber" to Int,
-            "queuedPeople" to ArrayList<String>()
+            "queuedPeople" to ArrayList<String>(),
+            "local" to true
         )
 
         db.document("locales/${mAuth.currentUser?.uid}")
@@ -300,8 +302,8 @@ class FirebaseRepo {
             if (it.queueNumber != null) {
                 aux = 0
                 for (reference in it.queuedPeople) {
-                    aux++
                     db.document("users/${reference}").get().addOnSuccessListener { result ->
+                        aux++
                         val name = result.getString("name")
                         val usuario = Usuario(name, aux)
                         listData.add(usuario)
@@ -361,4 +363,16 @@ class FirebaseRepo {
         //mutabData.value = usuario
         return mutabData
     }
+
+    fun isLocal():LiveData<Boolean>{
+        val mutableData = MutableLiveData<Boolean>()
+        mAuth = FirebaseAuth.getInstance()
+        db.document("local/${mAuth.currentUser?.uid}").get().addOnSuccessListener {
+            mutableData.value = it.getBoolean("local")
+        }.addOnFailureListener{
+            mutableData.value = false
+        }
+        return mutableData
+    }
+
 }

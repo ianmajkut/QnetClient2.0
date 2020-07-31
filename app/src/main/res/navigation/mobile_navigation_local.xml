@@ -9,7 +9,11 @@
         android:id="@+id/filaLocalFragment"
         android:name="com.qnet.qnetclient.applocal.ui.fila.FilaLocalFragment"
         android:label="fragment_fila_local"
-        tools:layout="@layout/fragment_fila_local" />
+        tools:layout="@layout/fragment_fila_local" >
+        <action
+            android:id="@+id/action_filaLocalFragment_to_lectorQr_Activity"
+            app:destination="@id/lectorQr_Activity" />
+    </fragment>
     <fragment
         android:id="@+id/homeLocalFragment"
         android:name="com.qnet.qnetclient.applocal.ui.HomeLocalFragment"

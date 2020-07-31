@@ -29,10 +29,20 @@ class FirestoreViewModel : ViewModel(){
         repo.uploadData(name, dni)
     }
 
-    fun singInUser(eMail: String,password: String):LiveData<Boolean> {
-        val mutableData = MutableLiveData<Boolean>()
+    fun singInUser(eMail: String,password: String):LiveData<Int> {
+        val mutableData = MutableLiveData<Int>()
         repoAuth.singInAccount(eMail,password).observeForever{
-            mutableData.value = it
+            if(it) {
+                repo.isLocal().observeForever { result -> //1 -> es Usuario
+                    if (result!=null) {
+                        mutableData.value = 2   // 2 -> es Local
+                    }else{
+                        mutableData.value =1
+                    }
+                }
+            }else{
+                mutableData.value = 0
+            }
         }
         return mutableData
     }

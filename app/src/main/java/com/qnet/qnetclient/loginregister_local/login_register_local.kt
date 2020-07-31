@@ -23,6 +23,7 @@ class login_register_local : Fragment() {
 
     private lateinit var viewModel: FirestoreViewModel
     private var loadingDialog: Dialog? = null
+    private var rememberMe: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,8 +31,6 @@ class login_register_local : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login_register_local, container, false)
     }
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,7 +44,6 @@ class login_register_local : Fragment() {
             buttonNext.setOnClickListener{
                 login()
             }
-
     }
 
     private fun login() {
@@ -72,12 +70,15 @@ class login_register_local : Fragment() {
 
     private fun obsever(name:String,password:String) {
         viewModel.singInUser(name,password).observeForever{
-            if(it) {
-                hideLoading()
-                findNavController().navigate(R.id.menu_principal_action_local)
-            } else {
-                Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
+
+            when(it){
+                0 ->{ Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
+                    hideLoading()}
+                1 ->{ Toast.makeText(activity, "Esta intentando entrar con un Usuario", Toast.LENGTH_SHORT).show()
+                    hideLoading()}
+                2 -> findNavController().navigate(R.id.menu_principal_action_local)
             }
+
         }
     }
 
