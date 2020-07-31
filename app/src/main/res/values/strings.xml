@@ -84,4 +84,6 @@
 
     <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
     <string name="fcm_message">FCM Message</string>
+    <string name="confirmar_ubicacion">Confirmar</string>
+    <string name="instrucciones">Mantenga presionado sobre el mapa para saber la ubicacion de su local</string>
 </resources>

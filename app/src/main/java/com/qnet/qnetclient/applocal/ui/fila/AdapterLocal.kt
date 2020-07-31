@@ -39,7 +39,7 @@ class AdapterLocal (private val context: Context): RecyclerView.Adapter<AdapterL
         val local: Usuario = dataList[position]
         holder.bindView(local)
         holder.itemView.setOnClickListener {view->
-            //view.findNavController().navigate(R.id.fila_to_qr)
+            view.findNavController().navigate(R.id.action_filaLocalFragment_to_lectorQr_Activity)
         }
     }
 

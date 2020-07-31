@@ -17,6 +17,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
@@ -25,8 +26,8 @@ import com.google.android.gms.location.*
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_login_register.*
+import kotlin.math.log
 import kotlin.properties.Delegates
-
 
 class login_register : Fragment() {
 
@@ -71,7 +72,6 @@ class login_register : Fragment() {
         buttonNext.setOnClickListener {
             getData()
         }
-    }
 
         checkboxRecordar.setOnCheckedChangeListener { buttonView, isChecked ->
             if (buttonView.isChecked) {
@@ -124,29 +124,35 @@ class login_register : Fragment() {
         val name = edtxt_eMail.text.toString().trim()
         val password = edtxt_Password.text.toString().trim()
 
-        if (rememberMe) {
-            val preferences: SharedPreferences =
-                requireActivity().getSharedPreferences("RememberMe", Context.MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = preferences.edit()
-            editor.putBoolean("remember", true)
-            editor.putString("name", name)
-            editor.putString("password", password)
-            editor.apply()
-        } else {
-            val preferences: SharedPreferences =
-                requireActivity().getSharedPreferences("RememberMe", Context.MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = preferences.edit()
-            editor.putBoolean("remember", false)
-            editor.putString("name", null)
-            editor.putString("password", null)
-            editor.apply()
-        }
-
         login(name, password)
     }
 
     private fun login(name: String, password: String) {
         if (name.isNotEmpty() && password.isNotEmpty()) {
+            //@Ian falta poner un progress bar para ver el progreso
+            if (rememberMe) {
+                val preferences: SharedPreferences =
+                    requireActivity().getSharedPreferences(
+                        "RememberMe",
+                        Context.MODE_PRIVATE
+                    )
+                val editor: SharedPreferences.Editor = preferences.edit()
+                editor.putBoolean("remember", true)
+                editor.putString("name", name)
+                editor.putString("password", password)
+                editor.apply()
+            } else {
+                val preferences: SharedPreferences =
+                    requireActivity().getSharedPreferences(
+                        "RememberMe",
+                        Context.MODE_PRIVATE
+                    )
+                val editor: SharedPreferences.Editor = preferences.edit()
+                editor.putBoolean("remember", false)
+                editor.putString("name", null)
+                editor.putString("password", null)
+                editor.apply()
+            }
             showLoading()
             obsever(name, password)
         } else {
@@ -165,19 +171,31 @@ class login_register : Fragment() {
 
     private fun obsever(name:String,password:String) {
         viewModel.singInUser(name,password).observeForever{
-            if(it) {
-                observer2()
-            } else {
-                hideLoading()
-                Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
+            if(it!=null) {
+                when (it) {
+                    0 -> {
+                        Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
+                        hideLoading()
+                    }
+                    1 -> {
+                        observer2()
+                    }
+                    2 -> {
+                        Toast.makeText(activity, "El Usuario es un Local", Toast.LENGTH_SHORT)
+                            .show()
+                        hideLoading()
+                    }
+                }
             }
         }
     }
 
     private fun observer2() {
-        viewModel.updateUbicacion(latitude, longitude, true).observeForever {
+        viewModel.updateUbicacion(latitude, longitude,true).observeForever {
             if (it) {
                 observer3()
+            }else{
+                hideLoading()
             }
         }
     }
@@ -187,10 +205,9 @@ class login_register : Fragment() {
             if (it) {
                 hideLoading()
                 viewModel.refreshToken()
-//                val intent = Intent(requireContext(), AppUser::class.java)
-//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                startActivity(intent)
                 findNavController().navigate(R.id.menu_principal_action)
+            }else{
+                hideLoading()
             }
         }
     }

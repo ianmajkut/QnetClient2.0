@@ -94,7 +94,24 @@
             android:name="InfoRegister"
             app:argType="com.qnet.qnetclient.loginregister_local.InfoRegister" />
         <action
-            android:id="@+id/action_register3_local_to_login_register_local"
+            android:id="@+id/action_register3_local_to_register4_local_mapa"
+            app:destination="@id/register4_local_mapa" />
+    </fragment>
+    <fragment
+        android:id="@+id/register4_local_mapa"
+        android:name="com.qnet.qnetclient.loginregister_local.register4_local_mapa"
+        android:label="fragment_register4_local_mapa"
+        tools:layout="@layout/fragment_register4_local_mapa" >
+        <action
+            android:id="@+id/action_register4_local_mapa_to_login_register_local"
             app:destination="@id/login_register_local" />
+        <argument
+            android:name="latitud"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
+            android:name="longitud"
+            app:argType="string"
+            android:defaultValue="null" />
     </fragment>
 </navigation>

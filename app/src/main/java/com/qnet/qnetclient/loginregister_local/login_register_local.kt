@@ -1,6 +1,8 @@
 package com.qnet.qnetclient.loginregister_local
 
 import android.app.Dialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,6 +25,7 @@ class login_register_local : Fragment() {
 
     private lateinit var viewModel: FirestoreViewModel
     private var loadingDialog: Dialog? = null
+    private var rememberMe: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +33,8 @@ class login_register_local : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login_register_local, container, false)
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,6 +49,13 @@ class login_register_local : Fragment() {
                 login()
             }
 
+        checkboxRecordarLocal.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (buttonView.isChecked) {
+                rememberMe = true
+            } else if (!buttonView.isChecked) {
+                rememberMe = false
+            }
+        }
     }
 
     private fun login() {
@@ -51,7 +63,31 @@ class login_register_local : Fragment() {
         val password = edtxt_PasswordLocal.text.toString().trim()
 
         if (name.isNotEmpty() && password.isNotEmpty()) {
-            //showLoading()
+            //@Ian falta poner un progress bar para ver el progreso
+            if (rememberMe) {
+                val preferences: SharedPreferences =
+                    requireActivity().getSharedPreferences(
+                        "RememberMe",
+                        Context.MODE_PRIVATE
+                    )
+                val editor: SharedPreferences.Editor = preferences.edit()
+                editor.putBoolean("remember", true)
+                editor.putString("name", name)
+                editor.putString("password", password)
+                editor.apply()
+            } else {
+                val preferences: SharedPreferences =
+                    requireActivity().getSharedPreferences(
+                        "RememberMe",
+                        Context.MODE_PRIVATE
+                    )
+                val editor: SharedPreferences.Editor = preferences.edit()
+                editor.putBoolean("remember", false)
+                editor.putString("name", null)
+                editor.putString("password", null)
+                editor.apply()
+            }
+            showLoading()
             obsever(name, password)
         } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
@@ -62,19 +98,22 @@ class login_register_local : Fragment() {
         loadingDialog?.let { if (it.isShowing)it.cancel() }
     }
 
-    private fun showLoading() {
+    private fun showLoading(){
         hideLoading()
         loadingDialog = CommonUtils.showLoadingDialog(requireContext())
     }
 
     private fun obsever(name:String,password:String) {
         viewModel.singInUser(name,password).observeForever{
-            if(it) {
-                //hideLoading()
-                findNavController().navigate(R.id.menu_principal_action_local)
-            } else {
-                Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
+
+            when(it){
+                0 ->{ Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
+                    hideLoading()}
+                1 ->{ Toast.makeText(activity, "Esta intentando entrar con un Usuario", Toast.LENGTH_SHORT).show()
+                    hideLoading()}
+                2 -> findNavController().navigate(R.id.menu_principal_action_local)
             }
         }
     }
+
 }

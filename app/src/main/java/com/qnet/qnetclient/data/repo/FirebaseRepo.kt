@@ -1,10 +1,14 @@
 package com.qnet.qnetclient.data.repo
 
 import android.content.ContentValues.TAG
+import android.provider.Settings.Global.getString
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
@@ -13,9 +17,11 @@ import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.storage.FirebaseStorage
 import com.ian.bottomnavigation.ui.home.Model
+import com.qnet.qnetclient.R
 import com.qnet.qnetclient.appusuario.ui.settings.SettingsModel
 import com.qnet.qnetclient.data.classes.References
 import com.qnet.qnetclient.data.classes.ReferenceLocalesCercanos
+import kotlin.coroutines.coroutineContext
 import com.qnet.qnetclient.data.classes.ReferenceUsuarios
 import com.qnet.qnetclient.data.classes.Usuario
 import com.qnet.qnetclient.loginregister_local.InfoRegister
@@ -26,13 +32,14 @@ class FirebaseRepo {
     private val db = FirebaseFirestore.getInstance()
     private lateinit var functions: FirebaseFunctions
     private lateinit var mAuth: FirebaseAuth
-    private var aux = 0
+    private var aux:Long = 0
 
     fun uploadUserData(name: String, dni: Int) {
         mAuth = FirebaseAuth.getInstance()
         val user = hashMapOf(
             "name" to name,
-            "dni" to dni
+            "dni" to dni,
+            "local" to false
         )
         db.document("users/${mAuth.currentUser?.uid}")
             .set(user as Map<String, Any>)
@@ -73,6 +80,7 @@ class FirebaseRepo {
             "horario" to info.horario,
             "descripcion" to info.tipo,
             "informacion" to info.informacion,
+            "telefono" to info.telefono,
             "queueNumber" to 0,
             "queuedPeople" to arrayListOf(null)
         )
@@ -141,6 +149,20 @@ class FirebaseRepo {
         return mutableData
     }
 
+    fun localUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
+        val mutableData = MutableLiveData<Boolean>()
+        mAuth = FirebaseAuth.getInstance()
+
+        val data = hashMapOf(
+            "ubicacion" to GeoPoint(latitude!!, longitude!!)
+        )
+        db.collection("locales").document(mAuth.currentUser?.uid.toString())
+            .set(data, SetOptions.merge()).addOnCompleteListener {
+                mutableData.value = it.isSuccessful
+            }
+        return mutableData
+    }
+
     fun localesCercanos(): LiveData<Boolean> {
         functions = FirebaseFunctions.getInstance()
         val mutableData = MutableLiveData<Boolean>()
@@ -183,7 +205,11 @@ class FirebaseRepo {
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
                     val image = result.getString("image")
+                    val direccion = result.getString("direccion")
+                    val horario = result.getString("horario")
+                    val informacion = result.getString("informacion")
                     val ubicacion = result.getGeoPoint("ubicacion")
+                    val telefono = result.getLong("telefono").toString()
                     val latLocal = ubicacion?.latitude.toString()
                     val longLocal = ubicacion?.longitude.toString()
                     val local = Model(
@@ -194,8 +220,12 @@ class FirebaseRepo {
                         image,
                         null,
                         reference.keyLocal,
+                        direccion,
+                        horario,
+                        informacion,
                         latLocal,
-                        longLocal
+                        longLocal,
+                        telefono
                     )
                     listData.add(local)
                     mutableData.value = listData
@@ -243,7 +273,7 @@ class FirebaseRepo {
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
                     val image = result.getString("image")
-                    val local = Model(title, descripcion, num, reference.distancia, image,reference.posicion,reference.keyLocal, null, null)
+                    val local = Model(title, descripcion, num, reference.distancia, image,reference.posicion,reference.keyLocal,null,null,null,null,null,null)
                     listData.add(local)
                     mutableData.value = listData
                 }.addOnFailureListener { e ->
@@ -289,8 +319,8 @@ class FirebaseRepo {
             if (it.queueNumber != null) {
                 aux = 0
                 for (reference in it.queuedPeople) {
-                    aux++
                     db.document("users/${reference}").get().addOnSuccessListener { result ->
+                        aux++
                         val name = result.getString("name")
                         val usuario = Usuario(name, aux)
                         listData.add(usuario)
@@ -329,4 +359,49 @@ class FirebaseRepo {
             }
         }
     }
+
+    fun sacarUser(reference:String?):LiveData<Usuario>{
+        val mutabData = MutableLiveData<Usuario>()
+        mAuth = FirebaseAuth.getInstance()
+        var usuario = Usuario(null,null)
+        db.document("users/${reference}").get().addOnSuccessListener { result ->
+            val name = result.getString("name")
+            usuario.name = name
+        }.addOnFailureListener{
+            mutabData.value = Usuario(null,null)
+        }
+        db.document("users/${reference}/misColas/${mAuth.currentUser?.uid}").get().addOnSuccessListener {
+            val posicion = it.getLong("posicion")
+            usuario.position = posicion
+            mutabData.value = usuario
+        }.addOnFailureListener{
+            mutabData.value = Usuario(null,null)
+        }
+        //mutabData.value = usuario
+        return mutabData
+    }
+
+    fun isLocal():LiveData<Boolean>{
+        val mutableData = MutableLiveData<Boolean>()
+        mAuth = FirebaseAuth.getInstance()
+
+        db.document("local/${mAuth.currentUser?.uid}").get().addOnSuccessListener {
+            val aux = it.getBoolean("local")
+            mutableData.value = aux
+        }.addOnFailureListener{
+            mutableData.value = false
+        }
+        db.document("users/${mAuth.currentUser?.uid}").get().addOnSuccessListener {
+            val aux = it.getBoolean("local")
+            if(aux==null){
+                mutableData.value = true
+            }else{
+                mutableData.value = aux
+            }
+        }.addOnFailureListener{
+            mutableData.value = true
+        }
+        return mutableData
+    }
+
 }

@@ -3,9 +3,10 @@ package com.qnet.qnetclient.loginregister_local
 import android.os.Parcel
 import android.os.Parcelable
 
-data class InfoRegister(val nombre:String?,val ubicacion:String?,val horario:String?, val tipo:String?, val informacion:String?) :
+data class InfoRegister(val nombre:String?,val ubicacion:String?,val horario:String?, val tipo:String?, val informacion:String?,val telefono:String?) :
     Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -20,6 +21,7 @@ data class InfoRegister(val nombre:String?,val ubicacion:String?,val horario:Str
         parcel.writeString(horario)
         parcel.writeString(tipo)
         parcel.writeString(informacion)
+        parcel.writeString(telefono)
     }
 
     override fun describeContents(): Int {
