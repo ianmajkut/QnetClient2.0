@@ -24,7 +24,7 @@ import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_map.*
 import java.util.*
 
-class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationClickListener,
+class MapFragment : Fragment(), OnMapReadyCallback,
     GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMarkerClickListener,
     GoogleMap.OnInfoWindowClickListener {
 
@@ -70,7 +70,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationClickL
         map.uiSettings.isTiltGesturesEnabled = false
         map.uiSettings.isRotateGesturesEnabled = false
         map.setOnMyLocationButtonClickListener(this)
-        map.setOnMyLocationClickListener(this)
         map.setOnMarkerClickListener(this)
         map.setOnInfoWindowClickListener(this)
         enableMyLocation()
@@ -106,9 +105,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationClickL
 
     override fun onMyLocationButtonClick(): Boolean {
         return false
-    }
-
-    override fun onMyLocationClick(location: Location) {
     }
 
     override fun onMarkerClick(marker: Marker?): Boolean {
