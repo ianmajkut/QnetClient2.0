@@ -31,7 +31,8 @@ import kotlin.properties.Delegates
 
 
 class login_register : Fragment() {
-    private val PERMISSION_ID = 1000
+
+    private val LOCATION_PERMISSION_ID = 1000
     private var loadingDialog: Dialog? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var latitude by Delegates.notNull<Double>()
@@ -42,7 +43,6 @@ class login_register : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_login_register, container, false)
     }
@@ -94,7 +94,7 @@ class login_register : Fragment() {
         ) {
             ActivityCompat.requestPermissions(requireActivity(),
                 arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
+                    android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_ID)
             return
         }
         fusedLocationProviderClient.lastLocation.addOnCompleteListener {
@@ -114,7 +114,7 @@ class login_register : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == PERMISSION_ID) {
+        if (requestCode == LOCATION_PERMISSION_ID) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.d("Location", "Permission granted")
             }
@@ -188,7 +188,6 @@ class login_register : Fragment() {
                     }
                 }
             }
-
         }
     }
 

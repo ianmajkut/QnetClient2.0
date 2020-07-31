@@ -3,8 +3,10 @@ package com.qnet.qnetclient.appusuario.ui.settings
 import android.os.Parcel
 import android.os.Parcelable
 
-data class SettingsModel(var name: String?, var email: String?) : Parcelable {
+data class SettingsModel(var name: String?, var email: String?, var latitud: String?, var longitud: String?) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString()
     ) {}
@@ -12,6 +14,8 @@ data class SettingsModel(var name: String?, var email: String?) : Parcelable {
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
         parcel.writeString(email)
+        parcel.writeString(latitud)
+        parcel.writeString(longitud)
     }
 
     override fun describeContents(): Int {

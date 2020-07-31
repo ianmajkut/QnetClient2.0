@@ -34,6 +34,8 @@ class login_register_local : Fragment() {
         return inflater.inflate(R.layout.fragment_login_register_local, container, false)
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = FirestoreViewModel()
@@ -111,7 +113,6 @@ class login_register_local : Fragment() {
                     hideLoading()}
                 2 -> findNavController().navigate(R.id.menu_principal_action_local)
             }
-
         }
     }
 

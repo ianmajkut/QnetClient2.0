@@ -20,7 +20,11 @@
         android:id="@+id/navigation_map"
         android:name="com.ian.bottomnavigation.ui.map.MapFragment"
         android:label="@string/title_fav"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_navigation_map_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_fila"

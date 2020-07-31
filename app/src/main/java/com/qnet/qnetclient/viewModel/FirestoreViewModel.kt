@@ -1,7 +1,6 @@
 package com.qnet.qnetclient.viewModel
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,8 +24,8 @@ class FirestoreViewModel : ViewModel(){
         return mutableData
     }
 
-    fun uploadData(name: String,dni: Int) {
-        repo.uploadData(name, dni)
+    fun uploadUserData(name: String, dni: Int) {
+        repo.uploadUserData(name, dni)
     }
 
     fun singInUser(eMail: String,password: String):LiveData<Int> {
@@ -57,9 +56,9 @@ class FirestoreViewModel : ViewModel(){
         return mutableData
     }
 
-    fun updateUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
+    fun updateUbicacion(latitude: Double?, longitude: Double?, llamadaUsusario: Boolean): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
-        repo.updateUbicacion(latitude, longitude).observeForever {
+        repo.updateUbicacion(latitude, longitude, llamadaUsusario).observeForever {
             mutableData.value = it
         }
         return mutableData

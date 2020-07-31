@@ -28,8 +28,8 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         remoteMessage.notification?.let { sendNotification(it) }
     }
 
-    override fun onNewToken(p0: String) {
-        super.onNewToken(p0)
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
     }
 
     private fun sendNotification(notification: RemoteMessage.Notification) {

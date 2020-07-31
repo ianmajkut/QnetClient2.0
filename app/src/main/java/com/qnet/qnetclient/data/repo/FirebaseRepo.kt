@@ -70,7 +70,7 @@ class FirebaseRepo {
     }
 
     private fun referenceImage(path:String?,info: InfoRegister):LiveData<Boolean>{
-        val mutableData  = MutableLiveData<Boolean>()
+        var mutableData  = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
 
         val data = hashMapOf(
@@ -80,19 +80,14 @@ class FirebaseRepo {
             "horario" to info.horario,
             "descripcion" to info.tipo,
             "informacion" to info.informacion,
-            "telefono" to info.telefono,
-            "queueNumber" to Int,
-            "queuedPeople" to ArrayList<String>(),
-            "local" to true
+            "queueNumber" to 0,
+            "queuedPeople" to arrayListOf(null)
         )
 
         db.document("locales/${mAuth.currentUser?.uid}")
             .set(data)
-            .addOnSuccessListener {
-                mutableData.value = true
-            }
-            .addOnFailureListener{
-                mutableData.value = false
+            .addOnCompleteListener {
+                mutableData.value = it.isSuccessful
             }
 
         return mutableData
@@ -132,14 +127,21 @@ class FirebaseRepo {
         return mutableData
     }
 
-    fun updateUbicacion(latitude: Double?, longitude: Double?): LiveData<Boolean> {
+    fun updateUbicacion(latitude: Double?, longitude: Double?, llamadaUsuario: Boolean): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
+        val coleccion: String
+
+        if (llamadaUsuario) {
+            coleccion = "users"
+        } else {
+            coleccion = "locales"
+        }
 
         val data = hashMapOf(
             "ubicacion" to GeoPoint(latitude!!, longitude!!)
         )
-        db.collection("users").document(mAuth.currentUser?.uid.toString())
+        db.collection(coleccion).document(mAuth.currentUser?.uid.toString())
             .set(data, SetOptions.merge()).addOnCompleteListener {
                 mutableData.value = it.isSuccessful
             }
@@ -179,7 +181,10 @@ class FirebaseRepo {
             .addOnSuccessListener { result ->
                 val nombre = result.getString("name")
                 val email = mAuth.currentUser?.email
-                val usuario = SettingsModel(nombre, email)
+                val ubicacion = result.getGeoPoint("ubicacion")
+                val latitud = ubicacion?.latitude
+                val longitud = ubicacion?.longitude
+                val usuario = SettingsModel(nombre, email, latitud.toString(), longitud.toString())
                 mutableData.value = usuario
             }.addOnFailureListener {
                 Log.i("getUsuario", "Failed: $it")
@@ -203,12 +208,19 @@ class FirebaseRepo {
                     val horario = result.getString("horario")
                     val informacion = result.getString("informacion")
                     val local = Model(title,
+                    val ubicacion = result.getGeoPoint("ubicacion")
+                    val latLocal = ubicacion?.latitude.toString()
+                    val longLocal = ubicacion?.longitude.toString()
+                    val local = Model(
+                        title,
                         descripcion,
                         num,
                         reference.distancia,
                         image,
                         null,
                         reference.keyLocal,direccion, horario, informacion
+                        latLocal,
+                        longLocal
                     )
                     listData.add(local)
                     mutableData.value = listData
