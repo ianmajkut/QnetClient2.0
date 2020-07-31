@@ -56,7 +56,7 @@ class HomeFragment2 : Fragment() {
         distancia.text = local.dist
         ubicacion.text = local.direccion
         horario.text = local.horario
-        telefono.text = local.informacion
+        telefono.text = local.telefono
         mini_Desc.text = local.informacion
         //bindearDatos(Local.Local,requireContext())*/
 

@@ -106,7 +106,7 @@ class splashscreen : AppCompatActivity() {
         }
     }
     private fun observer2() {
-        viewModel.updateUbicacion(latitude, longitude).observeForever {
+        viewModel.updateUbicacion(latitude, longitude,true).observeForever {
             if (it) {
                 observer3()
             }else{

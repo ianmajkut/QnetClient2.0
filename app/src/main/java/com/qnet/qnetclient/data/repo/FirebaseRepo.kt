@@ -34,7 +34,7 @@ class FirebaseRepo {
     private lateinit var mAuth: FirebaseAuth
     private var aux:Long = 0
 
-    fun uploadData(name: String, dni: Int) {
+    fun uploadUserData(name: String, dni: Int) {
         mAuth = FirebaseAuth.getInstance()
         val user = hashMapOf(
             "name" to name,
@@ -80,6 +80,7 @@ class FirebaseRepo {
             "horario" to info.horario,
             "descripcion" to info.tipo,
             "informacion" to info.informacion,
+            "telefono" to info.telefono,
             "queueNumber" to 0,
             "queuedPeople" to arrayListOf(null)
         )
@@ -207,8 +208,8 @@ class FirebaseRepo {
                     val direccion = result.getString("direccion")
                     val horario = result.getString("horario")
                     val informacion = result.getString("informacion")
-                    val local = Model(title,
                     val ubicacion = result.getGeoPoint("ubicacion")
+                    val telefono = result.getLong("telefono").toString()
                     val latLocal = ubicacion?.latitude.toString()
                     val longLocal = ubicacion?.longitude.toString()
                     val local = Model(
@@ -218,9 +219,13 @@ class FirebaseRepo {
                         reference.distancia,
                         image,
                         null,
-                        reference.keyLocal,direccion, horario, informacion
+                        reference.keyLocal,
+                        direccion,
+                        horario,
+                        informacion,
                         latLocal,
-                        longLocal
+                        longLocal,
+                        telefono
                     )
                     listData.add(local)
                     mutableData.value = listData
@@ -268,7 +273,7 @@ class FirebaseRepo {
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
                     val image = result.getString("image")
-                    val local = Model(title, descripcion, num, reference.distancia, image,reference.posicion,reference.keyLocal,null,null,null)
+                    val local = Model(title, descripcion, num, reference.distancia, image,reference.posicion,reference.keyLocal,null,null,null,null,null,null)
                     listData.add(local)
                     mutableData.value = listData
                 }.addOnFailureListener { e ->
