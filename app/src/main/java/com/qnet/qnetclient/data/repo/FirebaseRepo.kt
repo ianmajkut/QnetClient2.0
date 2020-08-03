@@ -239,6 +239,49 @@ class FirebaseRepo {
         return mutableData
     }
 
+    fun getLocal():LiveData<Model> {
+        val mutableData = MutableLiveData<Model>()
+        mAuth = FirebaseAuth.getInstance()
+
+        db.document("locales/${mAuth.currentUser?.uid}").get().addOnSuccessListener { result ->
+
+            val title = result.getString("title")
+            val descripcion = result.getString("descripcion")
+            val num = result.getLong("queueNumber").toString()
+            val image = result.getString("image")
+            val direccion = result.getString("direccion")
+            val horario = result.getString("horario")
+            val informacion = result.getString("informacion")
+            val ubicacion = result.getGeoPoint("ubicacion")
+            val telefono = result.getLong("telefono").toString()
+            val latLocal = ubicacion?.latitude.toString()
+            val longLocal = ubicacion?.longitude.toString()
+            val local = Model(
+                title,
+                descripcion,
+                num,
+                null,
+                image,
+                null,
+                null,
+                direccion,
+                horario,
+                informacion,
+                latLocal,
+                longLocal,
+                telefono
+            )
+
+            mutableData.value = local
+
+        }.addOnFailureListener { e ->
+            Log.w(TAG, "Error adding document", e)
+        }
+
+        return mutableData
+
+    }
+
     private fun getLocalesReference():LiveData<MutableList<ReferenceLocalesCercanos>>{
         mAuth = FirebaseAuth.getInstance()
         val mutableData = MutableLiveData<MutableList<ReferenceLocalesCercanos>>()
