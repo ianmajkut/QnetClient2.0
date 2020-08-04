@@ -446,5 +446,23 @@ class FirebaseRepo {
         }
         return mutableData
     }
+    fun changeData(campo:String,info:String):LiveData<Boolean>{
+        val mutableData = MutableLiveData<Boolean>()
+
+        mAuth = FirebaseAuth.getInstance()
+        val user = hashMapOf(
+            campo to info
+        )
+        db.document("locales/${mAuth.currentUser?.uid}")
+            .set(user as Map<String, Any>)
+            .addOnSuccessListener {
+                mutableData.value = true
+            }
+            .addOnFailureListener {
+                mutableData.value = false
+            }
+
+        return mutableData
+    }
 
 }

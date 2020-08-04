@@ -1,5 +1,7 @@
 package com.qnet.qnetclient.applocal.ui.info_local
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +11,7 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -26,14 +29,13 @@ class InfoLocal_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         layout= inflater.inflate(R.layout.fragment_info_local_, container, false)
-        observer()
 
         return inflater.inflate(R.layout.fragment_info_local_, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        observer()
 
         btn_editar_nombreLocal.setOnClickListener {
 
@@ -80,8 +82,7 @@ class InfoLocal_Fragment : Fragment() {
 
         }
         btn_cerrarsesionLocal.setOnClickListener {
-
-
+            alert()
         }
 
     }
@@ -90,24 +91,38 @@ class InfoLocal_Fragment : Fragment() {
         val mAuth = FirebaseAuth.getInstance()
         viewModel.fetchLocal().observeForever{
             val local = it
-            val image:ImageView = layout.findViewById(R.id.imageView)
-            val titulo: TextView = layout.findViewById(R.id.tx_nombreLocal)
-            val descripcion: TextView = layout.findViewById(R.id.tx_tipoLocal)
-            val ubicacion: TextView = layout.findViewById(R.id.tx_ubiLocal)
-            val horario: TextView = layout.findViewById(R.id.tx_horarioLocal)
-            val telefono: TextView = layout.findViewById(R.id.tx_telefonoLocal)
-            val mini_Desc: TextView = layout.findViewById(R.id.tx_infoLocal)
-            val email :TextView = layout.findViewById(R.id.tx_mailLocal)
 
-
-            Glide.with(this).load(local.image).into(image)
-            titulo.text = local.title
-            descripcion.text = local.descripcion
-            ubicacion.text = local.direccion
-            horario.text = local.horario
-            telefono.text = local.telefono
-            mini_Desc.text = local.informacion
-            email.text = mAuth.currentUser?.email
+            Glide.with(this).load(local.image).into(imageView)
+            tx_nombreLocal.text = local.title.toString()
+            tx_tipoLocal.text = local.descripcion.toString()
+            tx_ubiLocal.text = local.direccion.toString()
+            tx_horarioLocal.text = local.horario.toString()
+            tx_telefonoLocal.text = local.telefono.toString()
+            tx_infoLocal.text = local.informacion.toString()
+            tx_mailLocal.text = mAuth.currentUser?.email.toString()
         }
+    }
+    fun alert(){
+        val alertDialog = AlertDialog.Builder(requireContext())
+        val mAuth = FirebaseAuth.getInstance()
+        alertDialog.setTitle("Alerta")
+        alertDialog.setMessage("Está a punto de cerrar sesión. ¿Está seguro?")
+
+        alertDialog.setNegativeButton("No") { _, _ ->
+
+        }
+        alertDialog.setPositiveButton("Si") { _, _ ->
+            mAuth.signOut()
+            val preferences: SharedPreferences =
+                requireActivity().getSharedPreferences("RememberMe", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = preferences.edit()
+            editor.putBoolean("remember", false)
+            editor.putString("name", null)
+            editor.putString("password", null)
+            editor.apply()
+            findNavController().navigate(R.id.action_navigation_settings_to_local_o_usuario)
+        }
+        alertDialog.show()
+
     }
 }
