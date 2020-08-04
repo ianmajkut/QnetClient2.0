@@ -37,10 +37,12 @@ class CambiarNombreLocalFragment : Fragment() {
     private fun cambiar(){
 
         val Data = edtxt_nombre.text.toString()
-        viewModel = FirestoreViewModel()
-        viewModel.changeData("title",Data).observeForever{
-            if (it){
-                findNavController().navigate(R.id.action_cambiarNombreLocalFragment_to_infoLocal_Fragment)
+        if (Data.isNotEmpty()) {
+            viewModel = FirestoreViewModel()
+            viewModel.changeData("title", Data).observeForever {
+                if (it) {
+                    findNavController().navigate(R.id.action_cambiarNombreLocalFragment_to_infoLocal_Fragment)
+                }
             }
         }
     }

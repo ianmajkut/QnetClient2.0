@@ -41,11 +41,13 @@ class CambiarTelefonoLocalFragment : Fragment() {
     }
     private fun cambiar(){
 
-        val Data = edtxt_nombre.text.toString()
-        viewModel = FirestoreViewModel()
-        viewModel.changeData("telefono",Data).observeForever{
-            if (it){
-                findNavController().navigate(R.id.action_cambiarTelefonoLocalFragment_to_infoLocal_Fragment)
+        val Data = edtxt_telefono.text.toString()
+        if (Data.isNotEmpty()) {
+            viewModel = FirestoreViewModel()
+            viewModel.changeData("telefono", Data).observeForever {
+                if (it) {
+                    findNavController().navigate(R.id.action_cambiarTelefonoLocalFragment_to_infoLocal_Fragment)
+                }
             }
         }
     }

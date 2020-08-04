@@ -37,7 +37,7 @@ class CambiarInfoImportanteFragment : Fragment() {
     }
     private fun cambiar(){
 
-        val Data = edtxt_nombre.text.toString()
+        val Data = edtxt_infoImportDelLocal.text.toString()
         viewModel = FirestoreViewModel()
         viewModel.changeData("informacion",Data).observeForever{
             if (it){

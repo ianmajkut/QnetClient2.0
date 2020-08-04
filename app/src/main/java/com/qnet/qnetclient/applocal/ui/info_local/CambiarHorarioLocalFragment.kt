@@ -40,11 +40,13 @@ class CambiarHorarioLocalFragment : Fragment() {
     }
     private fun cambiar(){
 
-        val Data = edtxt_nombre.text.toString()
-        viewModel = FirestoreViewModel()
-        viewModel.changeData("horario",Data).observeForever{
-            if (it){
-                findNavController().navigate(R.id.action_cambiarHorarioLocalFragment_to_infoLocal_Fragment)
+        val Data = edtxt_horarioDelLocal.text.toString()
+        if (Data.isNotEmpty()) {
+            viewModel = FirestoreViewModel()
+            viewModel.changeData("horario", Data).observeForever {
+                if (it) {
+                    findNavController().navigate(R.id.action_cambiarHorarioLocalFragment_to_infoLocal_Fragment)
+                }
             }
         }
     }
