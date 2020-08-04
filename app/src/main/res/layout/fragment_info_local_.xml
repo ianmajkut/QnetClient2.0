@@ -288,7 +288,7 @@
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_baseline_info_24"
                             android:paddingBottom="5dp"
-                            android:text="Información InformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformaciónInformación "
+                            android:text="Información"
                             android:textSize="17sp"
                             app:layout_constraintStart_toStartOf="@+id/tx_tipoLocal"
                             app:layout_constraintTop_toBottomOf="@+id/tx_tipoLocal" />
