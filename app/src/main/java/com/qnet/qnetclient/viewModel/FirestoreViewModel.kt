@@ -16,7 +16,6 @@ class FirestoreViewModel : ViewModel(){
     private val repo = FirebaseRepo()
     private val repoAuth = AuthUser()
 
-
     fun createUser(eMail: String, password: String):LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
         repoAuth.createAccount(eMail,password).observeForever{

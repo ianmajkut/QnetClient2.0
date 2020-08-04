@@ -1,11 +1,14 @@
 package com.ian.bottomnavigation.ui.home
 
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
@@ -20,6 +23,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
+    private var backPressedTime: Long = 0
+    private lateinit var backToast: Toast
     private val viewModel by lazy { FirestoreViewModel()}
     private lateinit var adapter: MainAdapter
 
@@ -44,6 +49,28 @@ class HomeFragment : Fragment() {
         setHasOptionsMenu(true)
         return layout
 
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                val intent = Intent(requireContext(), AppUser::class.java)
+                startActivity(intent)
+                backToast.cancel()
+                requireActivity().moveTaskToBack(true)
+                requireActivity().finish()
+            } else {
+                backToast = Toast.makeText(
+                    requireContext(),
+                    "Presione nuevamente \"Atrás\" para salir",
+                    Toast.LENGTH_SHORT
+                )
+                backToast.show()
+            }
+            backPressedTime = System.currentTimeMillis()
+
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

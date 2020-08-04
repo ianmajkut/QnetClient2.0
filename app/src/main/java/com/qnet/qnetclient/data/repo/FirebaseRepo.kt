@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
@@ -29,6 +30,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class FirebaseRepo {
+
     private val db = FirebaseFirestore.getInstance()
     private lateinit var functions: FirebaseFunctions
     private lateinit var mAuth: FirebaseAuth

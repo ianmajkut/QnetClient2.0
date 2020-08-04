@@ -2,23 +2,16 @@ package com.qnet.qnetclient.appusuario
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.ian.bottomnavigation.ui.home.Model
-import com.ian.bottomnavigation.ui.home.MainAdapter
 import com.qnet.qnetclient.R
-import com.qnet.qnetclient.local_o_usuario
-import kotlinx.android.synthetic.main.activity_app_user.*
 
 class AppUser : AppCompatActivity() {
     private var backPressedTime: Long = 0
@@ -56,6 +49,10 @@ class AppUser : AppCompatActivity() {
             Navigation.findNavController(this, R.id.nav_host_fragment),
             null
         )
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 
 //    override fun onBackPressed() {
