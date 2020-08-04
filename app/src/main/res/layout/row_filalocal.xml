@@ -26,7 +26,7 @@
 
 
         <TextView
-            android:id="@+id/position"
+            android:id="@+id/positiontitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -36,6 +36,19 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/Fila"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tittle" />
+
+        <TextView
+            android:id="@+id/position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/helvetica_now_text_reg_ita"
+            android:text="@string/posici_n"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/positiontitle"
+            app:layout_constraintStart_toEndOf="@id/positiontitle"
             app:layout_constraintTop_toBottomOf="@+id/tittle" />
 
 

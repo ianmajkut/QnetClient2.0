@@ -55,8 +55,8 @@ class SettingsFragment : Fragment() {
 
     fun setUserData() {
         viewModel.fetchUserData().observe(viewLifecycleOwner, Observer {
-            tv_nombre.text = ("Nombre: " + it.name.toString())
-            tv_mail.text = ("E-Mail: " + it.email.toString())
+            tv_nombre.text = ("" + it.name.toString())
+            tv_mail.text = ("" + it.email.toString())
         })
     }
 

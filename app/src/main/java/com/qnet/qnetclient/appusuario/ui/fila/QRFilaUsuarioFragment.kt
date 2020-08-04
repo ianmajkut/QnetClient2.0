@@ -37,7 +37,7 @@ class QRFilaUsuarioFragment : Fragment() {
             try {
                 val encoder= BarcodeEncoder()
                 val bitmap= encoder.encodeBitmap(mAuth.currentUser?.uid, BarcodeFormat.QR_CODE,
-                    500, 500)
+                    450, 450)
                 ivBarcode.setImageBitmap(bitmap)
             } catch (e:Exception) {
                 e.printStackTrace()

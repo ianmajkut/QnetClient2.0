@@ -193,9 +193,9 @@ Existen tres características esenciales del proyecto Wikipedia que definen en c
                     android:background="@drawable/btn_border"
                     android:backgroundTint="#fece2f"
                     android:text="Sumarse"
-                    android:textAllCaps="false"
-                    android:textSize="20sp"
-                    android:textColor="#000000"
+                    android:textAllCaps="true"
+                    android:textSize="15sp"
+                    android:textColor="#fff"
                     app:layout_constraintBottom_toTopOf="@+id/informacion"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/image" />

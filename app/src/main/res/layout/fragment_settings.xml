@@ -20,14 +20,14 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="350dp"
-        android:layout_height="480dp"
+        android:layout_height="450dp"
         app:cardCornerRadius="10dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19999999">
+        app:layout_constraintVertical_bias="0.32999998">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -48,12 +48,11 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/profile" />
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/linearlayoutprofile"
                     android:layout_width="350dp"
-                    android:layout_height="300dp"
+                    android:layout_height="280dp"
                     android:layout_marginStart="8dp"
-
                     android:layout_marginEnd="8dp"
                     android:orientation="vertical"
                     android:paddingStart="20dp"
@@ -63,24 +62,7 @@
                     app:layout_constraintTop_toBottomOf="@id/logo">
 
 
-                    <TextView
-                        android:id="@+id/tv_nombre"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:drawableStart="@drawable/ic_create_black_24dp"
-                        android:text="Nombre:"
-                        android:textSize="17sp" />
-
-                    <TextView
-                        android:id="@+id/tv_mail"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:drawableStart="@drawable/ic_create_black_24dp"
-                        android:text="E-Mail:"
-                        android:textSize="17sp" />
-
+                    <!--
                     <Button
                         android:id="@+id/btn_editar_mail"
                         android:layout_width="wrap_content"
@@ -91,15 +73,84 @@
                         android:textAllCaps="false"
                         android:textColor="#000000"
                         android:textSize="15sp" />
+                        -->
+
+                    <TextView
+                        android:id="@+id/misDatos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/helvetica_now_text_bold"
+                        android:text="Datos"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="22sp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_nombre"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/tv_nombre"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:drawableStart="@drawable/ic_person_black_24dp"
+                        android:text="Nombre"
+                        android:textSize="17sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/misDatos" />
+
+                    <TextView
+                        android:id="@+id/tv_mail"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:drawableStart="@drawable/ic_mail_black_24dp"
+                        android:text="E-Mail"
+                        android:textSize="17sp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_nombre"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_nombre" />
+
+                    <TextView
+                        android:id="@+id/btn_editar_mail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="20dp"
+                        android:backgroundTint="#0000"
+                        android:text="Editar"
+                        android:textAllCaps="true"
+                        android:textColor="#000000"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_mail" />
 
                     <TextView
                         android:id="@+id/tv_password"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="30dp"
+                        android:layout_marginTop="15dp"
                         android:drawableStart="@drawable/ic_create_black_24dp"
                         android:text="@string/password"
-                        android:textSize="17sp" />
+                        android:textSize="17sp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_mail"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_mail" />
 
+
+                    <TextView
+                        android:id="@+id/btn_editar_contra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:backgroundTint="#0000"
+                        android:text="Editar"
+                        android:textAllCaps="true"
+                        android:textColor="#000000"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="@id/btn_editar_mail"
+                        app:layout_constraintTop_toTopOf="@+id/tv_password" />
+
+                    <!--
                     <Button
                         android:id="@+id/btn_editar_contra"
                         android:layout_width="wrap_content"
@@ -108,24 +159,30 @@
                         android:text="Editar Contraseña"
                         android:textAllCaps="false"
                         android:textColor="#000000"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        tools:layout_editor_absoluteX="67dp"
+                        tools:layout_editor_absoluteY="147dp" />
+                        -->
 
                     <Button
                         android:id="@+id/btn_cerrarsesion"
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="48dp"
                         android:background="@drawable/btn_border"
                         android:backgroundTint="#fece2f"
                         android:elevation="2dp"
                         android:text="Cerrar Sesión"
-                        android:textAllCaps="false"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textAllCaps="true"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
 
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".applocal.ui.lector_qr.LectorQr_Fragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <SurfaceView
         android:id="@+id/cameraSurfaceView"
@@ -22,13 +21,13 @@
 
     <TextView
         android:id="@+id/textScanResult"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:gravity="center"
-        android:padding="20dp"
         android:textColor="@color/colorAccent"
         android:textSize="25sp"
         android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

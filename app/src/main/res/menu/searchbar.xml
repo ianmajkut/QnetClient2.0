@@ -7,9 +7,4 @@
         app:showAsAction="collapseActionView|ifRoom"
         />
 
-    <item android:id="@+id/action_map"
-        android:title="@string/app_name"
-        android:icon="@drawable/ic_baseline_store_24"
-        app:showAsAction="collapseActionView|ifRoom"
-        />
 </menu>
