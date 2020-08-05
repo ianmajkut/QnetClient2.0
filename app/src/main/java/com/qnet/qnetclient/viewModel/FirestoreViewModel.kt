@@ -1,6 +1,7 @@
 package com.qnet.qnetclient.viewModel
 
 import android.net.Uri
+import android.view.Display
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +15,6 @@ import com.qnet.qnetclient.loginregister_local.InfoRegister
 class FirestoreViewModel : ViewModel(){
     private val repo = FirebaseRepo()
     private val repoAuth = AuthUser()
-
 
     fun createUser(eMail: String, password: String):LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
@@ -83,6 +83,15 @@ class FirestoreViewModel : ViewModel(){
     fun fetchLocalData(): LiveData<MutableList<Model>> {
         val mutableData = MutableLiveData<MutableList<Model>>()
         repo.getLocalData().observeForever{
+            mutableData.value = it
+        }
+        return mutableData
+    }
+
+    fun fetchLocal():LiveData<Model>{
+        val mutableData = MutableLiveData<Model>()
+
+        repo.getLocal().observeForever{
             mutableData.value = it
         }
         return mutableData

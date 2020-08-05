@@ -12,14 +12,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.*
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_login_register.*
-import kotlin.math.log
 import kotlin.properties.Delegates
 
 class login_register : Fragment() {
@@ -198,8 +196,11 @@ class login_register : Fragment() {
             if (it) {
                 hideLoading()
                 viewModel.refreshToken()
+//                val intent = Intent(requireContext(), AppUser::class.java)
+//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NO_ANIMATION
+//                startActivity(intent)
                 findNavController().navigate(R.id.menu_principal_action)
-            }else{
+            } else {
                 hideLoading()
             }
         }

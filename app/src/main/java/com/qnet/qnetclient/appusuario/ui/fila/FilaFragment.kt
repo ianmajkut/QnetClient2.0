@@ -19,6 +19,7 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.ian.bottomnavigation.ui.home.MainAdapter
 
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.appusuario.AppUser
 import com.qnet.qnetclient.appusuario.ui.fila.AdapterFila
 import com.qnet.qnetclient.local_o_usuario
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
@@ -28,6 +29,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class FilaFragment : Fragment() {
 
+    private var backPressedTime: Long = 0
+    private lateinit var backToast: Toast
     private val viewModel by lazy { FirestoreViewModel() }
     private lateinit var adapter: AdapterFila
 
@@ -52,6 +55,28 @@ class FilaFragment : Fragment() {
 
         return layout
 
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                val intent = Intent(requireContext(), AppUser::class.java)
+                startActivity(intent)
+                backToast.cancel()
+                requireActivity().moveTaskToBack(true)
+                requireActivity().finish()
+            } else {
+                backToast = Toast.makeText(
+                    requireContext(),
+                    "Presione nuevamente \"Atrás\" para salir",
+                    Toast.LENGTH_SHORT
+                )
+                backToast.show()
+            }
+            backPressedTime = System.currentTimeMillis()
+
+        }
     }
 
     fun observerData() {

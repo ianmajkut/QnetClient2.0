@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.FirebaseApp
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.applocal.AppLocal
 import com.qnet.qnetclient.appusuario.AppUser
@@ -35,6 +36,7 @@ class splashscreen : AppCompatActivity() {
     private var rememberMe: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splashscreen)
         viewModel = FirestoreViewModel()
@@ -47,7 +49,7 @@ class splashscreen : AppCompatActivity() {
         val name: String? = preferences.getString("name", "")
         val password: String? = preferences.getString("password", "")
 
-        if (checkbox){
+        if (checkbox) {
             getLocation()
             viewModel.singInUser(name!!,password!!).observeForever{
                 when(it){
@@ -58,7 +60,7 @@ class splashscreen : AppCompatActivity() {
                         startActivity(intent) }
                 }
             }
-        }else {
+        } else {
             handler = Handler()
 
             handler.postDelayed({
@@ -94,7 +96,7 @@ class splashscreen : AppCompatActivity() {
             }
         }
     }
-   override fun onRequestPermissionsResult(
+    override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
@@ -120,9 +122,10 @@ class splashscreen : AppCompatActivity() {
         viewModel.localesCercanos().observeForever {
             if (it) {
                 viewModel.refreshToken()
-                val intent =Intent(this, AppUser::class.java)
+                val intent = Intent(this, AppUser::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
-            }else{
+            } else {
                 val intent =Intent(this, local_o_usuario::class.java)
                 startActivity(intent)
             }

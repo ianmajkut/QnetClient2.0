@@ -1,6 +1,7 @@
 package com.ian.bottomnavigation.ui.map
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -8,6 +9,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -20,6 +23,7 @@ import com.google.android.gms.maps.model.*
 import com.ian.bottomnavigation.ui.home.Model
 
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.appusuario.AppUser
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_map.*
 import java.util.*
@@ -28,6 +32,8 @@ class MapFragment : Fragment(), OnMapReadyCallback,
     GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMarkerClickListener,
     GoogleMap.OnInfoWindowClickListener {
 
+    private var backPressedTime: Long = 0
+    private lateinit var backToast: Toast
     private val LOCATION_PERMISSION_ID = 1000
     private lateinit var map: GoogleMap
     private val viewModel = FirestoreViewModel()
@@ -56,6 +62,28 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         map_view.onResume()
 
         map_view.getMapAsync(this)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                val intent = Intent(requireContext(), AppUser::class.java)
+                startActivity(intent)
+                backToast.cancel()
+                requireActivity().moveTaskToBack(true)
+                requireActivity().finish()
+            } else {
+                backToast = Toast.makeText(
+                    requireContext(),
+                    "Presione nuevamente \"Atrás\" para salir",
+                    Toast.LENGTH_SHORT
+                )
+                backToast.show()
+            }
+            backPressedTime = System.currentTimeMillis()
+
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
