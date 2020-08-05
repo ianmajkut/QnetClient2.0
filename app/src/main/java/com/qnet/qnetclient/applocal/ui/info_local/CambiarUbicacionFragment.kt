@@ -1,8 +1,7 @@
-package com.qnet.qnetclient.loginregister_local
+package com.qnet.qnetclient.applocal.ui.info_local
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,21 +10,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
-import kotlinx.android.synthetic.main.fragment_map.map_view
 import kotlinx.android.synthetic.main.fragment_register4_local_mapa.*
+import kotlinx.android.synthetic.main.fragment_register4_local_mapa.map_view
 import kotlin.properties.Delegates
 
-class register4_local_mapa : Fragment(), OnMapReadyCallback,
-    GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener,
+class CambiarUbicacionFragment : Fragment(), OnMapReadyCallback,
+    GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener,
     GoogleMap.OnMapLongClickListener {
 
@@ -42,18 +40,20 @@ class register4_local_mapa : Fragment(), OnMapReadyCallback,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register4_local_mapa, container, false)
+        return inflater.inflate(R.layout.fragment_cambiar_ubicacion, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        latitude = register4_local_mapaArgs.fromBundle(requireArguments()).latitud.toDouble()
-        longitude = register4_local_mapaArgs.fromBundle(requireArguments()).longitud.toDouble()
+        viewModel.fetchLocal().observe(viewLifecycleOwner, Observer { local ->
+            latitude = local.latitud!!.toDouble()
+            longitude = local.longitud!!.toDouble()
+        })
 
         bt_confirmar.setOnClickListener {
             viewModel.updateUbicacion(ubicacionLocal.latitude, ubicacionLocal.longitude, false).observeForever {
-                findNavController().navigate(R.id.action_register4_local_mapa_to_login_register_local)
+                findNavController().navigate(R.id.action_cambiarUbicacionFragment_to_infoLocal_Fragment)
             }
         }
     }
@@ -79,12 +79,18 @@ class register4_local_mapa : Fragment(), OnMapReadyCallback,
         map.uiSettings.isTiltGesturesEnabled = false
         map.uiSettings.isRotateGesturesEnabled = false
         map.setOnMyLocationButtonClickListener(this)
-        map.setOnMyLocationClickListener(this)
         map.setOnMarkerClickListener(this)
         map.setOnInfoWindowClickListener(this)
         map.setOnMapLongClickListener(this)
         enableMyLocation()
         map.apply {
+            addMarker(
+                MarkerOptions()
+                    .position(LatLng(latitude, longitude))
+                    .title("Mi local")
+                    .snippet("Esta es la posicion actual de mi local")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+            )
             moveCamera(
                 CameraUpdateFactory.newLatLngZoom(LatLng(latitude, longitude), 15.0f)
             )
@@ -93,9 +99,6 @@ class register4_local_mapa : Fragment(), OnMapReadyCallback,
 
     override fun onMyLocationButtonClick(): Boolean {
         return false
-    }
-
-    override fun onMyLocationClick(location: Location) {
     }
 
     override fun onMarkerClick(marker: Marker?): Boolean {

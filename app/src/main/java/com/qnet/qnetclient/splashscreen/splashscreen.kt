@@ -28,12 +28,12 @@ import kotlin.properties.Delegates
 class splashscreen : AppCompatActivity() {
 
     lateinit var handler: Handler
+
+    private val PERMISSION_ID = 1000
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var viewModel: FirestoreViewModel
-    private val PERMISSION_ID = 1000
     private var latitude by Delegates.notNull<Double>()
     private var longitude by Delegates.notNull<Double>()
-    private var rememberMe: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -81,38 +81,25 @@ class splashscreen : AppCompatActivity() {
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(this,
-                arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
+                arrayOf(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
             return
         }
         fusedLocationProviderClient.lastLocation.addOnCompleteListener {
             if (it.isSuccessful) {
-                Log.i(
-                    "Location",
-                    "Latitude: " + it.result?.latitude + ", Longitude: " + it.result?.longitude
-                )
                 latitude = it.result?.latitude!!
                 longitude = it.result?.longitude!!
             }
         }
     }
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == PERMISSION_ID) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Log.d("Location", "Permission granted")
-            }
-        }
-    }
+
     private fun observer2() {
         viewModel.updateUbicacion(latitude, longitude,true).observeForever {
             if (it) {
                 observer3()
-            }else{
-                val intent =Intent(this, local_o_usuario::class.java)
+            } else {
+                val intent = Intent(this, local_o_usuario::class.java)
                 startActivity(intent)
             }
         }
@@ -123,11 +110,22 @@ class splashscreen : AppCompatActivity() {
             if (it) {
                 viewModel.refreshToken()
                 val intent = Intent(this, AppUser::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
             } else {
-                val intent =Intent(this, local_o_usuario::class.java)
+                val intent = Intent(this, local_o_usuario::class.java)
                 startActivity(intent)
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == PERMISSION_ID) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d("Location", "Permission granted")
             }
         }
     }

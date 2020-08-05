@@ -69,6 +69,9 @@
             android:id="@+id/action_infoLocal_Fragment_to_cambiarInfoImportanteFragment"
             app:destination="@id/cambiarInfoImportanteFragment"
             app:popUpTo="@id/infoLocal_Fragment" />
+        <action
+            android:id="@+id/action_infoLocal_Fragment_to_cambiarUbicacionFragment"
+            app:destination="@id/cambiarUbicacionFragment" />
     </fragment>
     <activity
         android:id="@+id/lectorQr_Activity"
@@ -168,5 +171,14 @@
             android:id="@+id/action_verificarNuevaContraLocalFragment_to_infoLocal_Fragment"
             app:destination="@id/infoLocal_Fragment"
             app:popUpTo="@id/infoLocal_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cambiarUbicacionFragment"
+        android:name="com.qnet.qnetclient.applocal.ui.info_local.CambiarUbicacionFragment"
+        android:label="fragment_cambiar_ubicacion"
+        tools:layout="@layout/fragment_cambiar_ubicacion" >
+        <action
+            android:id="@+id/action_cambiarUbicacionFragment_to_infoLocal_Fragment"
+            app:destination="@id/infoLocal_Fragment" />
     </fragment>
 </navigation>
