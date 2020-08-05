@@ -143,4 +143,12 @@ class FirestoreViewModel : ViewModel(){
         }
         return mutableData
     }
+
+    fun changeData(campo:String,info:String):LiveData<Boolean>{
+        val mutableData = MutableLiveData<Boolean>()
+        repo.changeData(campo, info).observeForever{
+            mutableData.value = it
+        }
+        return mutableData
+    }
 }
