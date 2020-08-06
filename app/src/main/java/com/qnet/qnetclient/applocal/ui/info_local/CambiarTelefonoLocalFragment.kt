@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
-import kotlinx.android.synthetic.main.fragment_cambiar_nombre_local.*
 import kotlinx.android.synthetic.main.fragment_cambiar_telefono_local.*
 import kotlinx.android.synthetic.main.fragment_cambiar_telefono_local.back_icon
 import kotlinx.android.synthetic.main.fragment_cambiar_telefono_local.buttonNext
@@ -41,10 +40,10 @@ class CambiarTelefonoLocalFragment : Fragment() {
     }
     private fun cambiar(){
 
-        val Data = edtxt_telefono.text.toString()
-        if (Data.isNotEmpty()) {
+        val data = edtxt_telefono.text.toString()
+        if (data.isNotEmpty()) {
             viewModel = FirestoreViewModel()
-            viewModel.changeData("telefono", Data).observeForever {
+            viewModel.changeData("telefono", data.toLong()).observeForever {
                 if (it) {
                     findNavController().navigate(R.id.action_cambiarTelefonoLocalFragment_to_infoLocal_Fragment)
                 }

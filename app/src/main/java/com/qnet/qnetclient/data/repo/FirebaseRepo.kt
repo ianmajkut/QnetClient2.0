@@ -450,7 +450,7 @@ class FirebaseRepo {
         return mutableData
     }
 
-    fun changeData(campo:String,info:String):LiveData<Boolean>{
+    fun changeData(campo: String, info: Any): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
 
         mAuth = FirebaseAuth.getInstance()
