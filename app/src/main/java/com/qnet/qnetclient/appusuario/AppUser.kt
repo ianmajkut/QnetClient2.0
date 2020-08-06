@@ -1,6 +1,5 @@
 package com.qnet.qnetclient.appusuario
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView

@@ -13,10 +13,14 @@
         <action
             android:id="@+id/next_action"
             app:destination="@id/register"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/login_register" />
         <action
             android:id="@+id/forget_action"
             app:destination="@id/forget"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/login_register" />
         <action
             android:id="@+id/menu_principal_action"
@@ -30,10 +34,14 @@
         <action
             android:id="@+id/next_action"
             app:destination="@id/register2"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left"
             app:popUpTo="@id/register" />
         <action
             android:id="@+id/back_action"
             app:destination="@id/login_register"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/login_register" />
     </fragment>
     <fragment
@@ -44,10 +52,14 @@
         <action
             android:id="@+id/forget_back_action"
             app:destination="@id/login_register"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/login_register" />
         <action
             android:id="@+id/forget_action"
-            app:destination="@id/new_password_success" />
+            app:destination="@id/new_password_success"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/register2"
@@ -57,6 +69,8 @@
         <action
             android:id="@+id/back_action"
             app:destination="@id/register"
+            app:enterAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_in_right"
             app:popUpTo="@id/register" />
         <action
             android:id="@+id/action_register2_to_verification"
@@ -64,6 +78,8 @@
         <action
             android:id="@+id/verification_action"
             app:destination="@id/verification"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left"
             app:popUpTo="@id/register2" />
         <argument
             android:name="nombre"
@@ -82,6 +98,8 @@
         <action
             android:id="@+id/menu_action"
             app:destination="@id/login_register"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/login_register"
             app:popUpToInclusive="true" />
         <argument
@@ -101,6 +119,8 @@
         <action
             android:id="@+id/back_login_register"
             app:destination="@id/login_register"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/login_register" />
     </fragment>
     <activity

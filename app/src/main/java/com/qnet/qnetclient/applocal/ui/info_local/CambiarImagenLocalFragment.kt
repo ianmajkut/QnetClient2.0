@@ -47,7 +47,9 @@ class CambiarImagenLocalFragment : Fragment() {
             findNavController().navigate(R.id.action_cambiarImagenLocalFragment_to_infoLocal_Fragment)
         }
         buttonSeleccionar.setOnClickListener {
+
             elegirImagen()
+
 
         }
         buttonNext.setOnClickListener {

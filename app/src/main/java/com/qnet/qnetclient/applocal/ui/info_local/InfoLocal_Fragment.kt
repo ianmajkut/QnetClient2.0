@@ -64,6 +64,7 @@ class InfoLocal_Fragment : Fragment() {
         }
         btn_editar_ubiLocal.setOnClickListener {
 
+            findNavController().navigate(R.id.action_infoLocal_Fragment_to_cambiarUbicacionFragment)
 
         }
         btn_editar_horarioLocal.setOnClickListener {

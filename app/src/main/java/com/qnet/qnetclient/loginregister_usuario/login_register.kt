@@ -43,17 +43,6 @@ class login_register : Fragment() {
         viewModel = FirestoreViewModel()
         getLocation()
 
-        val preferences: SharedPreferences =
-            requireActivity().getSharedPreferences("RememberMe", Context.MODE_PRIVATE)
-        val checkbox: Boolean = preferences.getBoolean("remember", false)
-        val name: String? = preferences.getString("name", "")
-        val password: String? = preferences.getString("password", "")
-        if (checkbox) {
-            login(name!!, password!!)
-        } else {
-            Toast.makeText(requireContext(), "Please Log In", Toast.LENGTH_SHORT).show()
-        }
-
         buttonNew.setOnClickListener {
             findNavController().navigate(R.id.next_action)
         }
@@ -83,30 +72,15 @@ class login_register : Fragment() {
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(requireActivity(),
-                arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_ID)
+                arrayOf(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_ID)
             return
         }
         fusedLocationProviderClient.lastLocation.addOnCompleteListener {
             if (it.isSuccessful) {
-                Log.i(
-                    "Location",
-                    "Latitude: " + it.result?.latitude + ", Longitude: " + it.result?.longitude
-                )
                 latitude = it.result?.latitude!!
                 longitude = it.result?.longitude!!
-            }
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == LOCATION_PERMISSION_ID) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Log.d("Location", "Permission granted")
             }
         }
     }
@@ -120,7 +94,6 @@ class login_register : Fragment() {
 
     private fun login(name: String, password: String) {
         if (name.isNotEmpty() && password.isNotEmpty()) {
-            //@Ian falta poner un progress bar para ver el progreso
             if (rememberMe) {
                 val preferences: SharedPreferences =
                     requireActivity().getSharedPreferences(
@@ -151,18 +124,18 @@ class login_register : Fragment() {
         }
     }
 
-    private fun hideLoading(){
-        loadingDialog?.let { if (it.isShowing)it.cancel() }
-    }
-
     private fun showLoading(){
         hideLoading()
         loadingDialog = CommonUtils.showLoadingDialog(requireContext())
     }
 
-    private fun obsever(name:String,password:String) {
-        viewModel.singInUser(name,password).observeForever{
-            if(it!=null) {
+    private fun hideLoading() {
+        loadingDialog?.let { if (it.isShowing)it.cancel() }
+    }
+
+    private fun obsever(name:String, password:String) {
+        viewModel.singInUser(name, password).observeForever{
+            if (it != null) {
                 when (it) {
                     0 -> {
                         Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
@@ -185,7 +158,7 @@ class login_register : Fragment() {
         viewModel.updateUbicacion(latitude, longitude,true).observeForever {
             if (it) {
                 observer3()
-            }else{
+            } else {
                 hideLoading()
             }
         }
@@ -196,12 +169,21 @@ class login_register : Fragment() {
             if (it) {
                 hideLoading()
                 viewModel.refreshToken()
-//                val intent = Intent(requireContext(), AppUser::class.java)
-//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NO_ANIMATION
-//                startActivity(intent)
                 findNavController().navigate(R.id.menu_principal_action)
             } else {
                 hideLoading()
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == LOCATION_PERMISSION_ID) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d("Location", "Permission granted")
             }
         }
     }
