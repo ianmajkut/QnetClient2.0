@@ -85,7 +85,7 @@ class FirebaseRepo {
             "horario" to info.horario,
             "descripcion" to info.tipo,
             "informacion" to info.informacion,
-            "telefono" to info.telefono,
+            "telefono" to info.telefono?.toInt(),
             "queueNumber" to 0,
             "queuedPeople" to arrayListOf(null)
         )
@@ -494,9 +494,18 @@ class FirebaseRepo {
         mAuth = FirebaseAuth.getInstance()
         db.document("locales/${mAuth.currentUser?.uid}").get().addOnSuccessListener {
             val image = it.getString("image")
+            var location = image?.split("%2F")
+            location = location?.get(1)?.split("?")
+            val ref= FirebaseStorage.getInstance().getReference("/images/${location?.get(0)}")
+            ref.delete().addOnSuccessListener {
+                if (path != null) {
+                    changeData("image",path)
+                }
+            }
         }
 
         return mutableData
     }
+
 
 }
