@@ -136,12 +136,11 @@ class FirebaseRepo {
     fun updateUbicacion(latitude: Double?, longitude: Double?, llamadaUsuario: Boolean): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
-        val coleccion: String
 
-        if (llamadaUsuario) {
-            coleccion = "users"
+        val coleccion: String = if (llamadaUsuario) {
+            "users"
         } else {
-            coleccion = "locales"
+            "locales"
         }
 
         val data = hashMapOf(
@@ -238,13 +237,12 @@ class FirebaseRepo {
                 }.addOnFailureListener { e ->
                     Log.w(TAG, "Error adding document", e)
                 }
-
             }
         }
         return mutableData
     }
 
-    fun getLocal():LiveData<Model> {
+    fun getLocal(): LiveData<Model> {
         val mutableData = MutableLiveData<Model>()
         mAuth = FirebaseAuth.getInstance()
 
@@ -287,7 +285,7 @@ class FirebaseRepo {
 
     }
 
-    private fun getLocalesReference():LiveData<MutableList<ReferenceLocalesCercanos>>{
+    private fun getLocalesReference(): LiveData<MutableList<ReferenceLocalesCercanos>> {
         mAuth = FirebaseAuth.getInstance()
         val mutableData = MutableLiveData<MutableList<ReferenceLocalesCercanos>>()
         db.collection("users/${mAuth.currentUser?.uid}/localesCercanos").get().addOnSuccessListener { reference ->
@@ -408,28 +406,28 @@ class FirebaseRepo {
         }
     }
 
-    fun sacarUser(reference:String?):LiveData<Usuario>{
+    fun sacarUser(reference:String?): LiveData<Usuario> {
         val mutabData = MutableLiveData<Usuario>()
         mAuth = FirebaseAuth.getInstance()
         var usuario = Usuario(null,null)
         db.document("users/${reference}").get().addOnSuccessListener { result ->
             val name = result.getString("name")
             usuario.name = name
-        }.addOnFailureListener{
+        }.addOnFailureListener {
             mutabData.value = Usuario(null,null)
         }
         db.document("users/${reference}/misColas/${mAuth.currentUser?.uid}").get().addOnSuccessListener {
             val posicion = it.getLong("posicion")
             usuario.position = posicion
             mutabData.value = usuario
-        }.addOnFailureListener{
+        }.addOnFailureListener {
             mutabData.value = Usuario(null,null)
         }
         //mutabData.value = usuario
         return mutabData
     }
 
-    fun isLocal():LiveData<Boolean>{
+    fun isLocal(): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
 
@@ -441,9 +439,9 @@ class FirebaseRepo {
         }
         db.document("users/${mAuth.currentUser?.uid}").get().addOnSuccessListener {
             val aux = it.getBoolean("local")
-            if(aux==null){
+            if (aux == null) {
                 mutableData.value = true
-            }else{
+            } else {
                 mutableData.value = aux
             }
         }.addOnFailureListener{
@@ -451,6 +449,7 @@ class FirebaseRepo {
         }
         return mutableData
     }
+
     fun changeData(campo:String,info:String):LiveData<Boolean>{
         val mutableData = MutableLiveData<Boolean>()
 
@@ -459,7 +458,7 @@ class FirebaseRepo {
             campo to info
         )
         db.document("locales/${mAuth.currentUser?.uid}")
-            .set(user as Map<String, Any>)
+            .set(user as Map<String, Any>, SetOptions.merge())
             .addOnSuccessListener {
                 mutableData.value = true
             }
@@ -469,6 +468,7 @@ class FirebaseRepo {
 
         return mutableData
     }
+
     fun changeImage(uri:Uri?):LiveData<Boolean>{
         val mutableData = MutableLiveData<Boolean>()
         if (uri == null){
@@ -488,7 +488,8 @@ class FirebaseRepo {
 
         return mutableData
     }
-    private fun deleteImage(path: String?):LiveData<Boolean>{
+
+    private fun deleteImage(path: String?): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
         db.document("locales/${mAuth.currentUser?.uid}").get().addOnSuccessListener {
