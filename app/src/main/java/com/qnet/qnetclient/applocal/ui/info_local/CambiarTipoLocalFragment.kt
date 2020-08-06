@@ -7,10 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.viewModel.FirestoreViewModel
+import kotlinx.android.synthetic.main.fragment_cambiar_nombre_local.*
 import kotlinx.android.synthetic.main.fragment_cambiar_tipo_local.*
+import kotlinx.android.synthetic.main.fragment_cambiar_tipo_local.back_icon
+import kotlinx.android.synthetic.main.fragment_cambiar_tipo_local.buttonNext
 
 
 class CambiarTipoLocalFragment : Fragment() {
+
+    private lateinit var viewModel : FirestoreViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,11 +36,22 @@ class CambiarTipoLocalFragment : Fragment() {
         }
 
         buttonNext.setOnClickListener {
-
-            findNavController().navigate(R.id.action_cambiarTipoLocalFragment_to_infoLocal_Fragment)
+            cambiar()
 
         }
 
+    }
+    private fun cambiar(){
+
+        val Data = edtxt_tipoDeLocal.text.toString()
+        if (Data.isNotEmpty()) {
+            viewModel = FirestoreViewModel()
+            viewModel.changeData("descripcion", Data).observeForever {
+                if (it) {
+                    findNavController().navigate(R.id.action_cambiarTipoLocalFragment_to_infoLocal_Fragment)
+                }
+            }
+        }
     }
 
 }

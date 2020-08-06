@@ -7,11 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_cambiar_horario_local.*
+import kotlinx.android.synthetic.main.fragment_cambiar_horario_local.back_icon
+import kotlinx.android.synthetic.main.fragment_cambiar_horario_local.buttonNext
+import kotlinx.android.synthetic.main.fragment_cambiar_nombre_local.*
 
 
 class CambiarHorarioLocalFragment : Fragment() {
 
+    private lateinit var viewModel : FirestoreViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,10 +35,21 @@ class CambiarHorarioLocalFragment : Fragment() {
 
         }
         buttonNext.setOnClickListener {
-
-            findNavController().navigate(R.id.action_cambiarHorarioLocalFragment_to_infoLocal_Fragment)
-
+            cambiar()
         }
     }
+    private fun cambiar(){
+
+        val Data = edtxt_horarioDelLocal.text.toString()
+        if (Data.isNotEmpty()) {
+            viewModel = FirestoreViewModel()
+            viewModel.changeData("horario", Data).observeForever {
+                if (it) {
+                    findNavController().navigate(R.id.action_cambiarHorarioLocalFragment_to_infoLocal_Fragment)
+                }
+            }
+        }
+    }
+
     
 }

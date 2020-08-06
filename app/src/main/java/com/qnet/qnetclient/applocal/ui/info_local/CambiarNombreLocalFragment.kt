@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_cambiar_nombre_local.*
 
 
 class CambiarNombreLocalFragment : Fragment() {
 
+    private lateinit var viewModel : FirestoreViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -28,10 +30,20 @@ class CambiarNombreLocalFragment : Fragment() {
         }
 
         buttonNext.setOnClickListener {
-
-            findNavController().navigate(R.id.action_cambiarNombreLocalFragment_to_infoLocal_Fragment)
-
+            cambiar()
         }
 
+    }
+    private fun cambiar(){
+
+        val Data = edtxt_nombre.text.toString()
+        if (Data.isNotEmpty()) {
+            viewModel = FirestoreViewModel()
+            viewModel.changeData("title", Data).observeForever {
+                if (it) {
+                    findNavController().navigate(R.id.action_cambiarNombreLocalFragment_to_infoLocal_Fragment)
+                }
+            }
+        }
     }
 }

@@ -55,7 +55,10 @@ class FirebaseRepo {
 
     fun uploadImage(uri: Uri?,info:InfoRegister):LiveData<Boolean>{
         val mutableData = MutableLiveData<Boolean>()
-        if (uri == null) return mutableData
+        if (uri == null){
+            mutableData.value = false
+            return mutableData
+        }
         val filename = UUID.randomUUID().toString()
         val ref= FirebaseStorage.getInstance().getReference("/images/$filename")
 
@@ -446,6 +449,52 @@ class FirebaseRepo {
         }.addOnFailureListener{
             mutableData.value = true
         }
+        return mutableData
+    }
+    fun changeData(campo:String,info:String):LiveData<Boolean>{
+        val mutableData = MutableLiveData<Boolean>()
+
+        mAuth = FirebaseAuth.getInstance()
+        val user = hashMapOf(
+            campo to info
+        )
+        db.document("locales/${mAuth.currentUser?.uid}")
+            .set(user as Map<String, Any>)
+            .addOnSuccessListener {
+                mutableData.value = true
+            }
+            .addOnFailureListener {
+                mutableData.value = false
+            }
+
+        return mutableData
+    }
+    fun changeImage(uri:Uri?):LiveData<Boolean>{
+        val mutableData = MutableLiveData<Boolean>()
+        if (uri == null){
+            mutableData.value = false
+            return mutableData
+        }
+        val filename = UUID.randomUUID().toString()
+        val ref= FirebaseStorage.getInstance().getReference("/images/$filename")
+
+        ref.putFile(uri).addOnSuccessListener {
+            ref.downloadUrl.addOnSuccessListener {
+
+            }
+        }.addOnFailureListener{
+            mutableData.value= false
+        }
+
+        return mutableData
+    }
+    private fun deleteImage(path: String?):LiveData<Boolean>{
+        val mutableData = MutableLiveData<Boolean>()
+        mAuth = FirebaseAuth.getInstance()
+        db.document("locales/${mAuth.currentUser?.uid}").get().addOnSuccessListener {
+            val image = it.getString("image")
+        }
+
         return mutableData
     }
 
