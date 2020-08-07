@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_fila_local" >
         <action
             android:id="@+id/action_filaLocalFragment_to_lectorQr_Activity"
-            app:destination="@id/lectorQr_Activity" />
+            app:destination="@id/lectorQr_Activity"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/homeLocalFragment"
@@ -22,14 +24,20 @@
         <action
             android:id="@+id/action_homeLocalFragment_to_filaLocalFragment"
             app:destination="@id/filaLocalFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/homeLocalFragment" />
         <action
             android:id="@+id/action_homeLocalFragment_to_lectorQr_Fragment"
             app:destination="@id/lectorQr_Activity"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/homeLocalFragment" />
         <action
             android:id="@+id/action_homeLocalFragment_to_infoLocal_Fragment"
             app:destination="@id/infoLocal_Fragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/homeLocalFragment" />
     </fragment>
     <fragment
@@ -40,38 +48,56 @@
         <action
             android:id="@+id/action_infoLocal_Fragment_to_cambiarNombreLocalFragment"
             app:destination="@id/cambiarNombreLocalFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/infoLocal_Fragment" />
         <action
             android:id="@+id/action_infoLocal_Fragment_to_cambiarMailLocalFragment"
             app:destination="@id/cambiarMailLocalFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/infoLocal_Fragment" />
         <action
             android:id="@+id/action_infoLocal_Fragment_to_cambiarContraLocalFragment"
             app:destination="@id/cambiarContraLocalFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/infoLocal_Fragment" />
         <action
             android:id="@+id/action_infoLocal_Fragment_to_cambiarTelefonoLocalFragment"
             app:destination="@id/cambiarTelefonoLocalFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/infoLocal_Fragment" />
         <action
             android:id="@+id/action_infoLocal_Fragment_to_cambiarImagenLocalFragment"
             app:destination="@id/cambiarImagenLocalFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/infoLocal_Fragment" />
         <action
             android:id="@+id/action_infoLocal_Fragment_to_cambiarHorarioLocalFragment"
             app:destination="@id/cambiarHorarioLocalFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/infoLocal_Fragment" />
         <action
             android:id="@+id/action_infoLocal_Fragment_to_cambiarTipoLocalFragment"
             app:destination="@id/cambiarTipoLocalFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/infoLocal_Fragment" />
         <action
             android:id="@+id/action_infoLocal_Fragment_to_cambiarInfoImportanteFragment"
             app:destination="@id/cambiarInfoImportanteFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/infoLocal_Fragment" />
         <action
             android:id="@+id/action_infoLocal_Fragment_to_cambiarUbicacionFragment"
-            app:destination="@id/cambiarUbicacionFragment" />
+            app:destination="@id/cambiarUbicacionFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down" />
     </fragment>
     <activity
         android:id="@+id/lectorQr_Activity"
@@ -84,6 +110,8 @@
         <action
             android:id="@+id/action_cambiarNombreLocalFragment_to_infoLocal_Fragment"
             app:destination="@id/infoLocal_Fragment"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/infoLocal_Fragment" />
     </fragment>
     <fragment
@@ -93,10 +121,14 @@
         <action
             android:id="@+id/action_cambiarMailLocalFragment_to_infoLocal_Fragment"
             app:destination="@id/infoLocal_Fragment"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/infoLocal_Fragment" />
         <action
             android:id="@+id/action_cambiarMailLocalFragment_to_verificarNuevoMailLocalFragment"
             app:destination="@id/verificarNuevoMailLocalFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left"
             app:popUpTo="@id/cambiarMailLocalFragment" />
 
     </fragment>
@@ -107,6 +139,8 @@
         <action
             android:id="@+id/action_cambiarTelefonoLocalFragment_to_infoLocal_Fragment"
             app:destination="@id/infoLocal_Fragment"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/infoLocal_Fragment" />
     </fragment>
     <fragment
@@ -116,6 +150,8 @@
         <action
             android:id="@+id/action_cambiarContraLocalFragment_to_verificarNuevaContraLocalFragment"
             app:destination="@id/verificarNuevaContraLocalFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left"
             app:popUpTo="@id/cambiarContraLocalFragment" />
     </fragment>
     <fragment
@@ -125,6 +161,8 @@
         <action
             android:id="@+id/action_cambiarImagenLocalFragment_to_infoLocal_Fragment"
             app:destination="@id/infoLocal_Fragment"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/infoLocal_Fragment" />
     </fragment>
     <fragment
@@ -134,6 +172,8 @@
         <action
             android:id="@+id/action_cambiarTipoLocalFragment_to_infoLocal_Fragment"
             app:destination="@id/infoLocal_Fragment"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/infoLocal_Fragment" />
     </fragment>
     <fragment
@@ -143,6 +183,8 @@
         <action
             android:id="@+id/action_cambiarHorarioLocalFragment_to_infoLocal_Fragment"
             app:destination="@id/infoLocal_Fragment"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/infoLocal_Fragment" />
     </fragment>
     <fragment
@@ -152,6 +194,8 @@
         <action
             android:id="@+id/action_cambiarInfoImportanteFragment_to_infoLocal_Fragment"
             app:destination="@id/infoLocal_Fragment"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/infoLocal_Fragment" />
     </fragment>
     <fragment
@@ -161,6 +205,8 @@
         <action
             android:id="@+id/action_verificarNuevoMailLocalFragment_to_infoLocal_Fragment"
             app:destination="@id/infoLocal_Fragment"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/infoLocal_Fragment" />
     </fragment>
     <fragment
@@ -170,6 +216,8 @@
         <action
             android:id="@+id/action_verificarNuevaContraLocalFragment_to_infoLocal_Fragment"
             app:destination="@id/infoLocal_Fragment"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/infoLocal_Fragment" />
     </fragment>
     <fragment
@@ -179,6 +227,8 @@
         tools:layout="@layout/fragment_cambiar_ubicacion" >
         <action
             android:id="@+id/action_cambiarUbicacionFragment_to_infoLocal_Fragment"
-            app:destination="@id/infoLocal_Fragment" />
+            app:destination="@id/infoLocal_Fragment"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up" />
     </fragment>
 </navigation>
