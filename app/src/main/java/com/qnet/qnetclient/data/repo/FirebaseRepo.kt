@@ -480,7 +480,9 @@ class FirebaseRepo {
 
         ref.putFile(uri).addOnSuccessListener {
             ref.downloadUrl.addOnSuccessListener {
-
+                deleteImage(it.toString()).observeForever{
+                    mutableData.value = it
+                }
             }
         }.addOnFailureListener{
             mutableData.value= false
@@ -492,14 +494,24 @@ class FirebaseRepo {
     private fun deleteImage(path: String?): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
-        db.document("locales/${mAuth.currentUser?.uid}").get().addOnSuccessListener {
+        db.document("locales/${mAuth.currentUser?.uid}").get().addOnSuccessListener { it ->
             val image = it.getString("image")
-            var location = image?.split("%2F")
-            location = location?.get(1)?.split("?")
-            val ref= FirebaseStorage.getInstance().getReference("/images/${location?.get(0)}")
-            ref.delete().addOnSuccessListener {
+            if(image==null){
                 if (path != null) {
-                    changeData("image",path)
+                    changeData("image",path).observeForever{result->
+                        mutableData.value = result
+                    }
+                }
+            }else{
+                var location = image.split("%2F")
+                location = location[1].split("?")
+                val ref= FirebaseStorage.getInstance().getReference("/images/${location[0]}")
+                ref.delete().addOnSuccessListener {
+                    if (path != null) {
+                        changeData("image",path).observeForever{result->
+                            mutableData.value = result
+                        }
+                    }
                 }
             }
         }

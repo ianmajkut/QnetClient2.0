@@ -101,6 +101,7 @@ class CambiarImagenLocalFragment : Fragment() {
         }
     }
     fun changeImage(){
+        viewModel = FirestoreViewModel()
         viewModel.changeImage(image).observeForever{
             if (it){
                 findNavController().navigate(R.id.action_cambiarImagenLocalFragment_to_infoLocal_Fragment)
