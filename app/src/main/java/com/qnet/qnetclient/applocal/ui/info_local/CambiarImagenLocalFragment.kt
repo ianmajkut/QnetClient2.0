@@ -96,7 +96,6 @@ class CambiarImagenLocalFragment : Fragment() {
             if(data?.data!=null) {
                 image = data.data!!
                 image_view.setImageURI(image)
-
             }
         }
     }

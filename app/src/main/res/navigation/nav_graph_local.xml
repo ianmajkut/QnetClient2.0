@@ -13,14 +13,20 @@
         <action
             android:id="@+id/next_action_local"
             app:destination="@id/register_local"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/login_register_local" />
         <action
             android:id="@+id/forget_action_local"
             app:destination="@id/forget_local"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/login_register_local" />
         <action
             android:id="@+id/menu_principal_action_local"
             app:destination="@id/appLocal"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/login_register_local"
             app:popUpToInclusive="true" />
     </fragment>
@@ -32,10 +38,14 @@
         <action
             android:id="@+id/next_action_local"
             app:destination="@id/verification_local"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left"
             app:popUpTo="@id/login_register_local" />
         <action
             android:id="@+id/back_action_local"
             app:destination="@id/login_register_local"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/login_register_local" />
     </fragment>
     <fragment
@@ -46,10 +56,14 @@
         <action
             android:id="@+id/forget_back_action_local"
             app:destination="@id/login_register_local"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/login_register_local" />
         <action
             android:id="@+id/forget_action"
-            app:destination="@id/new_password_success_local" />
+            app:destination="@id/new_password_success_local"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/register2_local"
@@ -59,6 +73,8 @@
         <action
             android:id="@+id/next_action_local"
             app:destination="@id/register3_local"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left"
             app:popUpTo="@id/register2_local" />
     </fragment>
     <fragment
@@ -69,6 +85,8 @@
         <action
             android:id="@+id/next_action_local"
             app:destination="@id/register2_local"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left"
             app:popUpTo="@id/login_register_local" />
     </fragment>
     <fragment
@@ -79,6 +97,8 @@
         <action
             android:id="@+id/back_login_register_local"
             app:destination="@id/login_register_local"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/login_register_local" />
     </fragment>
     <activity
@@ -94,6 +114,8 @@
         <action
             android:id="@+id/back_action_local"
             app:destination="@id/register2_local"
+            app:enterAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_in_right"
             app:popUpTo="@id/register2_local" />
 
         <argument
@@ -101,7 +123,9 @@
             app:argType="com.qnet.qnetclient.loginregister_local.InfoRegister" />
         <action
             android:id="@+id/action_register3_local_to_register4_local_mapa"
-            app:destination="@id/register4_local_mapa" />
+            app:destination="@id/register4_local_mapa"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/register4_local_mapa"
@@ -110,7 +134,9 @@
         tools:layout="@layout/fragment_register4_local_mapa" >
         <action
             android:id="@+id/action_register4_local_mapa_to_login_register_local"
-            app:destination="@id/login_register_local" />
+            app:destination="@id/login_register_local"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up" />
         <argument
             android:name="latitud"
             app:argType="string"
