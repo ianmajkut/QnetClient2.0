@@ -86,39 +86,16 @@ class login_register : Fragment() {
     }
 
     private fun getData() {
-        val name = edtxt_eMail.text.toString().trim()
+        val email = edtxt_eMail.text.toString().trim()
         val password = edtxt_Password.text.toString().trim()
 
-        login(name, password)
+        login(email, password)
     }
 
-    private fun login(name: String, password: String) {
-        if (name.isNotEmpty() && password.isNotEmpty()) {
-            if (rememberMe) {
-                val preferences: SharedPreferences =
-                    requireActivity().getSharedPreferences(
-                        "RememberMe",
-                        Context.MODE_PRIVATE
-                    )
-                val editor: SharedPreferences.Editor = preferences.edit()
-                editor.putBoolean("remember", true)
-                editor.putString("name", name)
-                editor.putString("password", password)
-                editor.apply()
-            } else {
-                val preferences: SharedPreferences =
-                    requireActivity().getSharedPreferences(
-                        "RememberMe",
-                        Context.MODE_PRIVATE
-                    )
-                val editor: SharedPreferences.Editor = preferences.edit()
-                editor.putBoolean("remember", false)
-                editor.putString("name", null)
-                editor.putString("password", null)
-                editor.apply()
-            }
+    private fun login(email: String, password: String) {
+        if (email.isNotEmpty() && password.isNotEmpty()) {
             showLoading()
-            obsever(name, password)
+            obsever(email, password)
         } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
         }
@@ -133,19 +110,43 @@ class login_register : Fragment() {
         loadingDialog?.let { if (it.isShowing)it.cancel() }
     }
 
-    private fun obsever(name:String, password:String) {
-        viewModel.singInUser(name, password).observeForever{
+    private fun obsever(email: String, password: String) {
+
+        viewModel.singInUser(email, password).observeForever{
             if (it != null) {
                 when (it) {
                     0 -> {
-                        Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "Usuario no registrado", Toast.LENGTH_SHORT).show()
                         hideLoading()
                     }
                     1 -> {
+                        if (rememberMe) {
+                            val preferences: SharedPreferences =
+                                requireActivity().getSharedPreferences(
+                                    "RememberMe",
+                                    Context.MODE_PRIVATE
+                                )
+                            val editor: SharedPreferences.Editor = preferences.edit()
+                            editor.putBoolean("remember", true)
+                            editor.putString("email", email)
+                            editor.putString("password", password)
+                            editor.apply()
+                        } else {
+                            val preferences: SharedPreferences =
+                                requireActivity().getSharedPreferences(
+                                    "RememberMe",
+                                    Context.MODE_PRIVATE
+                                )
+                            val editor: SharedPreferences.Editor = preferences.edit()
+                            editor.putBoolean("remember", false)
+                            editor.putString("email", email)
+                            editor.putString("password", password)
+                            editor.apply()
+                        }
                         observer2()
                     }
                     2 -> {
-                        Toast.makeText(activity, "El Usuario es un Local", Toast.LENGTH_SHORT)
+                        Toast.makeText(activity, "El usuario es un Local", Toast.LENGTH_SHORT)
                             .show()
                         hideLoading()
                     }

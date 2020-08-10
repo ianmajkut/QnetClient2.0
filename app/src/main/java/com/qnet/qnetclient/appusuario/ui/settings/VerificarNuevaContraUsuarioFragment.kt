@@ -28,7 +28,6 @@ class VerificarNuevaContraUsuarioFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         verification.setOnClickListener {
-            findNavController().navigate(R.id.verifcationcontra_to_settings)
         }
 
     }

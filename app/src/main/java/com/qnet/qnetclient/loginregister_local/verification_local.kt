@@ -10,14 +10,13 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-
 import com.qnet.qnetclient.R
-import com.qnet.qnetclient.loginregister_usuario.mAuth
-
 import kotlinx.android.synthetic.main.fragment_verification.*
 
 
 class verification_local : Fragment() {
+
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

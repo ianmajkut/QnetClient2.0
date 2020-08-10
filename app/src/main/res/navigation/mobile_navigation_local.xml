@@ -72,6 +72,9 @@
         <action
             android:id="@+id/action_infoLocal_Fragment_to_cambiarUbicacionFragment"
             app:destination="@id/cambiarUbicacionFragment" />
+        <action
+            android:id="@+id/action_infoLocal_Fragment_to_local_o_usuario2"
+            app:destination="@id/local_o_usuario2" />
     </fragment>
     <activity
         android:id="@+id/lectorQr_Activity"
@@ -94,10 +97,6 @@
             android:id="@+id/action_cambiarMailLocalFragment_to_infoLocal_Fragment"
             app:destination="@id/infoLocal_Fragment"
             app:popUpTo="@id/infoLocal_Fragment" />
-        <action
-            android:id="@+id/action_cambiarMailLocalFragment_to_verificarNuevoMailLocalFragment"
-            app:destination="@id/verificarNuevoMailLocalFragment"
-            app:popUpTo="@id/cambiarMailLocalFragment" />
 
     </fragment>
     <fragment
@@ -114,9 +113,8 @@
         android:name="com.qnet.qnetclient.applocal.ui.info_local.CambiarContraLocalFragment"
         android:label="CambiarContraLocalFragment" >
         <action
-            android:id="@+id/action_cambiarContraLocalFragment_to_verificarNuevaContraLocalFragment"
-            app:destination="@id/verificarNuevaContraLocalFragment"
-            app:popUpTo="@id/cambiarContraLocalFragment" />
+            android:id="@+id/action_cambiarContraLocalFragment_to_infoLocal_Fragment"
+            app:destination="@id/infoLocal_Fragment" />
     </fragment>
     <fragment
         android:id="@+id/cambiarImagenLocalFragment"
@@ -155,24 +153,6 @@
             app:popUpTo="@id/infoLocal_Fragment" />
     </fragment>
     <fragment
-        android:id="@+id/verificarNuevoMailLocalFragment"
-        android:name="com.qnet.qnetclient.applocal.ui.info_local.VerificarNuevoMailLocalFragment"
-        android:label="VerificarNuevoMailLocalFragment" >
-        <action
-            android:id="@+id/action_verificarNuevoMailLocalFragment_to_infoLocal_Fragment"
-            app:destination="@id/infoLocal_Fragment"
-            app:popUpTo="@id/infoLocal_Fragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/verificarNuevaContraLocalFragment"
-        android:name="com.qnet.qnetclient.applocal.ui.info_local.VerificarNuevaContraLocalFragment"
-        android:label="VerificarNuevaContraLocalFragment" >
-        <action
-            android:id="@+id/action_verificarNuevaContraLocalFragment_to_infoLocal_Fragment"
-            app:destination="@id/infoLocal_Fragment"
-            app:popUpTo="@id/infoLocal_Fragment" />
-    </fragment>
-    <fragment
         android:id="@+id/cambiarUbicacionFragment"
         android:name="com.qnet.qnetclient.applocal.ui.info_local.CambiarUbicacionFragment"
         android:label="fragment_cambiar_ubicacion"
@@ -181,4 +161,9 @@
             android:id="@+id/action_cambiarUbicacionFragment_to_infoLocal_Fragment"
             app:destination="@id/infoLocal_Fragment" />
     </fragment>
+    <activity
+        android:id="@+id/local_o_usuario2"
+        android:name="com.qnet.qnetclient.local_o_usuario"
+        android:label="activity_local_o_usuario2"
+        tools:layout="@layout/activity_local_o_usuario" />
 </navigation>
