@@ -328,6 +328,7 @@ class FirebaseRepo {
                 }
                 aux = 0
             }
+            mutableData.value = listData
         }
         return mutableData
     }
