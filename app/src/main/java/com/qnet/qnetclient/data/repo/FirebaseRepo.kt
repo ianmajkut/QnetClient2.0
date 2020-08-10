@@ -312,6 +312,9 @@ class FirebaseRepo {
         var mutableReference = mutableListOf<References>()
         val listData = mutableListOf<Model>()
         getMisColasReference().observeForever{
+            if(it.size==0){
+                mutableData.value = listData
+            }
             for(reference in it)
             {
                 db.document("locales/${reference.keyLocal}").get().addOnSuccessListener {result ->
@@ -328,7 +331,6 @@ class FirebaseRepo {
                 }
                 aux = 0
             }
-            mutableData.value = listData
         }
         return mutableData
     }
