@@ -2,6 +2,7 @@ package com.ian.bottomnavigation.ui.fila
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class FilaFragment : Fragment() {
 
+    lateinit var handler: Handler
     private var backPressedTime: Long = 0
     private lateinit var backToast: Toast
     private val viewModel by lazy { FirestoreViewModel() }
@@ -89,5 +91,6 @@ class FilaFragment : Fragment() {
             adapter.notifyDataSetChanged()
 
         })
+
     }
 }

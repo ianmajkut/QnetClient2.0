@@ -480,8 +480,8 @@ class FirebaseRepo {
 
         ref.putFile(uri).addOnSuccessListener {
             ref.downloadUrl.addOnSuccessListener {
-                deleteImage(it.toString()).observeForever{
-                    mutableData.value = it
+                deleteImage(it.toString()).observeForever{result->
+                    mutableData.value = result
                 }
             }
         }.addOnFailureListener{

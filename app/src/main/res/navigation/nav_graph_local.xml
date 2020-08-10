@@ -60,7 +60,7 @@
             app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/login_register_local" />
         <action
-            android:id="@+id/forget_action"
+            android:id="@+id/forget_action_local"
             app:destination="@id/new_password_success_local"
             app:enterAnim="@anim/slide_in_right"
             app:popEnterAnim="@anim/slide_in_left" />
