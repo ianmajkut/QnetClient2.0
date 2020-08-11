@@ -22,7 +22,6 @@ import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.google.firebase.auth.FirebaseAuth
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.data.classes.Usuario
-import com.qnet.qnetclient.loginregister_usuario.mAuth
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.activity_lector_qr.*
 

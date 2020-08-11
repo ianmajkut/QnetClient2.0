@@ -28,7 +28,6 @@ import kotlin.properties.Delegates
 class splashscreen : AppCompatActivity() {
 
     lateinit var handler: Handler
-
     private val PERMISSION_ID = 1000
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var viewModel: FirestoreViewModel
@@ -46,7 +45,7 @@ class splashscreen : AppCompatActivity() {
         val preferences: SharedPreferences =
             this.getSharedPreferences("RememberMe", Context.MODE_PRIVATE)
         val checkbox: Boolean = preferences.getBoolean("remember", false)
-        val name: String? = preferences.getString("name", "")
+        val name: String? = preferences.getString("email", "")
         val password: String? = preferences.getString("password", "")
 
         if (checkbox) {

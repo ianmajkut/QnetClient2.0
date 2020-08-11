@@ -15,7 +15,7 @@ import kotlin.coroutines.coroutineContext
 
 class AuthUser {
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
-    private var aux:Boolean = false
+    private var aux: Boolean = false
 
     fun createAccount(email: String, password: String):LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
