@@ -13,6 +13,8 @@
         <action
             android:id="@+id/home_action"
             app:destination="@id/homeFragment2"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/navigation_home" />
     </fragment>
 
@@ -23,7 +25,8 @@
         tools:layout="@layout/fragment_map" >
         <action
             android:id="@+id/action_navigation_map_to_homeFragment2"
-            app:destination="@id/homeFragment2" />
+            app:destination="@id/homeFragment2"
+            app:enterAnim="@anim/slide_in_up" />
     </fragment>
 
     <fragment
@@ -34,6 +37,8 @@
         <action
             android:id="@+id/fila_to_qr"
             app:destination="@id/QRFilaUsuarioFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/navigation_fila" />
     </fragment>
     <fragment
@@ -44,14 +49,20 @@
         <action
             android:id="@+id/settings_to_mail"
             app:destination="@id/cambiarMailUsuarioFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/navigation_settings" />
         <action
             android:id="@+id/settings_to_contra"
             app:destination="@id/cambiarContraUsuarioFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down"
             app:popUpTo="@id/navigation_settings" />
         <action
             android:id="@+id/action_navigation_settings_to_local_o_usuario"
-            app:destination="@id/local_o_usuario2" />
+            app:destination="@id/local_o_usuario2"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_down" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment2"
@@ -61,6 +72,8 @@
         <action
             android:id="@+id/fragment2_to_fila"
             app:destination="@id/navigation_fila"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/navigation_home"
             app:popUpToInclusive="true" />
         <argument
@@ -75,6 +88,8 @@
         <action
             android:id="@+id/qr_to_fila"
             app:destination="@id/navigation_fila"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/navigation_fila" />
         <argument
             android:name="Local"
@@ -88,6 +103,8 @@
         <action
             android:id="@+id/mail_to_settings"
             app:destination="@id/navigation_settings"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/navigation_settings" />
     </fragment>
     <fragment
@@ -103,6 +120,8 @@
         <action
             android:id="@+id/contra_to_settings"
             app:destination="@id/navigation_settings"
+            app:enterAnim="@anim/slide_in_down"
+            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/navigation_settings" />
     </fragment>
     <fragment
