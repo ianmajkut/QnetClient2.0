@@ -88,10 +88,7 @@ class FilaFragment : Fragment() {
             adapter.notifyDataSetChanged()
             if (it.size==0){
                 text_notifications.visibility = View.VISIBLE
-            }else{
-                text_notifications.visibility = View.GONE
             }
-
 
         })
 

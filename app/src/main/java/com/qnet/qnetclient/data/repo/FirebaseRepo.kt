@@ -202,9 +202,11 @@ class FirebaseRepo {
         val listData = mutableListOf<Model>()
 
         getLocalesReference().observeForever {
+            if(it.size==0){
+                mutableData.value = listData
+            }
             for (reference in it) {
                 db.document("locales/${reference.keyLocal}").get().addOnSuccessListener { result ->
-
                     val title = result.getString("title")
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()

@@ -106,9 +106,13 @@ class HomeFragment : Fragment() {
         viewModel.fetchLocalData().observe(viewLifecycleOwner, Observer {
             //swipeRefreshLayout.isRefreshing=false
             shimmer_view_container.stopShimmer()
+            if(it.size==0) {
+                TODO("Hacer un text view como el de FilaFragment")
+            }
             shimmer_view_container.visibility = View.GONE
             adapter.setListData(it)
             adapter.notifyDataSetChanged()
+
 
         })
 
