@@ -53,9 +53,9 @@ class FirebaseRepo {
             }
     }
 
-    fun uploadImage(uri: Uri?,info:InfoRegister):LiveData<Boolean>{
+    fun uploadImage(uri: Uri?, info:InfoRegister): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
-        if (uri == null){
+        if (uri == null) {
             mutableData.value = false
             return mutableData
         }
@@ -68,13 +68,13 @@ class FirebaseRepo {
                     mutableData.value = result
                 }
             }
-        }.addOnFailureListener{
+        }.addOnFailureListener {
             mutableData.value= false
         }
         return mutableData
     }
 
-    private fun referenceImage(path:String?,info: InfoRegister):LiveData<Boolean>{
+    private fun referenceImage(path: String?, info: InfoRegister): LiveData<Boolean>{
         var mutableData  = MutableLiveData<Boolean>()
         mAuth = FirebaseAuth.getInstance()
 
@@ -85,7 +85,7 @@ class FirebaseRepo {
             "horario" to info.horario,
             "descripcion" to info.tipo,
             "informacion" to info.informacion,
-            "telefono" to info.telefono,
+            "telefono" to info.telefono?.toLong(),
             "queueNumber" to 0,
             "queuedPeople" to arrayListOf(null)
         )

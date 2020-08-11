@@ -48,7 +48,21 @@ class CambiarMailLocalFragment : Fragment() {
                             "E-Mail actualizado",
                             Toast.LENGTH_SHORT
                         ).show()
+                        val preferences: SharedPreferences =
+                            requireActivity().getSharedPreferences(
+                                "RememberMe",
+                                Context.MODE_PRIVATE
+                            )
+                        val editor: SharedPreferences.Editor = preferences.edit()
+                        editor.putString("email", newEmail)
+                        editor.apply()
                         findNavController().navigate(R.id.action_cambiarMailLocalFragment_to_infoLocal_Fragment)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "No se pudo actualizar su E-Mail",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             } else {

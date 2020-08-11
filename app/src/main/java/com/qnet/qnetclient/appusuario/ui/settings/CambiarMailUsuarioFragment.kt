@@ -45,6 +45,12 @@ class CambiarMailUsuarioFragment : Fragment() {
                             Toast.LENGTH_SHORT
                         ).show()
                         findNavController().navigate(R.id.mail_to_settings)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "No se pudo actualizar su E-Mail",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             } else {
