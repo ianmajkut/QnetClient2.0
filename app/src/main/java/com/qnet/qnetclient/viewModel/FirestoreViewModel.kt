@@ -124,9 +124,9 @@ class FirestoreViewModel : ViewModel(){
     }
 
 
-    fun loadImage(uri: Uri?,info:InfoRegister):LiveData<Boolean>{
+    fun loadImage(uri: Uri?, info: InfoRegister):LiveData<Boolean>{
         val mutableData = MutableLiveData<Boolean>()
-        repo.uploadImage(uri,info).observeForever{
+        repo.uploadImage(uri,info).observeForever {
             mutableData.value = it
         }
         return mutableData

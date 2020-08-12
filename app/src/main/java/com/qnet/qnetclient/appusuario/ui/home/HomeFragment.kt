@@ -72,7 +72,6 @@ class HomeFragment : Fragment() {
                 backToast.show()
             }
             backPressedTime = System.currentTimeMillis()
-
         }
     }
 

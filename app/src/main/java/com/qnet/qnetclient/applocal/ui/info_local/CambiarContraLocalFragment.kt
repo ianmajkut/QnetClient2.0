@@ -49,6 +49,14 @@ class CambiarContraLocalFragment : Fragment() {
                             "Contraseña actualizada",
                             Toast.LENGTH_SHORT
                         ).show()
+                        val preferences: SharedPreferences =
+                            requireActivity().getSharedPreferences(
+                                "RememberMe",
+                                Context.MODE_PRIVATE
+                            )
+                        val editor: SharedPreferences.Editor = preferences.edit()
+                        editor.putString("password", newPassword)
+                        editor.apply()
                         findNavController().navigate(R.id.action_cambiarContraLocalFragment_to_infoLocal_Fragment)
                     }
                 }

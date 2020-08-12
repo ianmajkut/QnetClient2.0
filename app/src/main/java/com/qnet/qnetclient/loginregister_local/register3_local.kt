@@ -51,9 +51,11 @@ class register3_local : Fragment() {
         img_pick_btn.setOnClickListener{
             elegirImagen()
         }
+
         buttonNext.setOnClickListener {
             setImage()
         }
+
         back_icon.setOnClickListener{
             findNavController().navigate(R.id.back_action_local)
         }
@@ -90,7 +92,6 @@ class register3_local : Fragment() {
                 arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), PERMISSION_CODE)
             return
         }
-
     }
 
     override fun onRequestPermissionsResult(
@@ -102,9 +103,7 @@ class register3_local : Fragment() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 elegirImagen()
             }
-        }
-        else{
-
+        } else {
             Toast.makeText(activity, "PERMISO DENEGADO", Toast.LENGTH_SHORT).show()
         }
     }
@@ -118,7 +117,7 @@ class register3_local : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
-            if(data?.data!=null) {
+            if(data?.data != null) {
                 image = data.data!!
                 image_view.setImageURI(image)
             }
@@ -126,7 +125,7 @@ class register3_local : Fragment() {
     }
 
     private fun setImage(){
-        viewModel.loadImage(image,infoRegister).observeForever{
+        viewModel.loadImage(image, infoRegister).observeForever{
             if (it) {
                 val action = register3_localDirections.actionRegister3LocalToRegister4LocalMapa(latitude.toString(), longitude.toString())
                 findNavController().navigate(action)

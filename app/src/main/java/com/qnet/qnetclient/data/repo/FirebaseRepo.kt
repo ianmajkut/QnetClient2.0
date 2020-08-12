@@ -85,7 +85,7 @@ class FirebaseRepo {
             "horario" to info.horario,
             "descripcion" to info.tipo,
             "informacion" to info.informacion,
-            "telefono" to info.telefono?.toInt(),
+            "telefono" to info.telefono?.toLong(),
             "queueNumber" to 0,
             "queuedPeople" to arrayListOf(null)
         )
@@ -207,6 +207,7 @@ class FirebaseRepo {
             }
             for (reference in it) {
                 db.document("locales/${reference.keyLocal}").get().addOnSuccessListener { result ->
+
                     val title = result.getString("title")
                     val descripcion = result.getString("descripcion")
                     val num = result.getLong("queueNumber").toString()
@@ -523,6 +524,5 @@ class FirebaseRepo {
 
         return mutableData
     }
-
 
 }
