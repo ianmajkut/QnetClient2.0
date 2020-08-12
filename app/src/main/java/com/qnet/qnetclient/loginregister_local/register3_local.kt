@@ -2,6 +2,7 @@ package com.qnet.qnetclient.loginregister_local
 
 import android.Manifest
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.loginregister_usuario.CommonUtils
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_register3_local.*
 import kotlinx.android.synthetic.main.fragment_register3_local.back_icon
@@ -27,6 +29,7 @@ class register3_local : Fragment() {
 
     private lateinit var viewModel: FirestoreViewModel
     private lateinit var image:Uri
+    private var loadingDialog: Dialog? = null
     private val IMAGE_PICK_CODE = 1000
     private val PERMISSION_CODE = 1001
     private val LOCATION_PERMISSION_ID = 1002
@@ -53,6 +56,7 @@ class register3_local : Fragment() {
         }
 
         buttonNext.setOnClickListener {
+            showLoading()
             setImage()
         }
 
@@ -128,11 +132,20 @@ class register3_local : Fragment() {
         viewModel.loadImage(image, infoRegister).observeForever{
             if (it) {
                 val action = register3_localDirections.actionRegister3LocalToRegister4LocalMapa(latitude.toString(), longitude.toString())
+                hideLoading()
                 findNavController().navigate(action)
             } else {
                 Toast.makeText(activity, "Error al cargar imagen", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+    private fun hideLoading(){
+        loadingDialog?.let { if (it.isShowing)it.cancel() }
+    }
+
+    private fun showLoading(){
+        hideLoading()
+        loadingDialog = CommonUtils.showLoadingDialog(requireContext())
     }
 
 }

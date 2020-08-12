@@ -43,7 +43,23 @@ class CambiarContraUsuarioFragment : Fragment() {
                             "Contraseña actualizada",
                             Toast.LENGTH_SHORT
                         ).show()
+                        val preferences: SharedPreferences =
+                            requireActivity().getSharedPreferences(
+                                "RememberMe",
+                                Context.MODE_PRIVATE
+                            )
+                        val editor: SharedPreferences.Editor = preferences.edit()
+                        val currentEmail: String? = preferences.getString("email", "")
+                        editor.putString("password", newPassword)
+                        editor.putString("email", currentEmail)
+                        editor.apply()
                         findNavController().navigate(R.id.contra_to_settings)
+                    }else {
+                        Toast.makeText(
+                            requireContext(),
+                            "No se pudo actualizar su Contraseña",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             } else {

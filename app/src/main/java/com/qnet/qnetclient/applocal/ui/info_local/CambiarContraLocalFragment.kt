@@ -55,9 +55,17 @@ class CambiarContraLocalFragment : Fragment() {
                                 Context.MODE_PRIVATE
                             )
                         val editor: SharedPreferences.Editor = preferences.edit()
+                        val currentEmail: String? = preferences.getString("email", "")
                         editor.putString("password", newPassword)
+                        editor.putString("email", currentEmail)
                         editor.apply()
                         findNavController().navigate(R.id.action_cambiarContraLocalFragment_to_infoLocal_Fragment)
+                    }else {
+                        Toast.makeText(
+                            requireContext(),
+                            "No se pudo actualizar su Contraseña",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             } else {

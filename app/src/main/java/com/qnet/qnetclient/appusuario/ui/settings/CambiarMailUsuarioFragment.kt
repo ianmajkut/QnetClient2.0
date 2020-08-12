@@ -44,6 +44,16 @@ class CambiarMailUsuarioFragment : Fragment() {
                             "E-Mail actualizado",
                             Toast.LENGTH_SHORT
                         ).show()
+                        val preferences: SharedPreferences =
+                            requireActivity().getSharedPreferences(
+                                "RememberMe",
+                                Context.MODE_PRIVATE
+                            )
+                        val editor: SharedPreferences.Editor = preferences.edit()
+                        val currentPassword: String? = preferences.getString("password", "")
+                        editor.putString("email", newEmail)
+                        editor.putString("password", currentPassword)
+                        editor.apply()
                         findNavController().navigate(R.id.mail_to_settings)
                     } else {
                         Toast.makeText(
