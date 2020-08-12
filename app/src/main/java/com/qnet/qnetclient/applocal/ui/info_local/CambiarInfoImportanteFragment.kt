@@ -11,7 +11,6 @@ import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_cambiar_info_importante.*
 import kotlinx.android.synthetic.main.fragment_cambiar_info_importante.back_icon
 import kotlinx.android.synthetic.main.fragment_cambiar_info_importante.buttonNext
-import kotlinx.android.synthetic.main.fragment_cambiar_nombre_local.*
 
 
 class CambiarInfoImportanteFragment : Fragment() {
@@ -37,9 +36,9 @@ class CambiarInfoImportanteFragment : Fragment() {
     }
     private fun cambiar(){
 
-        val Data = edtxt_infoImportDelLocal.text.toString()
+        val data = edtxt_infoImportDelLocal.text.toString()
         viewModel = FirestoreViewModel()
-        viewModel.changeData("informacion",Data).observeForever{
+        viewModel.changeData("informacion", data).observeForever{
             if (it){
                 findNavController().navigate(R.id.action_cambiarInfoImportanteFragment_to_infoLocal_Fragment)
             }

@@ -16,13 +16,11 @@ import com.qnet.qnetclient.viewModel.FirestoreViewModel
 
 import kotlinx.android.synthetic.main.fragment_verification.*
 
-
-lateinit var mAuth: FirebaseAuth
-
 class verification : Fragment() {
     private var name: String = "No Name"
     private var dni: Int = 0
     private lateinit var viewModel: FirestoreViewModel
+    lateinit var mAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

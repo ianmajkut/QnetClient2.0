@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.loginregister_usuario.CommonUtils
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
-import kotlinx.android.synthetic.main.fragment_login_register.*
 import kotlinx.android.synthetic.main.fragment_login_register_local.*
 import kotlinx.android.synthetic.main.fragment_login_register_local.buttonForget
 import kotlinx.android.synthetic.main.fragment_login_register_local.buttonNew
@@ -59,36 +58,12 @@ class login_register_local : Fragment() {
     }
 
     private fun login() {
-        val name = edtxt_UserLocal.text.toString().trim()
+        val email = edtxt_UserLocal.text.toString().trim()
         val password = edtxt_PasswordLocal.text.toString().trim()
 
-        if (name.isNotEmpty() && password.isNotEmpty()) {
-            //@Ian falta poner un progress bar para ver el progreso
-            if (rememberMe) {
-                val preferences: SharedPreferences =
-                    requireActivity().getSharedPreferences(
-                        "RememberMe",
-                        Context.MODE_PRIVATE
-                    )
-                val editor: SharedPreferences.Editor = preferences.edit()
-                editor.putBoolean("remember", true)
-                editor.putString("name", name)
-                editor.putString("password", password)
-                editor.apply()
-            } else {
-                val preferences: SharedPreferences =
-                    requireActivity().getSharedPreferences(
-                        "RememberMe",
-                        Context.MODE_PRIVATE
-                    )
-                val editor: SharedPreferences.Editor = preferences.edit()
-                editor.putBoolean("remember", false)
-                editor.putString("name", null)
-                editor.putString("password", null)
-                editor.apply()
-            }
+        if (email.isNotEmpty() && password.isNotEmpty()) {
             showLoading()
-            obsever(name, password)
+            obsever(email, password)
         } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()
         }
@@ -103,17 +78,54 @@ class login_register_local : Fragment() {
         loadingDialog = CommonUtils.showLoadingDialog(requireContext())
     }
 
-    private fun obsever(name:String,password:String) {
-        viewModel.singInUser(name,password).observeForever{
+    private fun obsever(email: String, password: String) {
 
-            when(it){
-                0 ->{ Toast.makeText(activity, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
-                    hideLoading()}
-                1 ->{ Toast.makeText(activity, "Esta intentando entrar con un Usuario", Toast.LENGTH_SHORT).show()
-                    hideLoading()}
-                2 -> findNavController().navigate(R.id.menu_principal_action_local)
+        viewModel.singInUser(email, password).observeForever{
+            when(it) {
+                0 -> {
+                    Toast.makeText(
+                        activity,
+                        "Usuario no Registrado",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    hideLoading()
+                }
+                1 -> {
+                    Toast.makeText(
+                        activity,
+                        "Esta intentando entrar con un usuario",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    hideLoading()
+                }
+                2 -> {
+                    if (rememberMe) {
+                        val preferences: SharedPreferences =
+                            requireActivity().getSharedPreferences(
+                                "RememberMe",
+                                Context.MODE_PRIVATE
+                            )
+                        val editor: SharedPreferences.Editor = preferences.edit()
+                        editor.putBoolean("remember", true)
+                        editor.putString("email", email)
+                        editor.putString("password", password)
+                        editor.apply()
+                    } else {
+                        val preferences: SharedPreferences =
+                            requireActivity().getSharedPreferences(
+                                "RememberMe",
+                                Context.MODE_PRIVATE
+                            )
+                        val editor: SharedPreferences.Editor = preferences.edit()
+                        editor.putBoolean("remember", false)
+                        editor.putString("email", email)
+                        editor.putString("password", password)
+                        editor.apply()
+                    }
+                    hideLoading()
+                    findNavController().navigate(R.id.menu_principal_action_local)
+                }
             }
         }
     }
-
 }

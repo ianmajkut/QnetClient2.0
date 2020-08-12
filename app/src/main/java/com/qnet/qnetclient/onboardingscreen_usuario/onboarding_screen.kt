@@ -68,7 +68,7 @@ class onboarding_screen : AppCompatActivity() {
                 setCurrentIndicator(position)
             }
         })
-        buttonNext.setOnClickListener{
+        buttonNext.setOnClickListener {
             if(introSliderViewPager.currentItem+1<introSlideAdapter.itemCount){
                 introSliderViewPager.currentItem+=1
             }else{

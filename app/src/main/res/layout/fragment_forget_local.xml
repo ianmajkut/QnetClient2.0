@@ -54,6 +54,29 @@
             android:layout_gravity="center"/>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/usuario"
+            app:hintTextColor="@color/colorPrimaryDark"
+            app:boxStrokeColor="@color/colorPrimaryDark"
+            app:boxStrokeWidthFocused="2dp"
+            app:startIconDrawable="@drawable/ic_person_black_24dp"
+            app:startIconTint="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorPrimaryDark"
+            android:layout_marginTop="15dp"
+            android:inputType="textEmailSubject"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="@color/colorPrimaryDark"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/correo_electr_nico"
@@ -66,7 +89,7 @@
             app:boxStrokeWidthFocused="2dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtxt_eMailReestablecer"
+                android:id="@+id/edtxt_eMailReestablecerLocal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress">
@@ -74,8 +97,6 @@
             </com.google.android.material.textfield.TextInputEditText>
 
         </com.google.android.material.textfield.TextInputLayout>
-
-
         <Button
             android:id="@+id/buttonNext"
             android:layout_width="match_parent"

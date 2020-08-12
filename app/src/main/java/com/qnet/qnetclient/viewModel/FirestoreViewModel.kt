@@ -18,7 +18,7 @@ class FirestoreViewModel : ViewModel(){
 
     fun createUser(eMail: String, password: String):LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
-        repoAuth.createAccount(eMail,password).observeForever{
+        repoAuth.createAccount(eMail, password).observeForever{
             mutableData.value = it
         }
         return mutableData
@@ -124,9 +124,9 @@ class FirestoreViewModel : ViewModel(){
     }
 
 
-    fun loadImage(uri: Uri?,info:InfoRegister):LiveData<Boolean>{
+    fun loadImage(uri: Uri?, info: InfoRegister):LiveData<Boolean>{
         val mutableData = MutableLiveData<Boolean>()
-        repo.uploadImage(uri,info).observeForever{
+        repo.uploadImage(uri,info).observeForever {
             mutableData.value = it
         }
         return mutableData
@@ -144,9 +144,16 @@ class FirestoreViewModel : ViewModel(){
         return mutableData
     }
 
-    fun changeData(campo:String,info:String):LiveData<Boolean>{
+    fun changeData(campo: String, info: Any): LiveData<Boolean> {
         val mutableData = MutableLiveData<Boolean>()
         repo.changeData(campo, info).observeForever{
+            mutableData.value = it
+        }
+        return mutableData
+    }
+    fun changeImage(uri: Uri?):LiveData<Boolean>{
+        val mutableData  = MutableLiveData<Boolean>()
+        repo.changeImage(uri).observeForever{
             mutableData.value = it
         }
         return mutableData

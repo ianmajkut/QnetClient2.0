@@ -47,13 +47,11 @@ class CambiarImagenLocalFragment : Fragment() {
             findNavController().navigate(R.id.action_cambiarImagenLocalFragment_to_infoLocal_Fragment)
         }
         buttonSeleccionar.setOnClickListener {
-
             elegirImagen()
-
 
         }
         buttonNext.setOnClickListener {
-            findNavController().navigate(R.id.action_cambiarImagenLocalFragment_to_infoLocal_Fragment)
+            changeImage()
         }
 
 
@@ -98,10 +96,18 @@ class CambiarImagenLocalFragment : Fragment() {
             if(data?.data!=null) {
                 image = data.data!!
                 image_view.setImageURI(image)
+
             }
         }
     }
-
+    fun changeImage(){
+        viewModel = FirestoreViewModel()
+        viewModel.changeImage(image).observeForever{
+            if (it){
+                findNavController().navigate(R.id.action_cambiarImagenLocalFragment_to_infoLocal_Fragment)
+            }
+        }
+    }
 
 
 
