@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseUser
 
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.loginregister_usuario.mAuth
+import kotlinx.android.synthetic.main.fragment_login_register.*
 
 import kotlinx.android.synthetic.main.fragment_verification.*
 

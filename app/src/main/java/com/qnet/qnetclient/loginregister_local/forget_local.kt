@@ -1,5 +1,6 @@
 package com.qnet.qnetclient.loginregister_local
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.loginregister_usuario.CommonUtils
 import kotlinx.android.synthetic.main.fragment_forget.*
 import kotlinx.android.synthetic.main.fragment_login_register.buttonNext
 
@@ -18,6 +20,9 @@ import kotlinx.android.synthetic.main.fragment_login_register.buttonNext
  * A simple [Fragment] subclass.
  */
 class forget_local : Fragment() {
+
+    private var loadingDialog: Dialog? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,19 +45,30 @@ class forget_local : Fragment() {
     private fun reestablecerPassword() {
 
         val eMail = edtxt_eMailReestablecer.text.toString().trim()
-
+        showLoading()
         if(eMail.isNotEmpty()) {
             FirebaseAuth.getInstance().sendPasswordResetEmail(eMail)
                 .addOnCompleteListener{ task ->
                     if (task.isSuccessful) {
+                        hideLoading()
                         findNavController().navigate(R.id.forget_action_local)
                     } else {
+                        hideLoading()
                         Toast.makeText(activity, "Error Email No Existe", Toast.LENGTH_SHORT).show()
                     }
                 }
         }
 
 
+    }
+
+    private fun hideLoading(){
+        loadingDialog?.let { if (it.isShowing)it.cancel() }
+    }
+
+    private fun showLoading(){
+        hideLoading()
+        loadingDialog = CommonUtils.showLoadingDialog(requireContext())
     }
 
 }
