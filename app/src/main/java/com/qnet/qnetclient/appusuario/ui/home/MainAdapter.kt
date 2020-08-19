@@ -53,7 +53,7 @@ class MainAdapter(private val context: Context):
             itemView.tittle.text = local.title
             itemView.descripcion.text = local.descripcion
             itemView.Fila.text = local.num
-            itemView.Dist.text = local.dist
+            itemView.Dist.text = ("${local.dist}km")
 
         }
     }

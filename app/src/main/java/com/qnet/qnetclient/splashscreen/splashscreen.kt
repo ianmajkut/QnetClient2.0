@@ -101,12 +101,24 @@ class splashscreen : AppCompatActivity() {
             if (it.isSuccessful) {
                 if(it.result==null)
                 {
+                    val preferences: SharedPreferences =
+                        this.getSharedPreferences(
+                            "RememberMe",
+                            Context.MODE_PRIVATE
+                        )
+                    val editor: SharedPreferences.Editor = preferences.edit()
+                    editor.putBoolean("remember", false)
+                    editor.putString("email", "")
+                    editor.putString("password", "")
+                    editor.apply()
                     val intent =Intent(this, local_o_usuario::class.java)
                     startActivity(intent)
                 }
-                latitude = it.result?.latitude!!
-                longitude = it.result?.longitude!!
-                observer2()
+                else{
+                    latitude = it.result?.latitude!!
+                    longitude = it.result?.longitude!!
+                    observer2()
+                }
             }
         }
     }
