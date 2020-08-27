@@ -13,8 +13,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.qnet.qnetclient.R
 
 class AppUser : AppCompatActivity() {
-    private var backPressedTime: Long = 0
-    private lateinit var backToast: Toast
     //private lateinit var navController:NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,24 +51,4 @@ class AppUser : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
     }
-
-//    override fun onBackPressed() {
-//        if (backPressedTime + 2000 > System.currentTimeMillis()) {
-//            val intent = Intent(this, AppUser::class.java)
-//            startActivity(intent)
-//            backToast.cancel()
-//            super.onBackPressed()
-//            moveTaskToBack(true)
-//            finish()
-//            return
-//        } else {
-//            backToast = Toast.makeText(
-//                baseContext,
-//                "Presione nuevamente \"Atrás\" para salir",
-//                Toast.LENGTH_SHORT
-//            )
-//            backToast.show()
-//        }
-//        backPressedTime = System.currentTimeMillis()
-//    }
 }
