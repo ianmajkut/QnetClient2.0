@@ -49,6 +49,7 @@ class FilaLocalFragment : Fragment() {
             adapter.setListData(it)
             adapter.notifyDataSetChanged()
             num.text = it.size.toString()
+            num.visibility = View.VISIBLE
         })
     }
 

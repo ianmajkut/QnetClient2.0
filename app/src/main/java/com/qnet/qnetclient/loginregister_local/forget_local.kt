@@ -11,6 +11,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 import com.qnet.qnetclient.R
 import kotlinx.android.synthetic.main.fragment_forget.*
+import kotlinx.android.synthetic.main.fragment_forget.back_icon
+import kotlinx.android.synthetic.main.fragment_forget_local.*
 import kotlinx.android.synthetic.main.fragment_login_register.buttonNext
 
 
@@ -39,7 +41,7 @@ class forget_local : Fragment() {
 
     private fun reestablecerPassword() {
 
-        val eMail = edtxt_eMailReestablecer.text.toString().trim()
+        val eMail = edtxt_eMailReestablecerLocal.text.toString().trim()
 
         if(eMail.isNotEmpty()) {
             FirebaseAuth.getInstance().sendPasswordResetEmail(eMail)

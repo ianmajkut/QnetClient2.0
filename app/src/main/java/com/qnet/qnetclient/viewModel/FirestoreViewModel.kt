@@ -151,4 +151,11 @@ class FirestoreViewModel : ViewModel(){
         }
         return mutableData
     }
+    fun changeImage(uri: Uri?):LiveData<Boolean>{
+        val mutableData  = MutableLiveData<Boolean>()
+        repo.changeImage(uri).observeForever{
+            mutableData.value = it
+        }
+        return mutableData
+    }
 }

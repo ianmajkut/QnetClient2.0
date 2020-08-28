@@ -2,6 +2,7 @@ package com.ian.bottomnavigation.ui.fila
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class FilaFragment : Fragment() {
 
+    lateinit var handler: Handler
     private var backPressedTime: Long = 0
     private lateinit var backToast: Toast
     private val viewModel by lazy { FirestoreViewModel() }
@@ -42,6 +44,7 @@ class FilaFragment : Fragment() {
         val txt_MisColas = layout.findViewById<TextView>(R.id.text_notifications)
         val shimmer_view_container= layout.findViewById<ShimmerFrameLayout>(R.id.shimmer_view_container)
 
+
         recycler.layoutManager = GridLayoutManager(requireActivity().applicationContext,1)
         adapter = AdapterFila(requireActivity().applicationContext)
         recycler.adapter = adapter
@@ -50,9 +53,6 @@ class FilaFragment : Fragment() {
 
         observerData()
 //        Toast.makeText(activity, "${adapter.itemCount}", Toast.LENGTH_SHORT).show()
-        if(adapter.itemCount != 0){
-            txt_MisColas.visibility = View.GONE
-        }
 
         return layout
 
@@ -91,10 +91,13 @@ class FilaFragment : Fragment() {
 
             shimmer_view_container.stopShimmer()
             shimmer_view_container.visibility = View.GONE
-            text_notifications.visibility = View.GONE
             adapter.setListData(it)
             adapter.notifyDataSetChanged()
+            if (it.size==0){
+                text_notifications.visibility = View.VISIBLE
+            }
 
         })
+
     }
 }

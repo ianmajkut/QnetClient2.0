@@ -49,25 +49,37 @@ class splashscreen : AppCompatActivity() {
         val password: String? = preferences.getString("password", "")
 
         if (checkbox) {
-            getLocation()
-            viewModel.singInUser(name!!,password!!).observeForever{
-                when(it){
-                    0 -> {val intent =Intent(this, local_o_usuario::class.java)
-                        startActivity(intent) }
-                    1 -> {observer2()}
-                    2 -> {val intent =Intent(this, AppLocal::class.java)
-                        startActivity(intent) }
+            if(name!=null&&password!=null) {
+                viewModel.singInUser(name, password).observeForever {
+                    when (it) {
+                        0 -> {
+                            val intent = Intent(this, local_o_usuario::class.java)
+                            startActivity(intent)
+                        }
+                        1 -> {
+                            getLocation()
+                        }
+                        2 -> {
+                            val intent = Intent(this, AppLocal::class.java)
+                            startActivity(intent)
+                        }
+                    }
                 }
+            } else{
+                inicioNormal()
             }
         } else {
-            handler = Handler()
-
-            handler.postDelayed({
-                val intent = Intent(this, local_o_usuario::class.java)
-                startActivity(intent)
-                finish()
-            }, 2000)
+            inicioNormal()
         }
+    }
+    private fun inicioNormal(){
+        handler = Handler()
+
+        handler.postDelayed({
+            val intent = Intent(this, local_o_usuario::class.java)
+            startActivity(intent)
+            finish()
+        }, 1500)
     }
 
     private fun getLocation() {
@@ -87,8 +99,26 @@ class splashscreen : AppCompatActivity() {
         }
         fusedLocationProviderClient.lastLocation.addOnCompleteListener {
             if (it.isSuccessful) {
-                latitude = it.result?.latitude!!
-                longitude = it.result?.longitude!!
+                if(it.result==null)
+                {
+                    val preferences: SharedPreferences =
+                        this.getSharedPreferences(
+                            "RememberMe",
+                            Context.MODE_PRIVATE
+                        )
+                    val editor: SharedPreferences.Editor = preferences.edit()
+                    editor.putBoolean("remember", false)
+                    editor.putString("email", "")
+                    editor.putString("password", "")
+                    editor.apply()
+                    val intent =Intent(this, local_o_usuario::class.java)
+                    startActivity(intent)
+                }
+                else{
+                    latitude = it.result?.latitude!!
+                    longitude = it.result?.longitude!!
+                    observer2()
+                }
             }
         }
     }

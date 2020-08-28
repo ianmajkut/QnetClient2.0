@@ -54,7 +54,9 @@ class CambiarMailLocalFragment : Fragment() {
                                 Context.MODE_PRIVATE
                             )
                         val editor: SharedPreferences.Editor = preferences.edit()
+                        val currentPassword: String? = preferences.getString("password", "")
                         editor.putString("email", newEmail)
+                        editor.putString("password", currentPassword)
                         editor.apply()
                         findNavController().navigate(R.id.action_cambiarMailLocalFragment_to_infoLocal_Fragment)
                     } else {

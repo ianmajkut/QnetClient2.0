@@ -86,4 +86,5 @@
     <string name="fcm_message">FCM Message</string>
     <string name="confirmar_ubicacion">Confirmar</string>
     <string name="instrucciones">Mantenga presionado sobre el mapa para saber la ubicacion de su local</string>
+    <string name="cargando">Cargando..</string>
 </resources>
