@@ -1,6 +1,5 @@
 package com.ian.bottomnavigation.ui.home
 
-
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -22,7 +21,6 @@ import com.qnet.qnetclient.appusuario.AppUser
 import com.qnet.qnetclient.local_o_usuario
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
-
 
 class HomeFragment : Fragment() {
 
@@ -57,7 +55,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(false)
+        setHasOptionsMenu(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
