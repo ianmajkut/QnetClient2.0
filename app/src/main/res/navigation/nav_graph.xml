@@ -41,7 +41,6 @@
             android:id="@+id/back_action"
             app:destination="@id/login_register"
             app:enterAnim="@anim/slide_in_down"
-            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/login_register" />
     </fragment>
     <fragment
@@ -53,7 +52,6 @@
             android:id="@+id/forget_back_action"
             app:destination="@id/login_register"
             app:enterAnim="@anim/slide_in_down"
-            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/login_register" />
         <action
             android:id="@+id/forget_action"
@@ -99,7 +97,6 @@
             android:id="@+id/menu_action"
             app:destination="@id/login_register"
             app:enterAnim="@anim/slide_in_down"
-            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/login_register"
             app:popUpToInclusive="true" />
         <argument

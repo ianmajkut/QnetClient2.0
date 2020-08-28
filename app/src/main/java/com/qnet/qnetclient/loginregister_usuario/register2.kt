@@ -1,5 +1,6 @@
 package com.qnet.qnetclient.loginregister_usuario
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_register2.back_icon
 class register2 : Fragment() {
     private var name: String = "No Name"
     private var dni: Int = 0
+    private var loadingDialog: Dialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -33,10 +35,21 @@ class register2 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         buttonNext.setOnClickListener {
+            showLoading()
             val action = register2Directions.verificationAction(name, dni)
+            hideLoading()
             findNavController().navigate(action)
         }
 
+    }
+
+    private fun hideLoading(){
+        loadingDialog?.let { if (it.isShowing)it.cancel() }
+    }
+
+    private fun showLoading(){
+        hideLoading()
+        loadingDialog = CommonUtils.showLoadingDialog(requireContext())
     }
 
 }

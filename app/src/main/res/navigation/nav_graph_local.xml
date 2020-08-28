@@ -45,7 +45,6 @@
             android:id="@+id/back_action_local"
             app:destination="@id/login_register_local"
             app:enterAnim="@anim/slide_in_down"
-            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/login_register_local" />
     </fragment>
     <fragment
@@ -57,7 +56,6 @@
             android:id="@+id/forget_back_action_local"
             app:destination="@id/login_register_local"
             app:enterAnim="@anim/slide_in_down"
-            app:popEnterAnim="@anim/slide_in_up"
             app:popUpTo="@id/login_register_local" />
         <action
             android:id="@+id/forget_action_local"
@@ -135,8 +133,7 @@
         <action
             android:id="@+id/action_register4_local_mapa_to_login_register_local"
             app:destination="@id/login_register_local"
-            app:enterAnim="@anim/slide_in_down"
-            app:popEnterAnim="@anim/slide_in_up" />
+            app:enterAnim="@anim/slide_in_down" />
         <argument
             android:name="latitud"
             app:argType="string"
