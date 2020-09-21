@@ -2,6 +2,8 @@ package com.qnet.qnetclient.applocal.ui.lector_qr
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,7 +23,10 @@ import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.google.firebase.auth.FirebaseAuth
 import com.qnet.qnetclient.R
+import com.qnet.qnetclient.applocal.AppLocal
 import com.qnet.qnetclient.data.classes.Usuario
+import com.qnet.qnetclient.local_o_usuario
+import com.qnet.qnetclient.loginregister_usuario.CommonUtils
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.activity_lector_qr.*
 
@@ -30,6 +35,7 @@ import java.lang.Exception
 class LectorQr_Activity : AppCompatActivity() {
 
     private  val CodigoPermisoCamara=1001
+    private var loadingDialog: Dialog? = null
     private lateinit var cameraSource: CameraSource
     private lateinit var detector: BarcodeDetector
     private lateinit var mAuth: FirebaseAuth
@@ -133,22 +139,37 @@ class LectorQr_Activity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun sacarUser(user:String?, local: String?, llamadaLocal: Boolean) {
         Handler(Looper.getMainLooper()).post{
+            cameraSource.stop()
+            showLoading()
             viewModel.sacarUser(user).observeForever {
                 if (it!=null) {
                     if (it.position != null) {
+                        hideLoading()
                         alerta(user, local, llamadaLocal, it)
+                    }else{
+                        Toast.makeText(this, "Usuario no esta en la cola", Toast.LENGTH_LONG).show()
+                        hideLoading()
+                        val intent = Intent(this, AppLocal::class.java)
+                        startActivity(intent)
+                        finish()
                     }
                 }else{
                     Toast.makeText(this, "Error al leer Qr", Toast.LENGTH_SHORT).show()
+                    hideLoading()
+                    val intent = Intent(this, AppLocal::class.java)
+                    startActivity(intent)
+                    finish()
                 }
             }
         }
 
     }
 
-    fun alerta(user:String?, local: String?, llamadaLocal: Boolean,usuario: Usuario?){
+    @SuppressLint("MissingPermission")
+    fun alerta(user:String?, local: String?, llamadaLocal: Boolean, usuario: Usuario?){
         val alertDialog = AlertDialog.Builder(this)
         if (usuario?.name != null && usuario.position != null) {
             alertDialog.setTitle("Sacar de la Cola")
@@ -158,11 +179,19 @@ class LectorQr_Activity : AppCompatActivity() {
             )
 
             alertDialog.setNegativeButton("No") { _, _ ->
-                setupControls()
+                Toast.makeText(this, "No", Toast.LENGTH_LONG).show()
+                hideLoading()
+                val intent = Intent(this, AppLocal::class.java)
+                startActivity(intent)
+                finish()
             }
             alertDialog.setPositiveButton("Si") { _, _ ->
                 viewModel.sacarUser(user, local, llamadaLocal).observeForever {
-                    TODO("Que hacer cuando te saca de la cola")
+                    Toast.makeText(this, "Usuario Removido", Toast.LENGTH_LONG).show()
+                    hideLoading()
+                    val intent = Intent(this, AppLocal::class.java)
+                    startActivity(intent)
+                    finish()
                 }
             }
             alertDialog.show()
@@ -172,9 +201,21 @@ class LectorQr_Activity : AppCompatActivity() {
                 "Usuario no existe en la cola"
             )
             alertDialog.setPositiveButton("Ok") { _, _ ->
-                setupControls()
+                Toast.makeText(this, "Ok", Toast.LENGTH_LONG).show()
+                hideLoading()
+                val intent = Intent(this, AppLocal::class.java)
+                startActivity(intent)
+                finish()
             }
         }
+    }
+    private fun hideLoading(){
+        loadingDialog?.let { if (it.isShowing)it.cancel() }
+    }
+
+    private fun showLoading(){
+        hideLoading()
+        loadingDialog = CommonUtils.showLoadingDialog(this)
     }
 
 }

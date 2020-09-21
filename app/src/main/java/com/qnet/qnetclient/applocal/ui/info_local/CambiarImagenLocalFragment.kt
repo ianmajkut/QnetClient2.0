@@ -46,18 +46,14 @@ class CambiarImagenLocalFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         pedirPermiso()
         back_icon.setOnClickListener {
-
             findNavController().navigate(R.id.action_cambiarImagenLocalFragment_to_infoLocal_Fragment)
         }
         buttonSeleccionar.setOnClickListener {
             elegirImagen()
-
         }
         buttonNext.setOnClickListener {
             changeImage()
         }
-
-
     }
     private fun pedirPermiso(){
         if (ActivityCompat.checkSelfPermission(
@@ -68,7 +64,6 @@ class CambiarImagenLocalFragment : Fragment() {
                 arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), PERMISSION_CODE)
             return
         }
-
     }
 
     override fun onRequestPermissionsResult(
@@ -82,7 +77,6 @@ class CambiarImagenLocalFragment : Fragment() {
             }
         }
         else{
-
             Toast.makeText(activity, "PERMISO DENEGADO", Toast.LENGTH_SHORT).show()
         }
     }
@@ -99,7 +93,6 @@ class CambiarImagenLocalFragment : Fragment() {
             if(data?.data!=null) {
                 image = data.data!!
                 image_view.setImageURI(image)
-
             }
         }
     }
@@ -121,7 +114,5 @@ class CambiarImagenLocalFragment : Fragment() {
         hideLoading()
         loadingDialog = CommonUtils.showLoadingDialog(requireContext())
     }
-
-
 
 }
