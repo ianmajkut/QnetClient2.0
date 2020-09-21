@@ -140,6 +140,8 @@ class LectorQr_Activity : AppCompatActivity() {
                     if (it.position != null) {
                         alerta(user, local, llamadaLocal, it)
                     }
+                }else{
+                    Toast.makeText(this, "Error al leer Qr", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -151,12 +153,12 @@ class LectorQr_Activity : AppCompatActivity() {
         if (usuario?.name != null && usuario.position != null) {
             alertDialog.setTitle("Sacar de la Cola")
             alertDialog.setMessage(
-                "Está a punto de sacar a ${usuario.name} que esta en la posicion ${usuario.position}." +
+                "Está a punto de sacar a ${usuario.name} que esta en la posicion ${(usuario.position!! +1)}" +
                         "¿Esta seguro?"
             )
 
             alertDialog.setNegativeButton("No") { _, _ ->
-
+                setupControls()
             }
             alertDialog.setPositiveButton("Si") { _, _ ->
                 viewModel.sacarUser(user, local, llamadaLocal).observeForever {
@@ -170,7 +172,7 @@ class LectorQr_Activity : AppCompatActivity() {
                 "Usuario no existe en la cola"
             )
             alertDialog.setPositiveButton("Ok") { _, _ ->
-
+                setupControls()
             }
         }
     }

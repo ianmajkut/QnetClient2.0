@@ -2,6 +2,7 @@ package com.qnet.qnetclient.applocal.ui.info_local
 
 import android.Manifest
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.loginregister_local.register3_localDirections
+import com.qnet.qnetclient.loginregister_usuario.CommonUtils
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_cambiar_imagen_local.*
 import kotlinx.android.synthetic.main.fragment_cambiar_imagen_local.back_icon
@@ -27,6 +29,7 @@ class CambiarImagenLocalFragment : Fragment() {
 
     private lateinit var viewModel: FirestoreViewModel
     private lateinit var image: Uri
+    private var loadingDialog: Dialog? = null
     private val IMAGE_PICK_CODE = 1000
     private val PERMISSION_CODE = 1001
     private val LOCATION_PERMISSION_ID = 1002
@@ -102,11 +105,21 @@ class CambiarImagenLocalFragment : Fragment() {
     }
     fun changeImage(){
         viewModel = FirestoreViewModel()
+        showLoading()
         viewModel.changeImage(image).observeForever{
             if (it){
+                hideLoading()
                 findNavController().navigate(R.id.action_cambiarImagenLocalFragment_to_infoLocal_Fragment)
             }
         }
+    }
+    private fun hideLoading(){
+        loadingDialog?.let { if (it.isShowing)it.cancel() }
+    }
+
+    private fun showLoading(){
+        hideLoading()
+        loadingDialog = CommonUtils.showLoadingDialog(requireContext())
     }
 
 

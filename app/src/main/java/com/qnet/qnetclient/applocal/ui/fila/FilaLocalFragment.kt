@@ -46,9 +46,13 @@ class FilaLocalFragment : Fragment() {
         viewModel.fetchUsuarios().observe(viewLifecycleOwner, Observer {
             shimmer_view_container.stopShimmer()
             shimmer_view_container.visibility = View.GONE
-            adapter.setListData(it)
-            adapter.notifyDataSetChanged()
-            num.text = it.size.toString()
+            if(it[0].name!=null) {
+                adapter.setListData(it)
+                adapter.notifyDataSetChanged()
+                num.text = it.size.toString()
+            }else{
+                num.text = "0"
+            }
             num.visibility = View.VISIBLE
         })
     }
