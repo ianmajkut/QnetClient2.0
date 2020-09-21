@@ -109,7 +109,7 @@ class InfoLocal_Fragment : Fragment() {
             editor.putString("name", null)
             editor.putString("password", null)
             editor.apply()
-            findNavController().navigate(R.id.action_navigation_settings_to_local_o_usuario)
+            findNavController().navigate(R.id.action_infoLocal_Fragment_to_local_o_usuario2)
         }
         alertDialog.show()
     }

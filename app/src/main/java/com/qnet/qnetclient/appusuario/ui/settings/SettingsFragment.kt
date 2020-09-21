@@ -45,14 +45,11 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btn_editar_mail.setOnClickListener {
-
             findNavController().navigate(R.id.settings_to_mail)
-
         }
+
         btn_editar_contra.setOnClickListener {
-
             findNavController().navigate(R.id.settings_to_contra)
-
         }
 
         btn_cerrarsesion.setOnClickListener {

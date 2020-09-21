@@ -28,10 +28,6 @@ class VerificarNuevaContraLocalFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         verification.setOnClickListener {
-            findNavController().navigate(R.id.action_verificarNuevaContraLocalFragment_to_infoLocal_Fragment)
         }
-
     }
-
-
 }

@@ -40,11 +40,12 @@
 
         <TextView
             android:id="@+id/cantidad_clientes"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:fontFamily="@font/helvetica_now_text_light"
-            android:text="Num"
+            android:text="@string/cargando"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView3"

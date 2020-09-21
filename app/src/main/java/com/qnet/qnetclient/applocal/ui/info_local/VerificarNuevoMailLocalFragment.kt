@@ -27,11 +27,6 @@ class VerificarNuevoMailLocalFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         verification.setOnClickListener {
-            findNavController().navigate(R.id.action_verificarNuevoMailLocalFragment_to_infoLocal_Fragment)
         }
-
-
     }
-
-
 }

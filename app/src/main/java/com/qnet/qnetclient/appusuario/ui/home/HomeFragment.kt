@@ -4,6 +4,7 @@ package com.ian.bottomnavigation.ui.home
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,12 +18,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.qnet.qnetclient.R
 import com.qnet.qnetclient.appusuario.AppUser
+import com.qnet.qnetclient.local_o_usuario
 import com.qnet.qnetclient.viewModel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment() {
 
+    lateinit var handler: Handler
     private var backPressedTime: Long = 0
     private lateinit var backToast: Toast
     private val viewModel by lazy { FirestoreViewModel()}
@@ -69,7 +72,6 @@ class HomeFragment : Fragment() {
                 backToast.show()
             }
             backPressedTime = System.currentTimeMillis()
-
         }
     }
 
@@ -103,11 +105,16 @@ class HomeFragment : Fragment() {
         viewModel.fetchLocalData().observe(viewLifecycleOwner, Observer {
             //swipeRefreshLayout.isRefreshing=false
             shimmer_view_container.stopShimmer()
+            if(it.size==0) {
+                TODO("Hacer un text view como el de FilaFragment")
+            }
             shimmer_view_container.visibility = View.GONE
             adapter.setListData(it)
             adapter.notifyDataSetChanged()
 
+
         })
+
     }
 
 }
