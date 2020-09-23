@@ -41,7 +41,6 @@ class login_register : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         viewModel = FirestoreViewModel()
-        getLocation()
 
         buttonNew.setOnClickListener {
             findNavController().navigate(R.id.next_action)
@@ -50,7 +49,8 @@ class login_register : Fragment() {
             findNavController().navigate(R.id.forget_action)
         }
         buttonNext.setOnClickListener {
-            getData()
+            showLoading()
+            getLocation()
         }
 
         checkboxRecordar.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -79,8 +79,13 @@ class login_register : Fragment() {
         }
         fusedLocationProviderClient.lastLocation.addOnCompleteListener {
             if (it.isSuccessful) {
-                latitude = it.result?.latitude!!
-                longitude = it.result?.longitude!!
+                if(it.result==null){
+                    Toast.makeText(activity, "Error al obtener ubicación", Toast.LENGTH_SHORT).show()
+                }else{
+                    latitude = it.result?.latitude!!
+                    longitude = it.result?.longitude!!
+                    getData()
+                }
             }
         }
     }
@@ -94,7 +99,6 @@ class login_register : Fragment() {
 
     private fun login(email: String, password: String) {
         if (email.isNotEmpty() && password.isNotEmpty()) {
-            showLoading()
             obsever(email, password)
         } else {
             Toast.makeText(activity, "Error Campos Incompletos", Toast.LENGTH_SHORT).show()

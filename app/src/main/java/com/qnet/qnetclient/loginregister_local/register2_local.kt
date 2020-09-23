@@ -25,6 +25,10 @@ import java.util.*
 class register2_local : Fragment(){
 
     private lateinit var viewModel: FirestoreViewModel
+    private lateinit var horarioMañanaDe : String
+    private lateinit var horarioMañanaHasta : String
+    private lateinit var horarioTardeDe : String
+    private lateinit var horarioTardeHasta : String
 
 
     override fun onCreateView(
@@ -56,7 +60,7 @@ class register2_local : Fragment(){
 
             }
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
+                horarioMañanaDe = adapterView?.getItemAtPosition(position).toString()
             }
 
         }
@@ -65,7 +69,7 @@ class register2_local : Fragment(){
 
             }
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
+                horarioMañanaHasta = adapterView?.getItemAtPosition(position).toString()
             }
 
         }
@@ -74,7 +78,7 @@ class register2_local : Fragment(){
 
             }
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
+                horarioTardeDe = adapterView?.getItemAtPosition(position).toString()
             }
 
         }
@@ -83,7 +87,7 @@ class register2_local : Fragment(){
 
             }
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
+                horarioTardeHasta = adapterView?.getItemAtPosition(position).toString()
             }
 
         }
@@ -114,7 +118,6 @@ class register2_local : Fragment(){
         val checkedDiasArray= booleanArrayOf(false, false,false, false, false,false,false)
         val diasList= Arrays.asList(*diasArray)
         builder.setTitle("Seleccionar días")
-
 
         builder.setMultiChoiceItems(diasArray,checkedDiasArray){ _, which, isChecked ->
             checkedDiasArray[which]=isChecked
@@ -151,7 +154,7 @@ class register2_local : Fragment(){
         val informacion = edtxt_informacion.text.toString()
         val telefono = telefono.text.toString()
 
-        if(nombre.isNotEmpty()&&ubicacion.isNotEmpty()&&horario.isNotEmpty()&&tipo.isNotEmpty()&&informacion.isNotEmpty()){
+        if(nombre.isNotEmpty()&&ubicacion.isNotEmpty()&&horario.isNotEmpty()&&tipo.isNotEmpty()&&informacion.isNotEmpty()&&horarioMañanaDe.isNotEmpty()&&horarioMañanaHasta.isNotEmpty()&&horarioTardeDe.isNotEmpty()&&horarioTardeHasta.isNotEmpty()){
             val data = InfoRegister(nombre, ubicacion, horario, tipo, informacion, telefono)
             val action = register2_localDirections.nextActionLocal(data)
             findNavController().navigate(action)
